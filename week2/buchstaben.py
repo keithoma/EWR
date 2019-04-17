@@ -11,7 +11,7 @@ Kei Thoma (574 613)
 
 
 
-VOWEL_LIST = ['a', 'e', 'i', 'o', 'u']
+VOWEL_LIST = 'aeiou'
 
 
 
@@ -22,7 +22,7 @@ def count_vowels(sentence):
     Returns:
         (int): the number of vowels in sentence
     """
-    return sum(letter in VOWEL_LIST for letter in sentence)
+    return sum(letter in VOWEL_LIST for letter in sentence.lower())
 
 
 
