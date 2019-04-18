@@ -1,27 +1,22 @@
+#! /usr/bin/env python3
 """
-20190416
+    20190416
 
-This module was written for the EWR course at Humboldt University. Given an integer between one and
-twelve it deduces the number of days for the given month.
+    This module was written for the EWR course at Humboldt University. Given an integer between one and
+    twelve it deduces the number of days for the given month.
 
-Module was constructed by:
-Christian Parpart (XXXXX)
-Kei Thoma (574 613)
+    Module was constructed by:
+    Christian Parpart (185676)
+    Kei Thoma (574 613)
 """
-
-
-
-DAY_MONTH = {'1':31, '2':28, '3':31, '4':30, '5':31, '6':30, '7':31, '8':31, '9':30, '10':31,
-             '11':30, '12':31, '13':29}
-
-
 
 def ask_month():
-    """ This function asks the user for an integer between one and twelve.
+    """
+        This function asks the user for an integer between one and twelve.
 
-    Returns:
-        (string): The integer is converted into a string, because it's more convenient for the
-                  dictionary later on.
+        Returns:
+            (string): The integer is converted into a string, because it's more convenient for the
+                      dictionary later on.
     """
     while True:
         try:
@@ -35,14 +30,13 @@ def ask_month():
             print('really? be better\n')
     return str(month)
 
-
-
 def ask_leap():
-    """ This function asks the user if the year to inspect is a leap year or not and returns a
-    boolean accordingly.
+    """
+        This function asks the user if the year to inspect is a leap year or not and returns a
+        boolean accordingly.
 
-    Returns:
-        (boolean): True for a leap year and False if not.
+        Returns:
+            (boolean): True for a leap year and False if not.
     """
     while True:
         leap = input('Is leap?')[0].lower() # this returns only the first letter
@@ -57,10 +51,9 @@ def ask_leap():
     elif leap == 'n':
         return False
 
-
-
 def main():
-    """ Our main function.
+    """
+        Our main function.
     """
 
     print("Hello, I give number days month. Input only integer, else I die.\n")
@@ -71,10 +64,13 @@ def main():
     if month == str(2) and leap is True:
         month = str(13) # 13th month has 29 days
 
+    # TODO" nicht als dict, sondern mehr clever (liebe gruesse von Rabus, du "Wiederholungstaeter")
+    DAY_MONTH = {'1': 31, '2': 28, '3': 31, '4': 30, '5': 31, '6': 30,
+                 '7': 31, '8': 31, '9': 30, '10': 31,
+                 '11': 30, '12': 31, '13': 29}
+
     print('random number or days: ' + str(DAY_MONTH[month]))
     print('me no hablo engles ... bye <3\n\n\n')
-
-
 
 if __name__ == "__main__":
     main()
