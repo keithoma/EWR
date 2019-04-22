@@ -20,15 +20,14 @@ def ask_month():
     """
     while True:
         try:
-            month = int(input('INTEGER. YOU. WRITE.\n')[0]) # we will return a string, but
-                                                            # here, we need an int to compare
+            month = int(input('INTEGER. YOU. WRITE.\n')[0])
             if month < 1 or month > 12:
                 print('please do it again, im no patient man\n')
             else:
                 break
         except ValueError:
             print('really? be better\n')
-    return str(month)
+    return month - 1    # the zero index points to January
 
 def ask_leap():
     """
@@ -61,15 +60,12 @@ def main():
     month = ask_month()
     leap = ask_leap()
 
-    if month == str(2) and leap is True:
-        month = str(13) # 13th month has 29 days
+    if month == 2 and leap is True:
+        month = 13 # 13th month has 29 days
 
-    # TODO" nicht als dict, sondern mehr clever (liebe gruesse von Rabus, du "Wiederholungstaeter")
-    DAY_MONTH = {'1': 31, '2': 28, '3': 31, '4': 30, '5': 31, '6': 30,
-                 '7': 31, '8': 31, '9': 30, '10': 31,
-                 '11': 30, '12': 31, '13': 29}
+    day_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 29]
 
-    print('random number or days: ' + str(DAY_MONTH[month]))
+    print('random number or days: ' + str(day_month[month]))
     print('me no hablo engles ... bye <3\n\n\n')
 
 if __name__ == "__main__":
