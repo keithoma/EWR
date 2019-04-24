@@ -24,7 +24,7 @@ def count_vowels(sentence):
 
 def main():
     """
-        The main function of or module. It's self-explanatory, really.
+        The main function of our module. It's self-explanatory, really.
     """
     print("Hello, I count vowels.\n")
     sentence = input("GIVE. STRING. NOW.\n")
