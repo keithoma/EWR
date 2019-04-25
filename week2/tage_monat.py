@@ -2,8 +2,9 @@
 """
     20190416
 
-    This module was written for the EWR course at Humboldt University. Given an integer between one and
-    twelve it deduces the number of days for the given month.
+    This module was written for the EWR course at Humboldt University.
+    Given an integer between one and twelve it deduces the number of
+    days for the given month.
 
     Module was constructed by:
     Christian Parpart (185676)
@@ -20,14 +21,12 @@ def ask_month():
     """
     while True:
         try:
-            month = int(input('INTEGER. YOU. WRITE.\n')[0])
-            if month < 1 or month > 12:
-                print('please do it again, im no patient man\n')
-            else:
-                break
+            month = int(input('With month number? (1 to 12): '))
+            if month >= 1 and month <= 12:
+                return month
+            raise ValueError
         except ValueError:
-            print('really? be better\n')
-    return month - 1    # the zero index points to January
+            print('Invalid input. Please try again.')
 
 def ask_leap():
     """
@@ -38,35 +37,31 @@ def ask_leap():
             (boolean): True for a leap year and False if not.
     """
     while True:
-        leap = input('Is leap?')[0].lower() # this returns only the first letter
+        leap = input('Is leap? [y|n] ').lower() # this returns only the first letter
+        if leap == 'y':
+            return True
+        elif leap == 'n':
+            return False
+        print("Invalid input. Please try again.")
 
-        if leap == '' or leap not in ['y', 'n']:
-            print("you suck. next time I'll raise error\n")
-        else:
-            break
-
-    if leap == 'y':
-        return True
-    elif leap == 'n':
-        return False
+    return leap == 'y'
 
 def main():
     """
         Our main function.
     """
 
-    print("Hello, I give number days month. Input only integer, else I die.\n")
+    print("Hello, I give number days month.\n")
 
     month = ask_month()
-    leap = ask_leap()
+    is_leap = ask_leap()
 
-    if month == 2 and leap is True:
-        month = 13 # 13th month has 29 days
+    if month == 2 and is_leap:
+        month = 0 # offset zero points to leap-month's special day count
 
-    day_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 29]
+    day_month = [29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
     print('random number or days: ' + str(day_month[month]))
-    print('me no hablo engles ... bye <3\n\n\n')
 
 if __name__ == "__main__":
     main()

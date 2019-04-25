@@ -2,8 +2,8 @@
 """
     20190416
 
-    This module was written for the EWR course at Humboldt University. Given a string, it returns
-    the number of vowels in the string.
+    This module was written for the EWR course at Humboldt University.
+    Given a string, it returns the number of vowels in the string.
 
     Module was constructed by:
     Christian Parpart (185676)
