@@ -33,7 +33,15 @@ def euclidean_algorithm(first_number, second_number):
 
 def least_common_multiple(first_number, second_number):
     """
-        some text
+        This one calculates the least common multiple via the greatest common divisor through the
+        well known formula, lcm(a, b) = abs(ab) / gcd(a, b).
+
+        Args:
+            first_number (int): in the formula this is 'a'
+            second_number (int): in the forumula this is 'b'
+        
+        Returns:
+            (int): the least common divisor
     """
 
     # we will break up the calculation in few steps due to limited space
@@ -43,7 +51,16 @@ def least_common_multiple(first_number, second_number):
 
 
 def main():
-    pass
+    """
+        The main-function for testing purposes.
+    """
+    print("We will do some tests:")
+    print("gcd(195, 1287) = " + str(euclidean_algorithm(195, 1287)) + " (should be 39)")
+    print("gcd(13, 17) = " + str(euclidean_algorithm(13, 17)) + " (should be 1)")
+    print("gcd(24, 24) = " + str(euclidean_algorithm(24, 24)) + " (should be 24)")
+    print("gcd(0, 1) = " + str(euclidean_algorithm(0, 1)) + " (should be 1)")
+    print("gcd(0, 2) = " + str(euclidean_algorithm(0, 2)) + " (should be 2)")
+    print("gcd(12, 0) = " + str(euclidean_algorithm(12, 0)) + " (should be 12)")
 
 
 
