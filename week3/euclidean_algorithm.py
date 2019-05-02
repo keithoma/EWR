@@ -1,10 +1,9 @@
+#! /usr/bin/env python3
 """
     constructed by:
-    Christian Parpart (XXX XXX)
+    Christian Parpart (18 56 76)
     Kei Thoma (574 613)
 """
-
-
 
 def euclidean_algorithm(first_number, second_number):
     """
@@ -23,13 +22,10 @@ def euclidean_algorithm(first_number, second_number):
     # notice also that without this, we'd get a zero-division error
     if second_number == 0:
         return first_number
-    
+
     # this is the actual part of the algorithm
     # input the 'second_number' as the new first argument and modify the second argument
-    else:
-        return euclidean_algorithm(second_number, first_number % second_number)
-
-
+    return euclidean_algorithm(second_number, first_number % second_number)
 
 def least_common_multiple(first_number, second_number):
     """
@@ -39,7 +35,7 @@ def least_common_multiple(first_number, second_number):
         Args:
             first_number (int): in the formula this is 'a'
             second_number (int): in the forumula this is 'b'
-        
+
         Returns:
             (int): the least common divisor
     """
@@ -48,7 +44,6 @@ def least_common_multiple(first_number, second_number):
     gcd = euclidean_algorithm(first_number, second_number)
     numerator = abs(first_number * second_number)
     return int(gcd / numerator)
-
 
 def main():
     """
@@ -61,8 +56,6 @@ def main():
     print("gcd(0, 1) = " + str(euclidean_algorithm(0, 1)) + " (should be 1)")
     print("gcd(0, 2) = " + str(euclidean_algorithm(0, 2)) + " (should be 2)")
     print("gcd(12, 0) = " + str(euclidean_algorithm(12, 0)) + " (should be 12)")
-
-
 
 if __name__ == "__main__":
     main()

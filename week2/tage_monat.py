@@ -44,8 +44,6 @@ def ask_leap():
             return False
         print("Invalid input. Please try again.")
 
-    return leap == 'y'
-
 def main():
     """
         Our main function.

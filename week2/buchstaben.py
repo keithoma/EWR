@@ -28,7 +28,7 @@ def main():
     """
     print("Hello, I count vowels.\n")
     sentence = input("GIVE. STRING. NOW.\n")
-    print("Some number: " + str(count_vowels(sentence)))
+    print("Number of vowels: " + str(count_vowels(sentence)))
 
 if __name__ == "__main__":
     main()
