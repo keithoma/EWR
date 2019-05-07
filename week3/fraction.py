@@ -1,11 +1,15 @@
 #! /usr/bin/env python3
 """
     constructed by:
-    Christian Parpart (XXX XXX)
+    Christian Parpart (18 56 76)
     Kei Thoma (574613)
 """
 
+
+
 import euclidean_algorithm
+
+
 
 class Fraction:
     """
@@ -48,8 +52,18 @@ class Fraction:
             self.numerator = int(self.numerator / gcd)
             self.denominator = int(self.denominator / gcd)
 
+
+
     def _apply_sign(self, boolean_sign):
         """
+            This (private) method simply applies the sign which should be a boolean by returning
+            1 or -1 appropriately. She is should only used in the two functions below.
+
+            Args:
+                boolean_sign (boolean): a boolean which should be this class' attribute 'sign'
+            
+            Returns:
+                (int): 1 for True and -1 for False
         """
         return -1 if boolean_sign else 1
 
@@ -57,6 +71,13 @@ class Fraction:
 
     def __add__(self, other):
         """
+            This magic methodes adds two objects of this Fraction class.
+
+            Args:
+                other (Fraction): the second fraction to be added to the object of this class
+
+            Returns:
+                (Fraction): the sum of the two fraction as a new Fraction object
         """
         # we find the denominator with the "least_common_multiple()" function
         sum_denominator = euclidean_algorithm.least_common_multiple(self.denominator, other.denominator)
@@ -72,6 +93,11 @@ class Fraction:
 
     def __repr__(self):
         """
+            This magic methode returns a neatly formated string of the Fraction object which in
+            turn is printed out via the usual print() function.
+
+            Returns:
+                (string): for example the format of the fraction is '-1/2'
         """
         return "{0}/{1}".format(self._apply_sign(self.sign) * self.numerator,
                                 self.denominator)
@@ -85,6 +111,7 @@ def main():
     sum_fraction = test_fraction + another_fraction
 
     print("{0} + {1} = {2}".format(test_fraction, another_fraction, sum_fraction))
+
 
 
 if __name__ == "__main__":
