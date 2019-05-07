@@ -36,6 +36,8 @@ class Fraction:
         # finally, reduce the fraction
         self.reduce_fraction()
 
+
+
     def reduce_fraction(self):
         """
             This method reduces the fraction using the euclidean algorithm implemented in
@@ -46,37 +48,43 @@ class Fraction:
             self.numerator = int(self.numerator / gcd)
             self.denominator = int(self.denominator / gcd)
 
+    def _apply_sign(self, boolean_sign):
+        """
+        """
+        return -1 if boolean_sign else 1
+
 
 
     def __add__(self, other):
         """
         """
-        def apply_sign(boolean_sign):
-            """
-            """
-            return -1 if boolean_sign else 1
-
         # we find the denominator with the "least_common_multiple()" function
         sum_denominator = euclidean_algorithm.least_common_multiple(self.denominator, other.denominator)
 
         # here, we find the numerator of our new fraction; the calculation is broken up in few pieces
-        new_numerator_self = apply_sign(self.sign) * self.numerator * sum_denominator / self.denominator
-        new_numerator_other = apply_sign(other.sign) * other.numerator * sum_denominator / other.denominator
+        new_numerator_self = self._apply_sign(self.sign) * self.numerator * sum_denominator / self.denominator
+        new_numerator_other = self._apply_sign(other.sign) * other.numerator * sum_denominator / other.denominator
         sum_numerator = int(new_numerator_self + new_numerator_other)
 
         return Fraction(sum_numerator, sum_denominator)
+
+
+
+    def __repr__(self):
+        """
+        """
+        return "{0}/{1}".format(self._apply_sign(self.sign) * self.numerator,
+                                self.denominator)
 
 def main():
     """
         Here be dragons.
     """
-    test_fraction = Fraction(1, 3)
-    another_fraction = Fraction(1, 2)
+    test_fraction = Fraction(3, -5)
+    another_fraction = Fraction(4, -7)
     sum_fraction = test_fraction + another_fraction
-    print(sum_fraction.numerator)
-    print(sum_fraction.denominator)
-    print(sum_fraction.sign)
 
+    print("{0} + {1} = {2}".format(test_fraction, another_fraction, sum_fraction))
 
 
 if __name__ == "__main__":
