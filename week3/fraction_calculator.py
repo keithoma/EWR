@@ -38,11 +38,10 @@ def main():
     while True:
         print("I can add two fractions!")
 
-        solution = interpret(input("The first fraction: ")) +
-                   interpret(input("The second fraction: "))
-        print("The solution is: {0} \n\n".format(solution))
+        solution = interpret(input("The first fraction: ")) + interpret(input("The second fraction: "))
+        print("The additive solution is: {0} \n\n".format(solution))
 
-        if input("Exit?").lower()[0] == "y":
+        if input("Exit [y|n]? ").lower()[0] == "y":
             break
 
 
