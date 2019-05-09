@@ -17,7 +17,9 @@ class Fraction:
     """
     def __init__(self, numerator, denominator=1):
         """
-            The constructor of our fraction object. She takes two arguments for the numerator and denominator; the sign is deduced from the arguments.
+            The constructor of our fraction object.
+            She takes two arguments for the numerator and denominator;
+            the sign is deduced from the arguments.
 
             Args:
                 numerator (int): a whole number which becomes our (unsigned) numerator
@@ -30,7 +32,8 @@ class Fraction:
         if denominator == 0:
             raise ZeroDivisionError
 
-        # since we will have an attribute representing the sign, we only need absolute values for the numerator and the denominator
+        # since we will have an attribute representing the sign,
+        # we only need absolute values for the numerator and the denominator
         self.numerator = abs(numerator)
         self.denominator = abs(denominator)
 
@@ -54,18 +57,18 @@ class Fraction:
 
 
 
-    def _apply_sign(self, boolean_sign):
+    def sgn_string(self):
         """
             This (private) method simply applies the sign which should be a boolean by returning
             1 or -1 appropriately. She is should only used in the two functions below.
 
             Args:
                 boolean_sign (boolean): a boolean which should be this class' attribute 'sign'
-            
+
             Returns:
                 (int): 1 for True and -1 for False
         """
-        return -1 if boolean_sign else 1
+        return -1 if self.sign else 1
 
 
 
@@ -83,8 +86,8 @@ class Fraction:
         sum_denominator = euclidean_algorithm.least_common_multiple(self.denominator, other.denominator)
 
         # here, we find the numerator of our new fraction; the calculation is broken up in few pieces
-        new_numerator_self = self._apply_sign(self.sign) * self.numerator * sum_denominator / self.denominator
-        new_numerator_other = self._apply_sign(other.sign) * other.numerator * sum_denominator / other.denominator
+        new_numerator_self = self.sgn_string() * self.numerator * sum_denominator / self.denominator
+        new_numerator_other = other.sgn_string() * other.numerator * sum_denominator / other.denominator
         sum_numerator = int(new_numerator_self + new_numerator_other)
 
         return Fraction(sum_numerator, sum_denominator)
@@ -99,7 +102,7 @@ class Fraction:
             Returns:
                 (string): for example the format of the fraction is '-1/2'
         """
-        return "{0}/{1}".format(self._apply_sign(self.sign) * self.numerator,
+        return "{0}/{1}".format(self.sgn_string() * self.numerator,
                                 self.denominator)
 
 def main():
