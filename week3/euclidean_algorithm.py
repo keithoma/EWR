@@ -5,8 +5,7 @@
     Kei Thoma (574 613)
 """
 
-
-
+# ggT
 def euclidean_algorithm(first_number, second_number):
     """
         This function finds the greatest common divisor with the help of recursive euclidean
@@ -26,8 +25,7 @@ def euclidean_algorithm(first_number, second_number):
     # input the 'second_number' as the new first argument and modify the second argument
     return euclidean_algorithm(second_number, first_number % second_number)
 
-
-
+# kgV
 def least_common_multiple(first_number, second_number):
     """
         This one calculates the least common multiple via the greatest common divisor through the
@@ -45,8 +43,6 @@ def least_common_multiple(first_number, second_number):
     numerator = abs(first_number * second_number)
     return int(numerator / gcd)
 
-
-
 def main():
     """
         The main-function for testing purposes.
@@ -58,8 +54,6 @@ def main():
     print("gcd(0, 1) = " + str(euclidean_algorithm(0, 1)) + " (should be 1)")
     print("gcd(0, 2) = " + str(euclidean_algorithm(0, 2)) + " (should be 2)")
     print("gcd(12, 0) = " + str(euclidean_algorithm(12, 0)) + " (should be 12)")
-
-
 
 if __name__ == "__main__":
     main()
