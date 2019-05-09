@@ -57,7 +57,7 @@ class Fraction:
 
 
 
-    def sgn_string(self):
+    def sgn(self):
         """
             This (private) method simply applies the sign which should be a boolean by returning
             1 or -1 appropriately. She is should only used in the two functions below.
@@ -86,8 +86,8 @@ class Fraction:
         sum_denominator = euclidean_algorithm.least_common_multiple(self.denominator, other.denominator)
 
         # here, we find the numerator of our new fraction; the calculation is broken up in few pieces
-        new_numerator_self = self.sgn_string() * self.numerator * sum_denominator / self.denominator
-        new_numerator_other = other.sgn_string() * other.numerator * sum_denominator / other.denominator
+        new_numerator_self = self.sgn() * self.numerator * sum_denominator / self.denominator
+        new_numerator_other = other.sgn() * other.numerator * sum_denominator / other.denominator
         sum_numerator = int(new_numerator_self + new_numerator_other)
 
         return Fraction(sum_numerator, sum_denominator)
@@ -102,7 +102,7 @@ class Fraction:
             Returns:
                 (string): for example the format of the fraction is '-1/2'
         """
-        return "{0}/{1}".format(self.sgn_string() * self.numerator,
+        return "{0}/{1}".format(self.sgn() * self.numerator,
                                 self.denominator)
 
 def main():
