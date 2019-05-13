@@ -110,10 +110,9 @@ class Fraction:
 
 
     def __abs__(self):
-        # there must be a way to make this code cleaner
-        if self.sign is False:
-            return self
-        return -self
+        """
+        """
+        return -self if self.sign else self
 
 
 
