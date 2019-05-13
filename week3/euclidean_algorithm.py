@@ -1,18 +1,25 @@
 #! /usr/bin/env python3
 """
+    In this module, we first implement the well known euclidean algorithm where the greatest common divisor
+    of two integers is calculated. From there, we use the euclidean algorithm to also define a function to
+    find the least common multiple.
+
     constructed by:
-    Christian Parpart (18 56 76)
-    Kei Thoma (574 613)
+        Christian Parpart (18 56 76)
+        Kei Thoma (574 613)
 """
 
-# ggT
+
+
 def euclidean_algorithm(first_number, second_number):
     """
         This function finds the greatest common divisor with the help of recursive euclidean
         algorithm.
+
         Args:
             first_number (int): the first number
             second_number (int): the second number
+
         Returns:
             (int): the greatest common divisor of 'first_number' and 'second_number'
     """
@@ -25,7 +32,8 @@ def euclidean_algorithm(first_number, second_number):
     # input the 'second_number' as the new first argument and modify the second argument
     return euclidean_algorithm(second_number, first_number % second_number)
 
-# kgV
+
+
 def least_common_multiple(first_number, second_number):
     """
         This one calculates the least common multiple via the greatest common divisor through the
@@ -42,6 +50,8 @@ def least_common_multiple(first_number, second_number):
     gcd = euclidean_algorithm(first_number, second_number)
     numerator = abs(first_number * second_number)
     return int(numerator / gcd)
+
+
 
 def main():
     """

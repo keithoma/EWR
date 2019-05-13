@@ -1,8 +1,10 @@
 #! /usr/bin/env python3
 """
+    A small calculator for adding two fractions together.
+
     constructed by:
-    Christian Parpart (18 56 76)
-    Kei Thoma (574613)
+        Christian Parpart (18 56 76)
+        Kei Thoma (574 613)
 """
 
 
@@ -20,7 +22,7 @@ def interpret(user_input):
             (Fraction): the Fraction object constructed by the user's input
 
         Raise:
-            ValueError: if the input has multiple separators
+            ValueError: if the input has multiple separators; or if a non-integer is input by the user
     """
     user_input = user_input.split("/")
 
