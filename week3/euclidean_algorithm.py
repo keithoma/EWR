@@ -64,6 +64,10 @@ def main():
     print("gcd(0, 1) = " + str(euclidean_algorithm(0, 1)) + " (should be 1)")
     print("gcd(0, 2) = " + str(euclidean_algorithm(0, 2)) + " (should be 2)")
     print("gcd(12, 0) = " + str(euclidean_algorithm(12, 0)) + " (should be 12)")
+    print("gcd(-195, 1287) = " + str(euclidean_algorithm(12, 0)) + " (should be 12)")
+    print("gcd(-195, -1287) = " + str(euclidean_algorithm(12, 0)) + " (should be 12)")
+
+
 
 if __name__ == "__main__":
     main()

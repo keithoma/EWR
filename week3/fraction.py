@@ -1,4 +1,4 @@
-self.denominator_#! /usr/bin/env python3
+#! /usr/bin/env python3
 """
     This module defines the fraction class and implements some useful magic methods.
 
@@ -77,7 +77,7 @@ class Fraction:
             Returns:
                 (int): 1 for True and -1 for False
         """
-        return -1 if self.sign else 1
+        return -1 if self.sign_ else 1
 
 
 
@@ -112,7 +112,7 @@ class Fraction:
     def __abs__(self):
         """
         """
-        return -self if self.sign else self
+        return -self if self.sign_ else self
 
 
 
@@ -162,7 +162,7 @@ class Fraction:
                 (string): for example the format of the fraction is '-1/2'
         """
         return "{0}/{1}".format(self.sgn_() * self.numerator_,
-                                self.denominator)
+                                self.denominator_)
 
 
 
