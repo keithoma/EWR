@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+self.denominator_#! /usr/bin/env python3
 """
     This module defines the fraction class and implements some useful magic methods.
 
@@ -46,11 +46,11 @@ class Fraction:
 
         # since we will have an attribute representing the sign,
         # we only need absolute values for the numerator and the denominator
-        self.numerator = abs(numerator)
-        self.denominator = abs(denominator)
+        self.numerator_ = abs(numerator)
+        self.denominator_ = abs(denominator)
 
         # set the sign, False if positive (or zero) and True if negative
-        self.sign = numerator * denominator < 0
+        self.sign_ = numerator * denominator < 0
 
         # finally, reduce the fraction
         self.reduce_fraction_()
@@ -62,10 +62,10 @@ class Fraction:
             This (private) method reduces the fraction using the euclidean algorithm implemented in
             'euclidean_algorithm.py'.
         """
-        gcd = euclidean_algorithm.euclidean_algorithm(self.numerator, self.denominator)
+        gcd = euclidean_algorithm.euclidean_algorithm(self.numerator_, self.denominator_)
         if gcd > 1:
-            self.numerator = int(self.numerator / gcd)
-            self.denominator = int(self.denominator / gcd)
+            self.numerator_ = int(self.numerator_ / gcd)
+            self.denominator_ = int(self.denominator_ / gcd)
 
 
 
@@ -89,7 +89,7 @@ class Fraction:
             Returns:
                 (Fraction): the multiplicative inverse of self
         """
-        return Fraction(self.sgn_() * self.denominator, self.numerator)
+        return Fraction(self.sgn_() * self.denominator_, self.numerator_)
 
 
 
@@ -105,7 +105,7 @@ class Fraction:
 
 
     def __neg__(self):
-        return Fraction(-self.sgn_() * self.numerator, self.denominator)
+        return Fraction(-self.sgn_() * self.numerator_, self.denominator_)
 
 
 
@@ -127,10 +127,10 @@ class Fraction:
                 (Fraction): the sum of the two fraction as a new Fraction object
         """
         # we find the denominator with the "least_common_multiple()" function
-        sum_denominator = euclidean_algorithm.least_common_multiple(self.denominator, other.denominator)
+        sum_denominator = euclidean_algorithm.least_common_multiple(self.denominator_, other.denominator)
 
         # here, we find the numerator of our new fraction; the calculation is broken up in few pieces
-        new_numerator_self = self.sgn_() * self.numerator * sum_denominator / self.denominator
+        new_numerator_self = self.sgn_() * self.numerator_ * sum_denominator / self.denominator_
         new_numerator_other = other.sgn_() * other.numerator * sum_denominator / other.denominator
         sum_numerator = int(new_numerator_self + new_numerator_other)
 
@@ -144,7 +144,7 @@ class Fraction:
 
 
     def __mul__(self, other):
-        return Fraction(self.numerator * other.numerator, self.denominator * other.denominator)
+        return Fraction(self.numerator_ * other.numerator, self.denominator_ * other.denominator)
 
 
 
@@ -161,7 +161,7 @@ class Fraction:
             Returns:
                 (string): for example the format of the fraction is '-1/2'
         """
-        return "{0}/{1}".format(self.sgn_() * self.numerator,
+        return "{0}/{1}".format(self.sgn_() * self.numerator_,
                                 self.denominator)
 
 
