@@ -70,10 +70,12 @@
 % CONTENTS
 % ----------------------------------------------------------------------------------------------------------
 
-\section{Introduction}
-\epigraph{“Life is really simple, but we insist on making it complicated."}{\textit{Confucius}}
+\section{Introduction: Complexity One Horizon}
+\vspace{4cm}\epigraph{“Life is really simple, but we insist on making it complicated."}{\textit{Confucius}}
 
+\noindent Our goal was to write a proper fraction calculator. For that, however, we needed to implement the Euclidean algorithm which computes the greatest common divisor. This algorithm is admittingly fast, but certainly not \(\mathcal{O}(1)\) fast. So we coded one. Greatest common divisor at complexity one.
 
+This was done by precomputing all greatest common divisor from 1 to n and saving the results to a local file. While the Euclidean algorithm often need multiple iteration to find the solution, looking up a value is always a single step.
 % ----------------------------------------------------------------------------------------------------------
 % EUCLIDEAN ALGORITHM LIBRARY
 % ----------------------------------------------------------------------------------------------------------
@@ -82,7 +84,7 @@
 
 The goal of this module is to implement the Euclidean algorithm, which finds the greatest common divisor, with complexity O(1). This is realized by precomputing (iteratively) all greatest common divisor from 1 to n.
 
-We have left another (recursive) version of the algorithm in the module for the case of an emergency.
+We have left another (recursive) version of the algorithm in the module in case of an emergency.
 
 Lastly, this module includes a function to calculate the least common multiple with the help of the aforementioned Euclidean algorithm.
 
@@ -134,7 +136,6 @@ She returns the result of the Euclidean algorithm by actually iteratively comput
 
 Member method to populate a cache for O(1) access.
 
-
 \subsubsection{def gcd(self, \_a, \_b)}
 
 \paragraph*{Arguments}
@@ -156,7 +157,7 @@ Computes GCD of a and b either in O(1) complexity if in range of precomputation,
 
 \subsection{Free Functions}
 
-\subsubsection{recursive\_euclidean\_algorithm(a, b)}
+\subsubsection{def recursive\_euclidean\_algorithm(a, b)}
 
 \paragraph*{Arguments}
 
@@ -173,6 +174,12 @@ Computes GCD of a and b either in O(1) complexity if in range of precomputation,
 
 \paragraph*{Description}
 
+\begin{figure}
+	\centering
+		\includegraphics[width=0.5\textwidth]{graphics/recursive_euclidean_algorithm}
+	\caption{The recursive Euclidean algorithm}\label{fig:recursive}
+  \end{figure}
+
 Given two integers, she finds the greatest common divisor via the recursively implemented euclidean algorithm.
 
 The algorithm itself starts with two integers \(a\) and \(b\). If \(b = 0\) then \(a\) is returned and the recursive loop stops. In any other case, this function is called again, but the arguments are modified in the following manner
@@ -181,16 +188,14 @@ The algorithm itself starts with two integers \(a\) and \(b\). If \(b = 0\) then
 	b \mapsto \text{first argument} \hspace{3cm} a \mymod b \mapsto \text{second argument} \text{,}
 \end{align*}
 %
-or if one prefers to read the statement in code
+or if one prefers to read the statement in code (see also figure \ref{fig:recursive})
 %
 \begin{lstlisting}[language=Python]
 def euclidean_algorithm(a, b):
 return a if b_5 == 0 else euclidean_algorithm(b, a % b)
 \end{lstlisting}
 
-% FLUSSBILD
-
-\subsubsection*{Worked Example of the Algorithm}
+\paragraph*{Worked Example of the Algorithm}
 
 Let \(a = 195\) and \(b = 1287\). Following the algorithm above, we have
 %
@@ -205,28 +210,32 @@ Let \(a = 195\) and \(b = 1287\). Following the algorithm above, we have
 	\end{tabular}
 \end{center}
 %
-Since \(b = 0\), the algorithm is broken and \(a_5 = 39\) is returned.
+Since \(b = 0\), the algorithm is stopped and \(a_5 = 39\) is returned.
 
-\subsection{least\_common\_multiple(a, b)}
+\subsubsection{def least\_common\_multiple(a, b)}
 
-\subsubsection*{Arguments}
+\paragraph*{Arguments}
 
 \begin{enumerate}
   \item \texttt{first\_number} (int): the first integer, \textit{a}; negative values are accepted
   \item \texttt{second\_number} (int): the second integer, \textit{b}; negative values are accepted
 \end{enumerate}
 
-\subsubsection*{Returns}
+\paragraph*{Returns}
 
 \begin{itemize}
   \item (int): the least common multiple calculated with the help of the euclidean algorithm and the formula
 \end{itemize}
 
-\subsubsection*{Description}
+\paragraph*{Description}
 
 She calculates the least common multiple using the result of the euclidean algorithm and the following formula
 %
 \[\text{lcm}(a, b) = \frac{|a \cdot b|}{\text{gcd}(a, b)} \text{.}\]
+
+% ----------------------------------------------------------------------------------------------------------
+% FRACTION API
+% ----------------------------------------------------------------------------------------------------------
 
 \section{Fraction API}
 
@@ -236,7 +245,7 @@ After an instance of Fraction is initialized, it is automatically reduced proper
 
 Finally, to allow some easy way to handle this class, few build-in operators such as the absolute function and binary addition were overloaded.
 
-\subsection{\_\_init\_\_(numerator, denominator)}
+\subsection{def \_\_init\_\_(numerator, denominator)}
 
 \subsubsection*{Arguments}
 
@@ -261,7 +270,7 @@ The constructor initializes the fraction object with the given numerator and den
 
 Fortunataly or unfortunataly depending on one's perspective about dynamic languages, Python does not allow private attributes or methods. However, we don't want that the three attributes, \texttt{numerator\_}, \texttt{denominator\_}, and \texttt{sign\_}, are modifiable from the outside of the Fraction class. Therefore, this class provides three methods, \texttt{get\_numerator()}, \texttt{get\_denominator()}, and \texttt{get\_sign()}, which simply returns the respective attribute.
 
-\subsection{\_\_pos\_\_(self)}
+\subsection{def \_\_pos\_\_(self)}
 
 \subsubsection*{Returns}
 
@@ -271,9 +280,9 @@ Fortunataly or unfortunataly depending on one's perspective about dynamic langua
 
 \subsubsection*{Description}
 
-Overloading the unitary plus operator is not very exciting. The fraction object is unchanged and returned immediately.
+Overloading the unary plus operator is not very exciting. The fraction object is unchanged and returned immediately.
 
-\subsection{\_\_neg\_\_(self)}
+\subsection{def \_\_neg\_\_(self)}
 
 \subsubsection*{Returns}
 
@@ -283,9 +292,9 @@ Overloading the unitary plus operator is not very exciting. The fraction object 
 
 \subsubsection*{Description}
 
-A little more exciting than the unitary plus. This function changes the \texttt{sign\_} to True if the fraction was positive and to False if the fraction was negative. If the numerator was 0, she returns self without changing the sign.
+A little more exciting than the unary plus. This function changes the \texttt{sign\_} to True if the fraction was positive and to False if the fraction was negative. If the numerator was 0, she returns self without changing the sign.
 
-\subsection{\_\_abs\_\_(self)}
+\subsection{def \_\_abs\_\_(self)}
 
 \subsubsection*{Returns}
 
@@ -297,7 +306,7 @@ A little more exciting than the unitary plus. This function changes the \texttt{
 
 To determine the absolute value of the fraction, she either returns the object unchanged if the fraction was already negative or uses the \texttt{\_\_neg\_\_()} to return the positive fraction.
 
-\subsection{\_\_add\_\_(self, other)}
+\subsection{def \_\_add\_\_(self, other)}
 
 \subsubsection*{Arguments}
 
@@ -322,7 +331,7 @@ This magic method overloads the binary infix plus and returns the sum of two fra
 %
 She does not need to find the greatest common denominator here, because the new Fraction will be reduced properly at the constructor.
 
-\subsection{\_\_sub\_\_(self, other)}
+\subsection{def \_\_sub\_\_(self, other)}
 
 \subsubsection*{Arguments}
 
@@ -341,7 +350,7 @@ She does not need to find the greatest common denominator here, because the new 
 
 The antithesis of the binary infix plus operation. As such, she uses the binary plus in conjuction with the unary negative to return the difference of the two given fraction as a new fraction object.
 
-\subsection{\_\_mul\_\_(self, other)}
+\subsection{def \_\_mul\_\_(self, other)}
 
 \subsubsection*{Arguments}
 
@@ -366,7 +375,7 @@ She overloads the binary infix multiplication for the Fraction objects. For the 
 
 Again, we do not need to reduce here, because the magic is taken care at initalization.
 
-\subsection{\_\_str\_\_(self)}
+\subsection{def \_\_str\_\_(self)}
 
 \subsubsection*{Returns}
 
@@ -378,10 +387,38 @@ This function returns the attributes of a Fraction instance as a readable string
 
 \section{Fraction Calculator CLI}
 
+\subsection{def interpret(user\_input)}
+
+\subsubsection*{Arguments}
+
+\begin{enumerate}
+	\item user\_input (string): the string entered to the console by the user
+\end{enumerate}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item (Fraction): the Fraction object constructed by the user's input
+\end{itemize}
+
+\subsubsection*{Description}
+
+This function constructs a fraction object according to the string passed.
+
+\subsection{def main()}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item None
+\end{itemize}
+
+\subsubsection*{Description}
+
+The main function of the fraction calculator. When called, the user is asked to input two fraction and their sum is printed on the console. The user can then exit the module by typing any word starting with an n to exit.
+
 \section{Future Improvements}
 
-\subsection{Complexity One Horizon}
-
-\subsection{}
+One of our immediate goals in the comming future would be to equip the currently limited fraction calculator with more arithmetic options such as subtraction or power. The latter would require an expansion to the fraction class.
 
 \end{document}

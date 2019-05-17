@@ -25,8 +25,10 @@ import fraction
 
 def interpret(user_input):
     """
+        This function constructs a fraction object according to the string passed.
+
         Args:
-            input (string): the string entered to the console by the user
+            user_input (string): the string entered to the console by the user
 
         Returns:
             (Fraction): the Fraction object constructed by the user's input
