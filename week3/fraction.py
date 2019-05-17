@@ -267,7 +267,8 @@ def main():
     print("abs({0}) = {1}".format(test_fraction, abs(test_fraction)))
     print("{0} - {1} = {2}".format(test_fraction, another_fraction, test_fraction - another_fraction))
     print("{0} * {1} = {2}".format(test_fraction, another_fraction, test_fraction * another_fraction))
-    print("summe({0}, {1}) = {2}".format(test_fraction, another_fraction, Fraction.summe(test_fraction, another_fraction)))
+    print("summe({0}, {1}) = {2}".format(test_fraction, another_fraction,
+                                         Fraction.summe(test_fraction, another_fraction)))
 
 
 if __name__ == "__main__":
