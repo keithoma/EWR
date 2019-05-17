@@ -47,9 +47,8 @@ class GreatestCommonDivisor:
             infile = open(self.filename_, "rb", True)
             infile.seek((a - 1) * (self.dim_ * self.num_width_) + (b - 1) * self.num_width_)
             data = infile.read(self.num_width_)
-            c = struct.unpack("i", data)[0]
             infile.close()
-            return c
+            return struct.unpack("i", data)[0]
         else:
             return GreatestCommonDivisor.compute(a, b)
 
