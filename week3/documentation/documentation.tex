@@ -135,6 +135,27 @@ She returns the result of the Euclidean algorithm by actually iteratively comput
 \paragraph*{Description}
 
 Member method to populate a cache for O(1) access.
+Internally, this function calls the class method write\_cache\_to
+with the respective parameters.
+
+\subsubsection{def write\_cache\_to(\_filename, \_dim)}
+
+\paragraph*{Arguments}
+
+\begin{itemize}
+	\item \_filename: Local file systems file name to write the cache to.
+	\item \_dim: Highest number the cache will pre-compute the GCD for.
+\end{itemize}
+
+\paragraph*{Returns}
+
+\begin{itemize}
+	\item Nothing
+\end{itemize}
+
+\paragraph*{Description}
+
+This class method can be used to create a fresh cache of precomputed GCD values from 1 to \_dim for both input parameters of gcd.
 
 \subsubsection{def gcd(self, \_a, \_b)}
 
@@ -436,6 +457,24 @@ Again, we do not need to reduce here, because the magic is taken care at initali
 \end{itemize}
 
 This function returns the attributes of a Fraction instance as a readable string. The \texttt{print()} function uses her to print the Fraction object neatly to the console.
+
+\subsection{def summe(self, \_rhs)}
+
+\subsubsection*{Arguments}
+\begin{itemize}
+	\item self (Fraction): the left hand side of the fractional addition operation.
+	\item \_rhs (Fraction): the right hand side of the fractional addition operation.
+\end{itemize}
+
+\subsubsection*{Returns}
+\begin{itemize}
+	\item Fraction: The sum of two fractional numbers in reduced representation.
+\end{itemize}
+
+\subsubsection*{Description}
+This method implements the fractional addition operation
+with the object itself being the left hand side
+and \_rhs being the right hand side of this operation.
 
 \subsection{def main()}
 
