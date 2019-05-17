@@ -5,9 +5,16 @@
 
 \usepackage{fancyhdr}
 \usepackage{graphicx}
- 
+\usepackage{xcolor} 
+
+
+\usepackage{amsmath}
+
+\usepackage{listings}
+
 \pagestyle{fancy}
 
+\newcommand{\mymod}{\text{\ \ mod\ \ }}
 
 \begin{document}
 
@@ -41,6 +48,10 @@
 
 \section{Introduction}
 
+% ----------------------------------------------------------------------------------------------------------
+% EUCLIDEAN ALGORITHM LIBRARY
+% ----------------------------------------------------------------------------------------------------------
+
 \section{Euclidean Algorithm Library}
 
 In this module, we first implemented the well known euclidean algorithm which finds the greatest common divisor given two integers. From there, we use the result of the above mentioned algorithm to calculate the least common multiple.
@@ -62,11 +73,38 @@ In this module, we first implemented the well known euclidean algorithm which fi
 
 \subsubsection*{Description}
 
-This function finds the greatest common divisor with the help of recursive euclidean algorithm.
+Given two integers, she finds the greatest common divisor via the recursively implemented euclidean algorithm.
+
+The algorithm itself starts with two integers \(a\) and \(b\). If \(b = 0\) then \(a\) is returned and the recursive loop stops. In any other case, this function is called again, but the arguments are modified in the following manner
+
+\begin{align*}
+	a \mapsto (a \mymod b) \hspace{3cm} b \mapsto a \text{,}
+\end{align*}
+%
+or if one prefers to read the statement in code
+%
+\begin{lstlisting}
+return euclidean_algorithm(b, a % b)
+\end{lstlisting}
 
 % FLUSSBILD
 
-\subsubsection*{Example}
+\subsubsection*{Worked Example of the Algorithm}
+
+Let \(a = 195\) and \(b = 1287\). Following the algorithm above, we have
+%
+\begin{center}
+	\begin{tabular}{ l l l l }
+	 Step 0 & \(a_0 = 195\) & \(b_0 = 1287\) & \\ 
+	 Step 1 & \(a_1 = 1287\) & \(b_1 = 195 \mymod 1287\) & \(= 195\) \\  
+	 Step 2 & \(a_2 = 195\) & \(b_2 = 1287 \mymod 195\) & \(= 117\) \\
+	 Step 3 & \(a_3 = 117 \) & \(b_3 = 195 \mymod 117\) & \(= 78\) \\
+	 Step 4 & \(a_4 = 78\) & \(b_4 = 117 \mymod 78\) & \(= 39\)\\
+	 Step 4 & \(a_5 = 39\) & \(b_5 = 78 \mymod 39\) & \(= 0\)
+	\end{tabular}
+\end{center}
+%
+Since \(b = 0\), the algorithm is broken and \(a_5 = 39\) is returned.
 
 \subsection{least\_common\_multiple(a, b)}
 

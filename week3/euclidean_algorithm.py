@@ -24,7 +24,6 @@ def euclidean_algorithm(first_number, second_number):
             (int): the greatest common divisor of 'first_number' and 'second_number'
     """
     # first of all, break the cycle if we already have a zero
-    # notice also that without this, we'd get a zero-division error
     if second_number == 0:
         return first_number
 
