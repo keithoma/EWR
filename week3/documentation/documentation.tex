@@ -73,31 +73,105 @@
 \section{Introduction}
 \epigraph{“Life is really simple, but we insist on making it complicated."}{\textit{Confucius}}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
 % ----------------------------------------------------------------------------------------------------------
 % EUCLIDEAN ALGORITHM LIBRARY
 % ----------------------------------------------------------------------------------------------------------
 
 \section{Euclidean Algorithm Library}
 
-In this module, we first implemented the well known Euclidean algorithm which finds the greatest common divisor given two integers. From there, we use the result of the aforementioned algorithm to calculate the least common multiple.
+The goal of this module is to implement the Euclidean algorithm, which finds the greatest common divisor, with complexity O(1). This is realized by precomputing (iteratively) all greatest common divisor from 1 to n.
 
-\subsection{euclidean\_algorithm(a, b)}
+We have left another (recursive) version of the algorithm in the module for the case of an emergency.
 
-\subsubsection*{Arguments}
+Lastly, this module includes a function to calculate the least common multiple with the help of the aforementioned Euclidean algorithm.
+
+\subsection{class GreatestCommonDivisor}
+
+This class implements the Euclidean algorithm with ensuring that smaller greatest common divisors have complexity O(1), by precomputing all greatest common divisors between 1 and n (with n being chosen at the constructor). The precomputed greatest common divisors are stored in a local file for faster instantiation later.
+
+\subsubsection{def \_\_init\_\_(self, \_filename, \_dim)}
+
+\paragraph*{Arguments}
+
+\begin{enumerate}
+	\item \_filename (string): the file name
+	\item \_dim (int): the largest number to precomputed
+\end{enumerate}
+
+\paragraph*{Description}
+
+Constructing the greatest common divisor object by either optionally precomputing all greatest common divisor between 1 and \_dim, and writes them to disk (\_filename) for future acess.
+
+\subsubsection{def compute(\_a, \_b)}
+
+\paragraph*{Arguments}
+
+\begin{enumerate}
+	\item \_a (int): the fist integer
+	\item \_b (int): the second integer
+\end{enumerate}
+
+\paragraph*{Returns}
+
+\begin{itemize}
+	\item (int): the result of the Euclidean algorithm of \_a and \_b
+\end{itemize}
+
+\paragraph*{Description}
+
+She returns the result of the Euclidean algorithm by actually iteratively computing.
+
+\subsubsection{def write\_cache(self)}
+
+\paragraph*{Returns}
+
+\begin{itemize}
+	\item None
+\end{itemize}
+
+\paragraph*{Description}
+
+Member method to populate a cache for O(1) access.
+
+
+\subsubsection{def gcd(self, \_a, \_b)}
+
+\paragraph*{Arguments}
+
+\begin{enumerate}
+	\item \_a (int): the fist integer
+	\item \_b (int): the second integer
+\end{enumerate}
+
+\paragraph*{Returns}
+
+\begin{itemize}
+	\item (int): the greatest common divisor of \_a and \_b
+\end{itemize}
+
+\paragraph*{Description}
+
+Computes GCD of a and b either in O(1) complexity if in range of precomputation, or iteratively.
+
+\subsection{Free Functions}
+
+\subsubsection{recursive\_euclidean\_algorithm(a, b)}
+
+\paragraph*{Arguments}
 
 \begin{enumerate}
   \item \texttt{first\_number} (int): the first integer, \textit{a}; negative values are accepted
   \item \texttt{second\_number} (int): the second integer, \textit{b}; negative values are accepted
 \end{enumerate}
 
-\subsubsection*{Returns}
+\paragraph*{Returns}
 
 \begin{itemize}
   \item (int): the greatest common divisor found via the recursive euclidean algorithm
 \end{itemize}
 
-\subsubsection*{Description}
+\paragraph*{Description}
 
 Given two integers, she finds the greatest common divisor via the recursively implemented euclidean algorithm.
 

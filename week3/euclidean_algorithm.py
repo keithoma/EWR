@@ -1,9 +1,14 @@
 #! /usr/bin/env python3
 """
-    In this module, we first implemented the well known Euclidean algorithm which finds the greatest common
-    divisor given two integers. From there, we use the result of the aforementioned algorithm to calculate
-    the least common multiple.
+    The goal of this module is to implement the Euclidean algorithm, which finds the greatest common
+    divisor, with complexity O(1). This is realized by precomputing (iteratively) all greatest common
+    divisor from 1 to n.
 
+    We have left another (recursive) version of the algorithm in the module for the case of an emergency.
+
+    Lastly, this module includes a function to calculate the least common multiple with the help of the
+    aforementioned Euclidean algorithm.
+    
     Forged by:
         Christian Parpart (185 676)
         Kei Thoma (574 613)
@@ -30,8 +35,8 @@ class GreatestCommonDivisor:
         This class is implementing the Euclidean algorithm with ensuring that smaller greatest common
         divisors have complexity O(1), by precomputing all greatest common divisors between 1 and n (with n
         being chosen at the constructor).
-        
-        The precomputed greatest common divisors are stored in a local file for faster instanciation
+
+        The precomputed greatest common divisors are stored in a local file for faster instantiation
         later.
     """
     def __init__(self, _filename, _dim):
@@ -48,29 +53,35 @@ class GreatestCommonDivisor:
         self.num_width_ = 4
         try:
             open(_filename, 'rb').close()
-        except:
+        except (OSError, FileNotFoundError):
             self.write_cache()
 
+
+
     @staticmethod
-    def compute(a, b):
+    def compute(_a, _b):
         """
             Returns the result of the Euclidean algorithm of a and b by actually computing.
         """
-        while b != 0:
-            a, b = b, a % b
-        return a
+        while _b != 0:
+            _a, _b = _b, _a % _b
+        return _a
+
+
 
     @staticmethod
-    def write_cache_to(filename, dim):
+    def write_cache_to(_filename, _dim):
         """
             Class method to populate a cache for O(1) access.
         """
-        print("Writing cache of GCD values between {} and {} ...".format(1, dim))
-        outfile = open(filename, "wb", True)
-        for a in range(1, dim + 1):
-            for b in range(1, dim + 1):
-                outfile.write(struct.pack("i", GreatestCommonDivisor.compute(a, b)))
+        print("Writing cache of GCD values between {} and {} ...".format(1, _dim))
+        outfile = open(_filename, "wb", True)
+        for row in range(1, _dim + 1):
+            for column in range(1, _dim + 1):
+                outfile.write(struct.pack("i", GreatestCommonDivisor.compute(row, column)))
         outfile.close()
+
+
 
     def write_cache(self):
         """
@@ -78,19 +89,21 @@ class GreatestCommonDivisor:
         """
         GreatestCommonDivisor.write_cache_to(self.filename_, self.dim_)
 
-    def gcd(self, a, b):
+
+
+    def gcd(self, _a, _b):
         """
             Computes GCD of `a` and `b` either in O(1) complexity if in range of precomputation,
             or manually computed.
         """
-        if a > 0 and a <= self.dim_ and b > 0 and b <= self.dim_:
+        if _a > 0 and _a <= self.dim_ and _b > 0 and _b <= self.dim_:
             infile = open(self.filename_, "rb", True)
-            infile.seek((a - 1) * (self.dim_ * self.num_width_) + (b - 1) * self.num_width_)
+            infile.seek((_a - 1) * (self.dim_ * self.num_width_) + (_b - 1) * self.num_width_)
             data = infile.read(self.num_width_)
             infile.close()
             return struct.unpack("i", data)[0]
-        else:
-            return GreatestCommonDivisor.compute(a, b)
+
+        return GreatestCommonDivisor.compute(_a, _b)
 
 
 
@@ -108,8 +121,29 @@ def euclidean_algorithm(first_number, second_number):
         Returns:
             (int): the greatest common divisor of 'first_number' and 'second_number'
     """
-    return GreatestCommonDivisor("gcd.bin", 2 ** 10).gcd(first_number, second_number)
+    # we need the absolute value function because the precomputation does not take negative values into
+    # account
+    return GreatestCommonDivisor("gcd.bin", 2 ** 10).gcd(abs(first_number), abs(second_number))
 
+
+
+def recursive_euclidean_algorithm(first_number, second_number):
+    """
+        She finds the greatest common divisor with the help of a recursively implemented Euclidean
+        algorithm.
+        Args:
+            first_number (int): the first number
+            second_number (int): the second number
+        Returns:
+            (int): the greatest common divisor of 'first_number' and 'second_number'
+    """
+    # first of all, break the cycle if we already have a zero
+    if second_number == 0:
+        return first_number
+
+    # this is the actual part of the algorithm
+    # input the 'second_number' as the new first argument and modify the second argument
+    return euclidean_algorithm(second_number, first_number % second_number)
 
 
 def least_common_multiple(first_number, second_number):
@@ -146,6 +180,11 @@ def main():
     print("gcd(-195, -1287) = " + str(euclidean_algorithm(12, 0)) + " (should be 12)")
     print("\n\n")
     print("lcm(12, 3) = {0} (should be 12)".format(least_common_multiple(12, 3)))
+
+    # GOTTA GO FAST
+    #for i in range(5000, 15000):
+    #    for j in range(5000, 15000):
+    #        print("gcd({0}, {1}) = {2}".format(i, j, euclidean_algorithm(i, j)))
 
 
 
