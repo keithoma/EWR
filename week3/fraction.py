@@ -116,7 +116,9 @@ class Fraction:
 
 
     def __neg__(self):
-        return Fraction(-self.sgn_() * self.numerator_, self.denominator_)
+        if self.numerator_ != 0:
+            self.sign_ = not self.sign_
+        return self
 
 
 

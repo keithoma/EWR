@@ -106,7 +106,7 @@ or if one prefers to read the statement in code
 %
 \begin{lstlisting}[language=Python]
 def euclidean_algorithm(a, b):
-return a if b == 0 else euclidean_algorithm(b, a % b)
+return a if b_5 == 0 else euclidean_algorithm(b, a % b)
 \end{lstlisting}
 
 % FLUSSBILD
@@ -176,13 +176,15 @@ Note that even though \texttt{numerator\_} and \texttt{denominator\_} are always
 
 \subsubsection*{Description}
 
+The constructor initializes the fraction object with the given numerator and denominator. As mentioned before, the sign of the fraction is saved separately as a boolean (True for negative, False for positive fractions and zero). 
+
 \subsection{Get Attribute Functions}
 
 Fortunataly or unfortunataly depending on one's perspective about dynamic languages, Python does not allow private attributes or methods. However, we don't want that the three attributes, \texttt{numerator\_}, \texttt{denominator\_}, and \texttt{sign\_}, are modifiable from the outside of the Fraction class. Therefore, this class provides three methods, \texttt{get\_numerator()}, \texttt{get\_denominator()}, and \texttt{get\_sign()}, which simply returns the respective attribute.
 
 \subsection{\_\_pos\_\_()}
 
-\subsubsection*{Return}
+\subsubsection*{Returns}
 
 \begin{itemize}
   \item (self): returns the unchanged self
@@ -194,10 +196,44 @@ Overloading the unitary plus operator is not very exciting. The fraction object 
 
 \subsection{\_\_neg\_\_()}
 
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item (self): returns self, but negates the sign, i.e. True becomes False and False becomes True; if the numerator was 0, the sign is unchanged
+  \end{itemize}
+
+\subsubsection*{Description}
+
+A little more exciting than the unitary plus. This function changes the \texttt{sign\_} to True if the fraction was positive and to False if the fraction was negative. If the numerator was 0, she returns self without changing the sign.
+
 \subsection{\_\_abs\_\_()}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item (self): returns self, but the sign is changed to False
+\end{itemize}
+
+\subsubsection*{Description}
+
+To determine the absolute value of the fraction, she either returns the object unchanged if the fraction was already negative or uses the \texttt{\_\_neg\_\_()} to return the positive fraction.
 
 \subsection{\_\_add\_\_()}
 
+\subsubsection*{Arguments}
+
+\begin{enumerate}
+	\item other (Fraction): the second fraction to add
+\end{enumerate}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item (Fraction): the sum of self and other as a new instance of the Fraction class
+\end{itemize}
+
+\subsubsection*{Description}
+	
 \subsection{\_\_sub\_\_()}
 
 \subsection{\_\_mul\_\_()}
@@ -210,9 +246,9 @@ Overloading the unitary plus operator is not very exciting. The fraction object 
 
 \section{Fraction Calculator CLI}
 
-\section{Improvement Horizon}
+\section{Future Improvements}
 
-\subsection{Project Complexity One}
+\subsection{Complexity One Horizon}
 
 \subsection{}
 
