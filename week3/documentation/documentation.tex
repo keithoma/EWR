@@ -233,6 +233,18 @@ She calculates the least common multiple using the result of the euclidean algor
 %
 \[\text{lcm}(a, b) = \frac{|a \cdot b|}{\text{gcd}(a, b)} \text{.}\]
 
+\subsection{def main()}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item None
+\end{itemize}
+
+\subsubsection*{Description}
+
+The main function for testing purposes. She prints out some greatest common divisors and least common multiples into the console.
+
 % ----------------------------------------------------------------------------------------------------------
 % FRACTION API
 % ----------------------------------------------------------------------------------------------------------
@@ -244,6 +256,14 @@ The Fraction class in \texttt{fraction.py} implements a fraction, i.e. concepts 
 After an instance of Fraction is initialized, it is automatically reduced properly to the most minimal form, e.g. \(\frac{8}{12}\) naturally becomes \(\frac{2}{3}\), with the help of the euclidean algorithm.
 
 Finally, to allow some easy way to handle this class, few build-in operators such as the absolute function and binary addition were overloaded.
+
+\subsection{Attributes}
+
+\begin{itemize}
+	\item numerator\_ (int): the unsigned numerator of the fraction instance
+	\item denominator\_ (int): the unsigned denominator of the fraction instance
+	\item sign\_ (boolean): the sign of the fraction instance; this should be False if the fraction is positive or zero and should be True if the fraction is negative
+\end{itemize}
 
 \subsection{def \_\_init\_\_(numerator, denominator)}
 
@@ -266,7 +286,39 @@ Note that even though \texttt{numerator\_} and \texttt{denominator\_} are always
 
 The constructor initializes the fraction object with the given numerator and denominator. As mentioned before, the sign of the fraction is saved separately as a boolean (True for negative, False for positive fractions and zero). 
 
+\subsection{reduce\_fraction\_(self)}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item None
+\end{itemize}
+
+\subsubsection*{Description}
+
+She is a private function and as such should only be used inside this class. When called, she finds the greatest common denominator with the Euclidean algorithm (implemented in \texttt{euclidean\_algorithm.py}) and divides the attributes numerator\_ and denominator\_ with this result reducing the fraction.
+
+\subsection{sgn\_(self)}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item (int): -1 if the sign\_ is True and 1 if it is False
+\end{itemize}
+
+\subsubsection*{Description}
+
+A little auxilary function which returns the numerical value of the sign (-1 or 1). She is used in other methods to apply the sign in calculations
+
 \subsection{Get Attribute Functions}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item (int) or (boolean): the respective attribute of the fraction object
+\end{itemize}
+
+\subsubsection*{Description}
 
 Fortunataly or unfortunataly depending on one's perspective about dynamic languages, Python does not allow private attributes or methods. However, we don't want that the three attributes, \texttt{numerator\_}, \texttt{denominator\_}, and \texttt{sign\_}, are modifiable from the outside of the Fraction class. Therefore, this class provides three methods, \texttt{get\_numerator()}, \texttt{get\_denominator()}, and \texttt{get\_sign()}, which simply returns the respective attribute.
 
@@ -385,6 +437,18 @@ Again, we do not need to reduce here, because the magic is taken care at initali
 
 This function returns the attributes of a Fraction instance as a readable string. The \texttt{print()} function uses her to print the Fraction object neatly to the console.
 
+\subsection{def main()}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item None
+\end{itemize}
+
+\subsubsection*{Description}
+
+The main function for testing purposes. She prints every magic methods which was defined in the class.
+
 \section{Fraction Calculator CLI}
 
 \subsection{def interpret(user\_input)}
@@ -420,6 +484,14 @@ The main function of the fraction calculator. When called, the user is asked to 
 \section{Fraction Calculator Manual}
 
 The calculator currently adds two fraction together. Simply start the module, type fractions each in a new line and seperate the numerator and denominator with a slash /. The solution should then be printed on the console.
+
+Figure \ref{fig:example} shows the output of the calculator with the user input being \(\frac{1}{2}\) and \(\frac{-1}{3}\). After the user has input two fraction, the sum, here \(\frac{1}{6}\), is printed.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.9\textwidth]{graphics/calculator_example}
+	\caption{example of the output of the fraction calculator}\label{fig:example}
+\end{figure}
 
 \section{Future Improvements}
 

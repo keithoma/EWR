@@ -185,7 +185,7 @@ class Fraction:
         """
         # we don't need to optimize here, because we will reduce the fraction at the constructor
         sum_numerator = (self.sgn_() * self.numerator_ * other.denominator_ +
-                         self.sgn_() * other.numerator_ * self.denominator_)
+                         other.sgn_() * other.numerator_ * self.denominator_)
         sum_denominator = self.denominator_ * other.denominator_
 
         return Fraction(sum_numerator, sum_denominator)
