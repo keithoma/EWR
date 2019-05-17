@@ -5,7 +5,7 @@
 
 \usepackage{fancyhdr}
 \usepackage{graphicx}
-\usepackage{xcolor} 
+\usepackage[dvipsnames]{xcolor} 
 
 
 \usepackage{amsmath}
@@ -13,6 +13,27 @@
 \usepackage{listings}
 
 \pagestyle{fancy}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{white},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{Fuchsia},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
 
 \newcommand{\mymod}{\text{\ \ mod\ \ }}
 
@@ -76,15 +97,16 @@ In this module, we first implemented the well known euclidean algorithm which fi
 Given two integers, she finds the greatest common divisor via the recursively implemented euclidean algorithm.
 
 The algorithm itself starts with two integers \(a\) and \(b\). If \(b = 0\) then \(a\) is returned and the recursive loop stops. In any other case, this function is called again, but the arguments are modified in the following manner
-
+%
 \begin{align*}
-	a \mapsto (a \mymod b) \hspace{3cm} b \mapsto a \text{,}
+	b \mapsto \text{first argument} \hspace{3cm} a \mymod b \mapsto \text{second argument} \text{,}
 \end{align*}
 %
 or if one prefers to read the statement in code
 %
-\begin{lstlisting}
-return euclidean_algorithm(b, a % b)
+\begin{lstlisting}[language=Python]
+def euclidean_algorithm(a, b):
+return a if b == 0 else euclidean_algorithm(b, a % b)
 \end{lstlisting}
 
 % FLUSSBILD
@@ -123,11 +145,9 @@ Since \(b = 0\), the algorithm is broken and \(a_5 = 39\) is returned.
 
 \subsubsection*{Description}
 
-This finds the least common multiple.
-
-\subsubsection*{Example}
-
-\subsection{main()}
+She calculates the least common multiple using the result of the euclidean algorithm and the following formula
+%
+\[\text{lcm}(a, b) = \frac{|a \cdot b|}{\text{gcd}(a, b)} \text{.}\]
 
 \section{Fraction API}
 
