@@ -19,7 +19,7 @@
 
 
 
-import euclidean_algorithm
+import tools3
 
 
 
@@ -85,7 +85,7 @@ class Fraction:
             This (private) method reduces the fraction using the euclidean algorithm implemented in
             'euclidean_algorithm.py'.
         """
-        gcd = euclidean_algorithm.euclidean_algorithm(self.numerator_, self.denominator_)
+        gcd = tools3.euclidean_algorithm(self.numerator_, self.denominator_)
         if gcd > 1:
             self.numerator_ = int(self.numerator_ / gcd)
             self.denominator_ = int(self.denominator_ / gcd)
@@ -192,6 +192,25 @@ class Fraction:
 
 
 
+    @classmethod
+    def summe(cls, self, other):
+        """
+            If all else fails, one can use this function to add two fractions together. One does not even
+            need to initalize an object.
+
+            Args:
+                self (Fraction): the fraction on the right side; first summand
+                other (Fraction): the fraction on the left side; second summand
+
+            Returns:
+                (Fraction): the sum of self and other as a new instance of the Fraction class
+        """
+        new_fraction = self + other
+        # redundant, I know
+        new_fraction.reduce_fraction_()
+        return new_fraction
+
+
     def __sub__(self, other):
         """
             She overloads the binary infix minus.
@@ -248,6 +267,7 @@ def main():
     print("abs({0}) = {1}".format(test_fraction, abs(test_fraction)))
     print("{0} - {1} = {2}".format(test_fraction, another_fraction, test_fraction - another_fraction))
     print("{0} * {1} = {2}".format(test_fraction, another_fraction, test_fraction * another_fraction))
+    print("summe({0}, {1}) = {2}".format(test_fraction, another_fraction, Fraction.summe(test_fraction, another_fraction)))
 
 
 if __name__ == "__main__":
