@@ -1,0 +1,161 @@
+\documentclass[refman]{scrartcl}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+ 
+\pagestyle{fancy}
+
+
+\begin{document}
+
+% ----------------------------------------------------------------------------------------------------------
+% PREAMBLE
+% ----------------------------------------------------------------------------------------------------------
+
+\begin{titlepage}
+	\centering
+	\includegraphics[width=0.15\textwidth]{graphics/huberlin_logo}\par\vspace{1cm}
+	{\scshape\LARGE Humboldt University of Berlin \par}
+	\vspace{1cm}
+	{\scshape\Large Einf{\"u}hrung in das wissenschaftliche Rechnen \par}
+	\vspace{1.5cm}
+	{\huge\bfseries Documentation of CLI Fraction Calculator\par}
+	\vspace{2cm}
+	{\Large\itshape Christian Parpart \& Kei Thoma \par}
+
+	\vfill
+
+% Bottom of the page
+	{\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ----------------------------------------------------------------------------------------------------------
+% CONTENTS
+% ----------------------------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+\section{Euclidean Algorithm Library}
+
+In this module, we first implemented the well known euclidean algorithm which finds the greatest common divisor given two integers. From there, we use the result of the above mentioned algorithm to calculate the least common multiple.
+
+\subsection{euclidean\_algorithm(a, b)}
+
+\subsubsection*{Arguments}
+
+\begin{enumerate}
+  \item \texttt{first\_number} (int): the first integer, \textit{a}; negative values are accepted
+  \item \texttt{second\_number} (int): the second integer, \textit{b}; negative values are accepted
+\end{enumerate}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+  \item (int): the greatest common divisor found via the recursive euclidean algorithm
+\end{itemize}
+
+\subsubsection*{Description}
+
+This function finds the greatest common divisor with the help of recursive euclidean algorithm.
+
+% FLUSSBILD
+
+\subsubsection*{Example}
+
+\subsection{least\_common\_multiple(a, b)}
+
+\subsubsection*{Arguments}
+
+\begin{enumerate}
+  \item \texttt{first\_number} (int): the first integer, \textit{a}; negative values are accepted
+  \item \texttt{second\_number} (int): the second integer, \textit{b}; negative values are accepted
+\end{enumerate}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+  \item (int): the least common multiple calculated with the help of the euclidean algorithm and the formula
+\end{itemize}
+
+\subsubsection*{Description}
+
+This finds the least common multiple.
+
+\subsubsection*{Example}
+
+\subsection{main()}
+
+\section{Fraction API}
+
+The Fraction class in \texttt{fraction.py} implements a fraction, i.e. concepts such as \(\frac{1}{2}\) or \(-\frac{2}{3}\), mathematically correctly. For this endeavor, Fraction saves three pseudo-private attributes representing the unsigned numerator, the unsigned denominator and finally the sign of the fraction.
+
+After an instance of Fraction is initialized, it is automatically reduced properly to the most minimal form, e.g. \(\frac{8}{12}\) naturally becomes \(\frac{2}{3}\), with the help of the euclidean algorithm.
+
+Finally, to allow some easy way to handle this class, few build-in operators such as the absolute function and binary addition were overloaded.
+
+\subsection{\_\_init\_\_(numerator, denominator)}
+
+\subsubsection*{Arguments}
+
+\begin{enumerate}
+  \item \texttt{numerator} (int): the numerator; negative values are allowed, but is then saved as a positive integer at \texttt{numerator\_}
+  \item \texttt{denominator} (int): the denominator; negative values are allowed, but is then saved as a positive integer at \texttt{denominator\_}; if no argument is passed, it defaults to 1
+\end{enumerate}
+
+Note that even though \texttt{numerator\_} and \texttt{denominator\_} are always positive, the sign of the Fraction is determined at the point of initalization and is saved under the boolean attribute \texttt{sign\_}.
+
+\subsubsection*{Raises}
+
+\begin{itemize}
+  \item \texttt{ZeroDivisionError}: if \(0\) is passed as the parameter for the denominator
+\end{itemize}
+
+\subsubsection*{Description}
+
+\subsection{Get Attribute Functions}
+
+Fortunataly or unfortunataly depending on one's perspective about dynamic languages, Python does not allow private attributes or methods. However, we don't want that the three attributes, \texttt{numerator\_}, \texttt{denominator\_}, and \texttt{sign\_}, are modifiable from the outside of the Fraction class. Therefore, this class provides three methods, \texttt{get\_numerator()}, \texttt{get\_denominator()}, and \texttt{get\_sign()}, which simply returns the respective attribute.
+
+\subsection{\_\_pos\_\_()}
+
+\subsubsection*{Return}
+
+\begin{itemize}
+  \item (self): returns the unchanged self
+\end{itemize}
+
+\subsubsection*{Description}
+
+Overloading the unitary plus operator is not very exciting. The fraction object is unchanged and returned immediately.
+
+\subsection{\_\_neg\_\_()}
+
+\subsection{\_\_abs\_\_()}
+
+\subsection{\_\_add\_\_()}
+
+\subsection{\_\_sub\_\_()}
+
+\subsection{\_\_mul\_\_()}
+
+\subsection{\_\_truediv\_\_()}
+
+\subsection{\_\_str\_\_()}
+
+\subsection{\_\_main\_\_()}
+
+\section{Fraction Calculator CLI}
+
+\section{Improvement Horizon}
+
+\subsection{Project Complexity One}
+
+\subsection{}
+
+\end{document}
