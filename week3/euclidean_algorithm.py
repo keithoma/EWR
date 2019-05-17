@@ -66,6 +66,8 @@ def main():
     print("gcd(12, 0) = " + str(euclidean_algorithm(12, 0)) + " (should be 12)")
     print("gcd(-195, 1287) = " + str(euclidean_algorithm(12, 0)) + " (should be 12)")
     print("gcd(-195, -1287) = " + str(euclidean_algorithm(12, 0)) + " (should be 12)")
+    print("\n\n")
+    print("lcm(12, 3) = {0} (should be 12)".format(least_common_multiple(12, 3)))
 
 
 

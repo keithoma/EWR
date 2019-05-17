@@ -92,6 +92,17 @@ class Fraction:
         return Fraction(self.sgn_() * self.denominator_, self.numerator_)
 
 
+    def get_numerator(self):
+        """
+        """
+        return self.numerator_
+    
+    def get_denominator(self):
+        return self.denominator_
+    
+    def get_sign(self):
+        return self.sign_
+
 
     def __pos__(self):
         """
