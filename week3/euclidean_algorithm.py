@@ -1,19 +1,29 @@
 #! /usr/bin/env python3
 """
-    In this module, we first implement the well known euclidean algorithm where the greatest common divisor
-    of two integers is calculated. From there, we use the euclidean algorithm to also define a function to
-    find the least common multiple.
+    In this module, we first implemented the well known Euclidean algorithm which finds the greatest common
+    divisor given two integers. From there, we use the result of the aforementioned algorithm to calculate
+    the least common multiple.
 
-    constructed by:
-        Christian Parpart (18 56 76)
+    Forged by:
+        Christian Parpart (185 676)
         Kei Thoma (574 613)
+
+    This file is part of the "Complexity One Horizon" project.
+    (c) 2019 Christian Parpart <christian@parpart.family>
+    (c) 2019 Kei Thoma <thomakmj@gmail.com>
+
+    Licensed under the MIT License (the "License"); you may not use this file except in compliance with the
+    License. You may obtain a copy of the License at: http://opensource.org/licenses/MIT
+
+    “Life is really simple, but we insist on making it complicated.”
+    ― Confucius
 """
 
 
 
 def euclidean_algorithm(first_number, second_number):
     """
-        This function finds the greatest common divisor with the help of recursive euclidean
+        She finds the greatest common divisor with the help of a recursively implemented Euclidean
         algorithm.
 
         Args:
@@ -35,8 +45,8 @@ def euclidean_algorithm(first_number, second_number):
 
 def least_common_multiple(first_number, second_number):
     """
-        This one calculates the least common multiple via the greatest common divisor through the
-        well known formula, lcm(a, b) = abs(ab) / gcd(a, b).
+        She calculates the least common multiple using the Euclidean algorithm and the well-known formula,
+        lcm(a, b) = abs(ab) / gcd(a, b).
 
         Args:
             first_number (int): in the formula this is 'a'

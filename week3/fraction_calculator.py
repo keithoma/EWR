@@ -2,9 +2,19 @@
 """
     A small calculator for adding two fractions together.
 
-    constructed by:
-        Christian Parpart (18 56 76)
+    Forged by:
+        Christian Parpart (185 676)
         Kei Thoma (574 613)
+
+    This file is part of the "Complexity One Horizon" project.
+    (c) 2019 Christian Parpart <christian@parpart.family>
+    (c) 2019 Kei Thoma <thomakmj@gmail.com>
+
+    Licensed under the MIT License (the "License"); you may not use this file except in compliance with the
+    License. You may obtain a copy of the License at: http://opensource.org/licenses/MIT
+
+    “Life is really simple, but we insist on making it complicated.”
+    ― Confucius
 """
 
 
