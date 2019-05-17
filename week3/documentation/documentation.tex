@@ -233,15 +233,15 @@ She calculates the least common multiple using the result of the euclidean algor
 %
 \[\text{lcm}(a, b) = \frac{|a \cdot b|}{\text{gcd}(a, b)} \text{.}\]
 
-\subsection{def main()}
+\subsubsection{def main()}
 
-\subsubsection*{Returns}
+\paragraph*{Returns}
 
 \begin{itemize}
 	\item None
 \end{itemize}
 
-\subsubsection*{Description}
+\paragraph*{Description}
 
 The main function for testing purposes. She prints out some greatest common divisors and least common multiples into the console.
 
@@ -286,7 +286,7 @@ Note that even though \texttt{numerator\_} and \texttt{denominator\_} are always
 
 The constructor initializes the fraction object with the given numerator and denominator. As mentioned before, the sign of the fraction is saved separately as a boolean (True for negative, False for positive fractions and zero). 
 
-\subsection{reduce\_fraction\_(self)}
+\subsection{def reduce\_fraction\_(self)}
 
 \subsubsection*{Returns}
 
@@ -298,7 +298,7 @@ The constructor initializes the fraction object with the given numerator and den
 
 She is a private function and as such should only be used inside this class. When called, she finds the greatest common denominator with the Euclidean algorithm (implemented in \texttt{euclidean\_algorithm.py}) and divides the attributes numerator\_ and denominator\_ with this result reducing the fraction.
 
-\subsection{sgn\_(self)}
+\subsection{def sgn\_(self)}
 
 \subsubsection*{Returns}
 
