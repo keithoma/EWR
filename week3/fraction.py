@@ -81,17 +81,6 @@ class Fraction:
 
 
 
-    def inverse_fraction_(self):
-        """
-            A little (private) function who returns the multiplicative inverse of a fraction e.g. given 2/3
-            she would return 3/2.
-
-            Returns:
-                (Fraction): the multiplicative inverse of self
-        """
-        return Fraction(self.sgn_() * self.denominator_, self.numerator_)
-
-
     def get_numerator(self):
         """
         """
@@ -111,14 +100,12 @@ class Fraction:
             Returns:
                 (Fraction): unchanged self
         """
-        return self
+        return Fraction(self.numerator_, self.denominator_)
 
 
 
     def __neg__(self):
-        if self.numerator_ != 0:
-            self.sign_ = not self.sign_
-        return self
+        return Fraction(-self.numerator_, self.denominator_)
 
 
 
@@ -139,13 +126,10 @@ class Fraction:
             Returns:
                 (Fraction): the sum of the two fraction as a new Fraction object
         """
-        # we find the denominator with the "least_common_multiple()" function
-        sum_denominator = euclidean_algorithm.least_common_multiple(self.denominator_, other.denominator)
-
-        # here, we find the numerator of our new fraction; the calculation is broken up in few pieces
-        new_numerator_self = self.sgn_() * self.numerator_ * sum_denominator / self.denominator_
-        new_numerator_other = other.sgn_() * other.numerator * sum_denominator / other.denominator
-        sum_numerator = int(new_numerator_self + new_numerator_other)
+        # we don't need to optimize here, because we will reduce the fraction at the constructor
+        sum_numerator = (self.sgn_() * self.numerator_ * other.denominator_ + 
+                         self.sgn_() * other.numerator_ * self.denominator_)
+        sum_denominator = self.denominator_ * other.denominator_
 
         return Fraction(sum_numerator, sum_denominator)
 
@@ -158,12 +142,6 @@ class Fraction:
 
     def __mul__(self, other):
         return Fraction(self.numerator_ * other.numerator, self.denominator_ * other.denominator)
-
-
-
-    def __truediv__(self, other):
-        return self * other.inverse_fraction_()
-
 
 
     def __str__(self):

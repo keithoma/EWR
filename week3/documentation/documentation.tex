@@ -50,9 +50,11 @@
 	\vspace{1cm}
 	{\scshape\Large Einf{\"u}hrung in das wissenschaftliche Rechnen \par}
 	\vspace{1.5cm}
-	{\huge\bfseries Documentation of CLI Fraction Calculator\par}
+	{\huge\bfseries Documentation of Fraction Application Programming Interface and Command Line Interface Calculator\par}
 	\vspace{2cm}
 	{\Large\itshape Christian Parpart \& Kei Thoma \par}
+	\vfill
+	{\small\itshape in Club Mate \& Coffee We Trust\par}
 
 	\vfill
 
@@ -182,7 +184,7 @@ The constructor initializes the fraction object with the given numerator and den
 
 Fortunataly or unfortunataly depending on one's perspective about dynamic languages, Python does not allow private attributes or methods. However, we don't want that the three attributes, \texttt{numerator\_}, \texttt{denominator\_}, and \texttt{sign\_}, are modifiable from the outside of the Fraction class. Therefore, this class provides three methods, \texttt{get\_numerator()}, \texttt{get\_denominator()}, and \texttt{get\_sign()}, which simply returns the respective attribute.
 
-\subsection{\_\_pos\_\_()}
+\subsection{\_\_pos\_\_(self)}
 
 \subsubsection*{Returns}
 
@@ -194,7 +196,7 @@ Fortunataly or unfortunataly depending on one's perspective about dynamic langua
 
 Overloading the unitary plus operator is not very exciting. The fraction object is unchanged and returned immediately.
 
-\subsection{\_\_neg\_\_()}
+\subsection{\_\_neg\_\_(self)}
 
 \subsubsection*{Returns}
 
@@ -206,7 +208,7 @@ Overloading the unitary plus operator is not very exciting. The fraction object 
 
 A little more exciting than the unitary plus. This function changes the \texttt{sign\_} to True if the fraction was positive and to False if the fraction was negative. If the numerator was 0, she returns self without changing the sign.
 
-\subsection{\_\_abs\_\_()}
+\subsection{\_\_abs\_\_(self)}
 
 \subsubsection*{Returns}
 
@@ -218,12 +220,13 @@ A little more exciting than the unitary plus. This function changes the \texttt{
 
 To determine the absolute value of the fraction, she either returns the object unchanged if the fraction was already negative or uses the \texttt{\_\_neg\_\_()} to return the positive fraction.
 
-\subsection{\_\_add\_\_()}
+\subsection{\_\_add\_\_(self, other)}
 
 \subsubsection*{Arguments}
 
 \begin{enumerate}
-	\item other (Fraction): the second fraction to add
+	\item self (Fraction): the fraction on the right side; first summand
+	\item other (Fraction): the fraction on the left side; second summand
 \end{enumerate}
 
 \subsubsection*{Returns}
@@ -233,16 +236,62 @@ To determine the absolute value of the fraction, she either returns the object u
 \end{itemize}
 
 \subsubsection*{Description}
-	
-\subsection{\_\_sub\_\_()}
 
-\subsection{\_\_mul\_\_()}
+This magic method overloads the binary infix plus and returns the sum of two fractions as a new instance. The new fraction is calculated in the following manner
+%
+\begin{equation}
+	\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd} \text{.}
+\end{equation}
+%
+She does not need to find the greatest common denominator here, because the new Fraction will be reduced properly at the constructor.
 
-\subsection{\_\_truediv\_\_()}
+\subsection{\_\_sub\_\_(self, other)}
 
-\subsection{\_\_str\_\_()}
+\subsubsection*{Arguments}
 
-\subsection{\_\_main\_\_()}
+\begin{enumerate}
+	\item self (Fraction): the fraction on the right side; the subtrahend
+	\item other (Fraction): the fraction on the left side; the minuend
+\end{enumerate}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item (Fraction): the difference of self and other as a new instance of the Fraction class
+\end{itemize}
+
+\subsubsection*{Description}
+
+The antithesis of the binary infix plus operation. As such, she uses the binary plus in conjuction with the unary negative to return the difference of the two given fraction as a new fraction object.
+
+\subsection{\_\_mul\_\_(self, other)}
+
+\subsubsection*{Arguments}
+
+\begin{enumerate}
+	\item self (Fraction): the fraction on the right side; the first factor
+	\item other (Fraction): the fraction on the left side; the second factor
+\end{enumerate}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item (Fraction): the product of self and other as new instance of the Fraction class
+\end{itemize}
+
+\subsubsection*{Description}
+
+She overloads the binary infix multiplication for the Fraction objects.
+
+\subsection{\_\_str\_\_(self)}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+	\item (string): the format of the string is \texttt{a/b}
+\end{itemize}
+
+This function returns the attributes of a Fraction instance as a readable string. She also overloads the \texttt{print()} function.
 
 \section{Fraction Calculator CLI}
 
