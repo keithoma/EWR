@@ -8,7 +8,7 @@
 
     Lastly, this module includes a function to calculate the least common multiple with the help of the
     aforementioned Euclidean algorithm.
-    
+
     Forged by:
         Christian Parpart (185 676)
         Kei Thoma (574 613)
