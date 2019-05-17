@@ -1,4 +1,23 @@
 #! /usr/bin/env python3
+"""
+    In this module, we first implemented the well known Euclidean algorithm which finds the greatest common
+    divisor given two integers. From there, we use the result of the aforementioned algorithm to calculate
+    the least common multiple.
+
+    Forged by:
+        Christian Parpart (185 676)
+        Kei Thoma (574 613)
+
+    This file is part of the "Complexity One Horizon" project.
+    (c) 2019 Christian Parpart <christian@parpart.family>
+    (c) 2019 Kei Thoma <thomakmj@gmail.com>
+
+    Licensed under the MIT License (the "License"); you may not use this file except in compliance with the
+    License. You may obtain a copy of the License at: http://opensource.org/licenses/MIT
+
+    “Life is really simple, but we insist on making it complicated.”
+    ― Confucius
+"""
 
 import struct
 
@@ -51,13 +70,3 @@ class GreatestCommonDivisor:
             return struct.unpack("i", data)[0]
         else:
             return GreatestCommonDivisor.compute(a, b)
-
-gcd = GreatestCommonDivisor("gcd.bin", 1000)
-
-def gcd_o1(a, b):
-    c = gcd.gcd(a, b)
-    print("gcd_precomputed({}, {}) = {}".format(a, b, c))
-
-gcd_o1(10, 5)
-gcd_o1(81, 72)
-gcd_o1(1200, 700)
