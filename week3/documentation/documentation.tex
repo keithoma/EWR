@@ -73,14 +73,14 @@
 \section{Introduction: Complexity One Horizon}
 \vspace{4cm}\epigraph{“Life is really simple, but we insist on making it complicated."}{\textit{Confucius}}
 
-\noindent Our goal was to write a proper fraction calculator. For that, however, we needed to implement the Euclidean algorithm which computes the greatest common divisor. This algorithm is admittingly fast, but certainly not \(\mathcal{O}(1)\) fast. So we coded one. Greatest common divisor at complexity one.
+\noindent Our goal was to write a proper fraction calculator. For that, however, we needed to implement the Euclidean algorithm which computes the greatest common divisor. This algorithm is admittingly fast, but certainly not \(\mathcal{O}(1)\) fast \cite{knuth}. So we coded one. Greatest common divisor at complexity one.
 
 This was done by precomputing all greatest common divisor from 1 to n and saving the results to a local file. While the Euclidean algorithm often needs multiple iterations to find the solution, looking up a value is always a single step.
 % ----------------------------------------------------------------------------------------------------------
 % EUCLIDEAN ALGORITHM LIBRARY
 % ----------------------------------------------------------------------------------------------------------
 
-\section{Euclidean Algorithm Library}
+\section{tools3 Library}
 
 The goal of this module is to implement the Euclidean algorithm, which finds the greatest common divisor, with complexity O(1). This is realized by precomputing (iteratively) all greatest common divisor from 1 to n.
 
@@ -201,7 +201,7 @@ Computes GCD of a and b either in O(1) complexity if in range of precomputation,
 	\caption{The recursive Euclidean algorithm}\label{fig:recursive}
   \end{figure}
 
-Given two integers, she finds the greatest common divisor via the recursively implemented euclidean algorithm.
+Given two integers, she finds the greatest common divisor via the recursively implemented euclidean algorithm (for the validity of the algorithm see \cite{bosch}).
 
 The algorithm itself starts with two integers \(a\) and \(b\). If \(b = 0\) then \(a\) is returned and the recursive loop stops. In any other case, this function is called again, but the arguments are modified in the following manner
 %
@@ -250,7 +250,7 @@ Since \(b = 0\), the algorithm is stopped and \(a_5 = 39\) is returned.
 
 \paragraph*{Description}
 
-She calculates the least common multiple using the result of the euclidean algorithm and the following formula
+She calculates the least common multiple using the result of the euclidean algorithm and the following formula (for the validity of the formula see \cite{bosch})
 %
 \[\text{lcm}(a, b) = \frac{|a \cdot b|}{\text{gcd}(a, b)} \text{.}\]
 
@@ -535,5 +535,18 @@ Figure \ref{fig:example} shows the output of the calculator with the user input 
 \section{Future Improvements}
 
 One of our immediate goals in the comming future would be to equip the currently limited fraction calculator with more arithmetic options such as subtraction or power. The latter would require an expansion to the fraction class.
+
+\begin{thebibliography}{9}
+	\bibitem{bosch} 
+	Bosch, Siegfried. 
+	\textit{Algebra}. 
+	Springer-Verlag Berlin Heidelberg, 7th Edition, 2009.
+	
+	\bibitem{knuth} 
+	Knuth, Donald. 
+	\textit{The Art of Computer Programming Volume 2}. 
+	Prentice Hall, 3rd Edition, 1997.
+	
+\end{thebibliography}
 
 \end{document}
