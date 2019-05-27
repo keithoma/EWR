@@ -26,16 +26,18 @@ def explore_machine_epsilon(float_type):
     return epsilon
 
 def main():
-    def print_experiment(float_type_list):
-        for each in float_type_list:
-            # padding in the second line added for readability 
-            # "__name__" returns the name of the class; such as "np.float16"
-            print("The machine epsilon for {0} is:".format(each.__name__))
-            print("              {0}".format(explore_machine_epsilon(each)))
-            print("it should be: {0}\n".format(np.finfo(each).eps))
-
+    """
+        The main function for testing purposes.
+    """
     list_to_test = [np.float16, np.float32, np.float64]
-    print_experiment(list_to_test)
+
+    for each in float_type_list:
+        # padding in the second line added for readability 
+        # "__name__" returns the name of the class; such as "np.float16"
+        print("The machine epsilon for {0} is:".format(each.__name__))
+        print("              {0}".format(explore_machine_epsilon(each)))
+        print("it should be: {0}\n".format(np.finfo(each).eps))
+
 
 if __name__ == "__main__":
     main()
