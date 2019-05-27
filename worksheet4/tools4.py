@@ -29,7 +29,7 @@ def main():
     """
         The main function for testing purposes.
     """
-    list_to_test = [np.float16, np.float32, np.float64]
+    float_type_list = [np.float16, np.float32, np.float64]
 
     for each in float_type_list:
         # padding in the second line added for readability 
