@@ -213,9 +213,9 @@ def main():
 
 
     if True:
-        obj = Equation(1)
-        obj.draw_absolute_error(5)
-        obj.draw_relative_error(5)
+        obj3 = Equation(1)
+        obj3.draw_absolute_error(5)
+        obj3.draw_relative_error(5)
 
 
 
