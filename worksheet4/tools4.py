@@ -20,30 +20,30 @@ class Equation:
         WRITE THIS.
     """
     def __init__(self, precision):
-        self.precision = precision
-        self.set_precision(precision)
+        self.precision_ = precision
+        self.equation_context_ = decimal.Context(precision)
 
-    def set_precision(self, precision):
-        decimal.getcontext().prec = precision
+    def change_precision(self, precision):
+        self.precision_ = precision
+        self.equation_context_.prec = precision
 
-    # there must be a better way than this to set ".prec"
     # @staticmethod
     def left_side(self, x):
-        decimal.getcontext().prec = self.precision
-        return (D('1') / D(str(x))) - D('1') / (D(str(x)) + D('1'))
+        with decimal.localcontext(self.equation_context_):
+            return (D('1') / D(str(x))) - D('1') / (D(str(x)) + D('1'))
 
     # @staticmethod
     def right_side(self, x):
-        decimal.getcontext().prec = self.precision
-        return D('1') / (D(str(x)) * (D(str(x)) + D('1')))
+        with decimal.localcontext(self.equation_context_):
+            return D('1') / (D(str(x)) * (D(str(x)) + D('1')))
 
     def absolute_error(self, x):
-        decimal.getcontext().prec = self.precision
-        return abs(self.left_side(x) - self.right_side(x))
+        with decimal.localcontext(self.equation_context_):
+            return abs(self.left_side(x) - self.right_side(x))
     
     def relative_error(self, x):
-        decimal.getcontext().prec = self.precision
-        return abs(self.left_side(x) - self.right_side(x)) / self.right_side(x)
+        with decimal.localcontext(self.equation_context_):
+            return abs((self.left_side(x) - self.right_side(x)) / self.right_side(x))
 
 # ----------------------------------------------------------------------------------------------------------
 # EXERCISE 2
@@ -104,13 +104,13 @@ def main():
 
         for number in range(1, 21):
             print("x = {0}\n".format(number))
-            print("precision: {0}".format(obj1.precision))
+            print("precision: {0}".format(obj1.precision_))
             print("left side:  {0}".format(obj1.left_side(number)))
             print("right side: {0}".format(obj1.right_side(number)))
             print("abs error:  {0}".format(obj1.absolute_error(number)))
             print("rel error:  {0}".format(obj1.relative_error(number)))
             print()
-            print("precision: {0}".format(obj2.precision))
+            print("precision: {0}".format(obj2.precision_))
             print("left side:  {0}".format(obj2.left_side(number)))
             print("right side: {0}".format(obj2.right_side(number)))
             print("abs error:  {0}".format(obj2.absolute_error(number)))
