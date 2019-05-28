@@ -104,15 +104,17 @@ def main():
 
         for number in range(1, 21):
             print("x = {0}\n".format(number))
-            print(obj1.left_side(number))
-            print(obj1.right_side(number))
-            print(obj1.absolute_error(number))
-            print(obj1.relative_error(number))
+            print("precision: {0}".format(obj1.precision))
+            print("left side:  {0}".format(obj1.left_side(number)))
+            print("right side: {0}".format(obj1.right_side(number)))
+            print("abs error:  {0}".format(obj1.absolute_error(number)))
+            print("rel error:  {0}".format(obj1.relative_error(number)))
             print()
-            print(obj2.left_side(number))
-            print(obj2.right_side(number))
-            print(obj2.absolute_error(number))
-            print(obj2.relative_error(number))
+            print("precision: {0}".format(obj2.precision))
+            print("left side:  {0}".format(obj2.left_side(number)))
+            print("right side: {0}".format(obj2.right_side(number)))
+            print("abs error:  {0}".format(obj2.absolute_error(number)))
+            print("rel error:  {0}".format(obj2.relative_error(number)))
             print("\n--------------------\n")
 
 if __name__ == "__main__":
