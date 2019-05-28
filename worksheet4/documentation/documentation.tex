@@ -3,7 +3,6 @@
 % HEADER
 % ----------------------------------------------------------------------------------------------------------
 
-
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 
@@ -12,22 +11,29 @@
 \usepackage[dvipsnames]{xcolor} 
 \usepackage{epigraph}
 
-
 \usepackage{amsmath}
+\usepackage{amsthm}
 
 \usepackage{listings}
 
 \pagestyle{fancy}
+
+\theoremstyle{definition}
+\newtheorem{exmp}{Example}[section]
+
 \begin{document}
+
 % ----------------------------------------------------------------------------------------------------------
 % TITLEPAGE & TABLE OF CONTENTS
 % ----------------------------------------------------------------------------------------------------------
 
-\include{titlepage}
+\include{contents/titlepage}
 
 % ----------------------------------------------------------------------------------------------------------
 % CONTENTS
 % ----------------------------------------------------------------------------------------------------------
 
+\include{contents/introduction}
 
+\include{contents/exercise1}
 \end{document}
