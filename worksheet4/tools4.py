@@ -4,7 +4,6 @@
     Kei Thoma (574 613)
 """
 
-import collections
 import decimal
 import numpy as np
 
