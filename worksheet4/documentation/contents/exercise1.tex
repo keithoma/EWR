@@ -50,8 +50,8 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
 \begin{exmp}
     We want to find the margin for the absolute and the relative error. To find the largest possible absolute error, set the exponent to the maximum value and consider two neighboring floating point numbers such as \(1.00000000)_2 \times 2^8\) and \((1.00000001)_2 \times 2^8 = 1\). Worst case scenario, the given number is right in the middle of these two numbers; therefore, the maximum absolute error is \((0.00000001)_2 \times 2^7 = \frac{1}{2}\). This result is also verified by the lemma \ref{XXX}. The same lemma gives us the boundaries for the relative error, \(2^{-8}\). To conclude, we have
     \begin{align*}
-        0 &\leq \text{absolute error} \leq \frac{1}{2} \\
-        0 &\leq \text{relative error} \leq \frac{2}{256}
+        0 &\leq e_\text{abs} \leq \frac{1}{2} \\
+        0 &\leq e_\text{rel} \leq \frac{2}{256}
     \end{align*}
 \end{exmp}
 %
@@ -155,9 +155,23 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \end{align*}
     We could go on, but since we only need to find the normalized binary form with respect to ten decimal places. We have
     \begin{equation*}
-        z_4 = 1.01 \approx (1.0000001010 \times 2^0)_2
+        z_4 = 1.01 \approx (1.0000001010)_2 \times 2^0
     \end{equation*}
-    which is already normalized.
+    and in normalized form
+    \begin{equation*}
+        z_4 = 1.01 \approx (0.10000001010)_2 \times 2^1
+    \end{equation*}
+    Using the formula from lemma \ref{XXX}, we have the floating point number
+    \begin{equation*}
+        \text{rd}_8(z_4) = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2 \cdot \left(\frac{1}{2} + \frac{1}{256}\right) = \frac{129}{128} = 1.0078125 \text{.}
+    \end{equation*}
+    For the absolute and relative error we have
+    \begin{align*}
+        e_\text{abs} &= \left| {rd}_8(1.01) - 1.01 \right| \\
+        &= 0.0021875 \\
+        e_\text{rel} &= \left| \frac{{rd}_8(1.01) - 1.01}{{rd}_8(1.01)} \right| \\
+        &= \frac{7}{3225} \approx 0.00217
+    \end{align*}
 \end{exmp}
 %
 % (5)
@@ -194,7 +208,7 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \end{align*}
     Therefore, we have \(z_5 = 0.0002 \approx (0.00000000000011010001101)_2\) and normalized we have
     \begin{equation*}
-        z_5 = 0.0002 \approx (1.1010001101 \times 2^{-13})_2
+        z_5 = 0.0002 \approx (0.1101000110 \times 2^{-12})_2 \text{.}
     \end{equation*}
 \end{exmp}
 \begin{exmp}
