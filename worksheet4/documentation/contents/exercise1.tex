@@ -1,5 +1,42 @@
+For all following examples, let the mantissa length be \(t = 8\) and the exponent of the floating point arithmetic be bounded by \(N_{\text{min}} = -5\) and \(N_{\text{max}} = 8\).
+%
+\begin{exmp} \label{exmp:xmax}
+    Given the context as defined above, the largest number that can be represented is \(x_\text{max} = 255\). The calculation is fairly simple; choose the largest exponent possible and fill every digit of the mantissa with ones. In binary, this would be
+    \begin{equation*}
+        x_\text{max} = (0.11111111)_2 \times 2^8 \text{,}
+    \end{equation*}
+    or in decimal
+    \begin{align*}
+        x_\text{max} &= (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i}\\
+        &= 2^8 \cdot \left(\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} + \frac{1}{32} + \frac{1}{64} + \frac{1}{128} + \frac{1}{256}\right) \\
+        &= 255 \text{.}
+    \end{align*}
+\end{exmp}
 \begin{exmp}
-    Let \(z_1 = 67.0\). We want to find the normalized binary form of this integer and and ten decimal places accurate. According to lemma \ref{XXX}, we have
+    To find the smallest possible positive value in the defined floating point arithmetic, we proceed similary to example \ref{exmp:xmax}. Set the exponent as small as possible and fill the mantissa with zero but the last place. We have in binary
+    \begin{equation*}
+        x_\text{min} = (0.00000001)_2 \times 2^{-5}
+    \end{equation*}
+    which in decimal representation translates to
+    \begin{align*}
+        x_\text{min} &= (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} \\
+        &= 2^{-5} \times \frac{1}{256} \\
+        &= \frac{1}{8192}
+    \end{align*}
+\end{exmp}
+
+% ===================================================================
+% (a)
+% ===================================================================
+
+
+
+% ===================================================================
+% (b)
+% ===================================================================
+
+\begin{exmp}
+    Let \(z_1 = 67.0\). We want to find the normalized binary form of this integer with ten decimal place accuracy. According to lemma \ref{XXX}, we have
     \begin{align*}
         67.0 \div 2 &= 33.0 + 1 \\
         33.0 \div 2 &= 16.0 + 1 \\
@@ -7,15 +44,24 @@
         8.0 \div 2 &= 4.0 + 0 \\
         4.0 \div 2 &= 2.0 + 0 \\
         2.0 \div 2 &= 1.0 + 0 \\
-        1.0 \div 2 &= 0.0 + 1 \text{,}
+        1.0 \div 2 &= 0.0 + 1 \text{.}
     \end{align*}
-    therefore, we have \(z_1 = 67.0 = (1000011)_2\). To normalize this number, we just have to move the decimal point six digits to the left. Since \(z_1\) only has seven digits, we do not need to round. We have
+    Reading the reminders on the left from bottom to top yields \(z_1 = 67.0 = (1000011)_2\). To normalize this number, we move the decimal point seven digits to the left. Since \(z_1\) only has seven digits, we do not need to cut off any digits. We have
     \begin{equation*}
-        z_1 = 67.0 = (1.000011 \times 2^6)_2
+        z_1 = 67.0 = (0.1000011)_2 \times 2^7
     \end{equation*}
+    If one wants to check the validity of the conversion from decimal to binary above, we can check the solution by applying the formula from the other way.
+    \begin{equation*}
+        (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2^7 \cdot \left(\frac{1}{2} + \frac{1}{64} + \frac{1}{128}\right) = 128 \cdot \frac{67}{128} = 67
+    \end{equation*}
+    Now, let's consider the floating point number of \(67.0\). \(N = 7\) is between \(N_{\text{min}} = -5\) and \(N_{\text{max}} = 8\), also \(67.0\) has 7 digits in binary form; therefore, there is no rounding to do which means that \(67.0\) can be represented with the given floating point arithmetic without loss of precision.
+    \begin{equation*}
+        \text{rd}_8(z_1) = (1.000011)_2 \times 2^6
+    \end{equation*}
+    Since there is no loss of precision, one can easily conclude that the absolute and relative error of \(67.0\) and \(\text{rd}_8(67.0)\) is zero.
 \end{exmp}
 \begin{exmp}
-    Let \(z_2 = 287.0\). To find the normalized binary form with respect to ten decimal places, we have
+    Let \(z_2 = 287.0\). To find the normalized binary form with ten decimal place accuracy, we have
     \begin{align*}
         287.0 \div 2 &= 143.0 + 1 \\
         143.0 \div 2 &= 71.0 + 1 \\
@@ -29,8 +75,10 @@
     \end{align*}
     therefore, \(z_2 = 287.0 = (100011111)_2\). Again, there is no need to round any digits. Its normalized binary form is
     \begin{equation*}
-        z_2 = 287.0 = (1.00011111 \times 2^8)_2
+        z_2 = 287.0 = (0.100011111)_2 \times 2^9
     \end{equation*}
+    In this example, we have an exponent \(N = 9\) which is greater than \(N_{\text{max}} = 8\). This means that with the given floating point arithmetic, we have an overflow and \(287.0\) cannot be rounded to a floating point number. Previously \ref{XXX}, we have shown that \(x_{\text{max}} = 255\) which is another reason why \(z_2 > x_{\text{max}}\) cannot be expressed as a floating point number in this context.
+    Most trivially, both absolute and relative error are also undefined for \(287.0\).
 \end{exmp}
 \begin{exmp}
     For a non-integer example, let \(z_3 = 10.625\). To find the binary form of this number, we first separate \(z_3 = 10.0 + 0.625\) and apply the algorithm of \ref{XXX} on each summand. For \(10.0\) we have
