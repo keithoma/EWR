@@ -3,7 +3,7 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
 \begin{exmp} \label{exmp:xmax}
     Given the context as defined above, the largest number that can be represented is \(x_\text{max} = 255\). The calculation is fairly simple; choose the largest exponent possible and fill every digit of the mantissa with ones. In binary, this would be
     \begin{equation*}
-        x_\text{max} = (0.11111111)_2 \times 2^8 \text{,}
+        x_\text{max} = (0.11111111)_2 \times 2^8 = (11111111)_2 \text{,}
     \end{equation*}
     or in decimal
     \begin{align*}
@@ -13,16 +13,24 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \end{align*}
 \end{exmp}
 \begin{exmp}
-    To find the smallest possible positive value in the defined floating point arithmetic, we proceed similary to example \ref{exmp:xmax}. Set the exponent as small as possible and fill the mantissa with zero but the last place. We have in binary
+    To find the smallest possible normalized positive value in the defined floating point arithmetic, we proceed similary to the example \ref{exmp:xmax}. Set the exponent as small as possible and fill the mantissa with zero but the first place. We have in binary
     \begin{equation*}
-        x_\text{min} = (0.00000001)_2 \times 2^{-5}
+        x_\text{n-min} = (0.10000000)_2 \times 2^{-5} = 0.000001
     \end{equation*}
-    which in decimal representation translates to
-    \begin{align*}
-        x_\text{min} &= (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} \\
-        &= 2^{-5} \times \frac{1}{256} \\
-        &= \frac{1}{8192}
-    \end{align*}
+    which in decimal this translates together
+    \begin{equation*}
+        x_\text{n-min} = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2^{-5} \cdot \frac{1}{2} = \frac{1}{32} = 0.03125
+    \end{equation*}
+\end{exmp}
+\begin{exmp}
+    If we do not require the value to be normalized, the smallest possible positive value is much smaller. To find this \(x_\text{min}\), we again set \(N\) to \(-5\) and fill the mantissa with \(0\) except for the last place. We have in binary representation
+    \begin{equation*}
+        x_\text{min} = (0.00000001)_2 \times 2^{-5} = 0.0000000000001
+    \end{equation*}
+    and decimal would be
+    \begin{equation*}
+        x_\text{min} = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2^{-5} \times \frac{1}{256} = \frac{1}{8192} = 0.0001220703125
+    \end{equation*}
 \end{exmp}
 
 % ===================================================================
