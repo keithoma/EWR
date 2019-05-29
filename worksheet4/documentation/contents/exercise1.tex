@@ -1,5 +1,9 @@
 For all following examples, let the mantissa length be \(t = 8\) and the exponent of the floating point arithmetic be bounded by \(N_{\text{min}} = -5\) and \(N_{\text{max}} = 8\).
 %
+% ===================================================================
+% (a)
+% ===================================================================
+%
 \begin{exmp} \label{exmp:xmax}
     Given the context as defined above, the largest number that can be represented is \(x_\text{max} = 255\). The calculation is fairly simple; choose the largest exponent possible and fill every digit of the mantissa with ones. In binary, this would be
     \begin{equation*}
@@ -32,12 +36,13 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
         x_\text{min} = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2^{-5} \times \frac{1}{256} = \frac{1}{8192} = 0.0001220703125
     \end{equation*}
 \end{exmp}
-
-% ===================================================================
-% (a)
-% ===================================================================
-
-
+\begin{exmp}
+    We want to find the margin for the absolute and the relative error. To find the largest possible absolute error, set the exponent to the maximum value and consider two neighboring floating point numbers such as \(1.00000000)_2 \times 2^8\) and \((1.00000001)_2 \times 2^8 = 1\). Worst case scenario, the given number is right in the middle of these two numbers; therefore, the maximum absolute error is \((0.00000001)_2 \times 2^7 = \frac{1}{2}\). This result is also verified by the lemma \ref{XXX}. The same lemma gives us the boundaries for the relative error, \(2^{-8}\). To conclude, we have
+    \begin{align*}
+        0 &\leq \text{absolute error} \leq \frac{1}{2} \\
+        0 &\leq \text{relative error} \leq \frac{2}{256}
+    \end{align*}
+\end{exmp}
 
 % ===================================================================
 % (b)
