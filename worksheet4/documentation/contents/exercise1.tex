@@ -54,20 +54,66 @@
 \begin{exmp}
     Perhaps a more interesting example is needed. Let \(z_4 = 1.01\). As we did in \ref{XXX EXAMPLE ABOVE}, we will separate \(z_4\) in two parts; however, we immediately see that \(1\) is \(1\) in both decimal and binary system. We will therefore consider \(0.01\).
     \begin{align*}
-        0.01 \times 2 = 0.02 + 0 \\
-        0.02 \times 2 = 0.04 + 0 \\
-        0.04 \times 2 = 0.08 + 0 \\
-        0.08 \times 2 = 0.16 + 0 \\
-        0.16 \times 2 = 0.32 + 0 \\
-        0.32 \times 2 = 0.64 + 0 \\
-        1.28 \times 2 = 0.28 + 1 \\
-        0.28 \times 2 = 0.56 + 0 \\
-        0.56 \times 2 = 0.12 + 1 \\
-        0.12 \times 2 = 0.24 + 0
+        0.01 \times 2 &= 0.02 + 0 \\
+        0.02 \times 2 &= 0.04 + 0 \\
+        0.04 \times 2 &= 0.08 + 0 \\
+        0.08 \times 2 &= 0.16 + 0 \\
+        0.16 \times 2 &= 0.32 + 0 \\
+        0.32 \times 2 &= 0.64 + 0 \\
+        1.28 \times 2 &= 0.28 + 1 \\
+        0.28 \times 2 &= 0.56 + 0 \\
+        0.56 \times 2 &= 0.12 + 1 \\
+        0.12 \times 2 &= 0.24 + 0
     \end{align*}
     We could go on, but since we only need to find the normalized binary form with respect to ten decimal places. We have
     \begin{equation*}
-        z_4 = 1.01 = (1.0000001010 \times 2^0)_2
+        z_4 = 1.01 \approx (1.0000001010 \times 2^0)_2
     \end{equation*}
     which is already normalized.
+\end{exmp}
+\begin{exmp}
+    As we already fell into the rabit hole of numbers which have endlessly long binary forms, let's continue with \(z_5 = 0.0002\). For this example, we must stay diligent and iterate many times over the algorithm.
+    \begin{align*}
+        0.0002 \times 2 &= 0.0004 + 0 \\
+        0.0004 \times 2 &= 0.0008 + 0 \\
+        0.0008 \times 2 &= 0.0016 + 0 \\
+        0.0016 \times 2 &= 0.0032 + 0 \\
+        0.0032 \times 2 &= 0.0064 + 0 \\
+        0.0064 \times 2 &= 0.0128 + 0 \\
+        0.0128 \times 2 &= 0.0256 + 0 \\
+        0.0256 \times 2 &= 0.0512 + 0 \\
+        0.0512 \times 2 &= 0.1024 + 0 \\
+        0.1024 \times 2 &= 0.2048 + 0 \\
+        0.2048 \times 2 &= 0.4096 + 0 \\
+        0.4096 \times 2 &= 0.8192 + 0 \\
+        0.8192 \times 2 &= 0.6384 + 1
+    \end{align*}
+    We got our first 1! Now we only have to find a maximum of 10 more digits.
+    \begin{align*}
+        0.6384 \times 2 &= 0.2768 + 1 \\
+        0.2768 \times 2 &= 0.5536 + 0 \\
+        0.5536 \times 2 &= 0.1072 + 1 \\
+        0.1072 \times 2 &= 0.2144 + 0 \\
+        0.2144 \times 2 &= 0.4288 + 0 \\
+        0.4288 \times 2 &= 0.8576 + 0 \\
+        0.8576 \times 2 &= 0.7152 + 1 \\
+        0.7152 \times 2 &= 0.4304 + 1 \\
+        0.4304 \times 2 &= 0.8608 + 0 \\
+        0.8608 \times 2 &= 0.7216 + 1
+    \end{align*}
+    Therefore, we have \(z_5 = 0.0002 \approx (0.00000000000011010001101)_2\) and normalized we have
+    \begin{equation*}
+        z_5 = 0.0002 \approx (1.1010001101 \times 2^{-13})_2
+    \end{equation*}
+\end{exmp}
+\begin{exmp}
+    For the more mathematically minded, we have last but not least \(z_6 = \frac{1}{3}\).
+    \begin{align*}
+        \frac{1}{3} \times 2 &= \frac{2}{3} + 0 \\
+        \frac{2}{3} \times 2 &= \frac{1}{3} + 1
+    \end{align*}
+    We already see a patern here; further calculation is not needed. We simply have
+    \begin{equation*}
+        z_6 = \frac{1}{3} \approx (1.0101010101 \times 2^{-2})_2
+    \end{equation*}
 \end{exmp}
