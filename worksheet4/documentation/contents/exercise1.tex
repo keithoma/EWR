@@ -4,6 +4,8 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
 % (a)
 % ===================================================================
 %
+% (i)
+%
 \begin{exmp} \label{exmp:xmax}
     Given the context as defined above, the largest number that can be represented is \(x_\text{max} = 255\). The calculation is fairly simple; choose the largest exponent possible and fill every digit of the mantissa with ones. In binary, this would be
     \begin{equation*}
@@ -16,6 +18,9 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
         &= 255 \text{.}
     \end{align*}
 \end{exmp}
+%
+% (ii)
+%
 \begin{exmp}
     To find the smallest possible normalized positive value in the defined floating point arithmetic, we proceed similary to the example \ref{exmp:xmax}. Set the exponent as small as possible and fill the mantissa with zero but the first place. We have in binary
     \begin{equation*}
@@ -26,6 +31,9 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
         x_\text{n-min} = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2^{-5} \cdot \frac{1}{2} = \frac{1}{32} = 0.03125
     \end{equation*}
 \end{exmp}
+%
+% (iii)
+%
 \begin{exmp}
     If we do not require the value to be normalized, the smallest possible positive value is much smaller. To find this \(x_\text{min}\), we again set \(N\) to \(-5\) and fill the mantissa with \(0\) except for the last place. We have in binary representation
     \begin{equation*}
@@ -36,6 +44,9 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
         x_\text{min} = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2^{-5} \times \frac{1}{256} = \frac{1}{8192} = 0.0001220703125
     \end{equation*}
 \end{exmp}
+%
+% (iv)
+%
 \begin{exmp}
     We want to find the margin for the absolute and the relative error. To find the largest possible absolute error, set the exponent to the maximum value and consider two neighboring floating point numbers such as \(1.00000000)_2 \times 2^8\) and \((1.00000001)_2 \times 2^8 = 1\). Worst case scenario, the given number is right in the middle of these two numbers; therefore, the maximum absolute error is \((0.00000001)_2 \times 2^7 = \frac{1}{2}\). This result is also verified by the lemma \ref{XXX}. The same lemma gives us the boundaries for the relative error, \(2^{-8}\). To conclude, we have
     \begin{align*}
@@ -43,11 +54,13 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
         0 &\leq \text{relative error} \leq \frac{2}{256}
     \end{align*}
 \end{exmp}
-
+%
 % ===================================================================
 % (b)
 % ===================================================================
-
+%
+% (1)
+%
 \begin{exmp}
     Let \(z_1 = 67.0\). We want to find the normalized binary form of this integer with ten decimal place accuracy. According to lemma \ref{XXX}, we have
     \begin{align*}
@@ -73,6 +86,9 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \end{equation*}
     Since there is no loss of precision, one can easily conclude that the absolute and relative error of \(67.0\) and \(\text{rd}_8(67.0)\) is zero.
 \end{exmp}
+%
+% (2)
+%
 \begin{exmp}
     Let \(z_2 = 287.0\). To find the normalized binary form with ten decimal place accuracy, we have
     \begin{align*}
@@ -90,9 +106,12 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \begin{equation*}
         z_2 = 287.0 = (0.100011111)_2 \times 2^9
     \end{equation*}
-    In this example, we have an exponent \(N = 9\) which is greater than \(N_{\text{max}} = 8\). This means that with the given floating point arithmetic, we have an overflow and \(287.0\) cannot be rounded to a floating point number. Previously \ref{XXX}, we have shown that \(x_{\text{max}} = 255\) which is another reason why \(z_2 > x_{\text{max}}\) cannot be expressed as a floating point number in this context.
+    In this example, we have an exponent \(N = 9\) which is greater than \(N_{\text{max}} = 8\). This means that with the given floating point arithmetic, we have an overflow and \(287.0\) cannot be rounded to a floating point number. In example \ref{exmp:xmax}, we showed that \(x_{\text{max}} = 255\) which is another reason why \(z_2 > x_{\text{max}}\) cannot be expressed as a floating point number in this context.
     Most trivially, both absolute and relative error are also undefined for \(287.0\).
 \end{exmp}
+%
+% (3)
+%
 \begin{exmp}
     For a non-integer example, let \(z_3 = 10.625\). To find the binary form of this number, we first separate \(z_3 = 10.0 + 0.625\) and apply the algorithm of \ref{XXX} on each summand. For \(10.0\) we have
     \begin{align*}
@@ -111,7 +130,15 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \begin{equation*}
         z_3 = 10.625 = (1.010101 \times 2^3)_2 \text{.}
     \end{equation*}
+    Again we see that the exponent is between \(N_{\text{min}} = -5\) and \(N_{\text{min}} = 8\). The mantissa is also short enough; therefore, \(z_3\) is already a floating point number and we have
+    \begin{equation*}
+        \text{rd}_8(z_3) = (1.010101 \times 2^3)_2 \text{.}
+    \end{equation*}
+    Needless to say, the absolute and relative errors are both zero.
 \end{exmp}
+%
+% (4)
+%
 \begin{exmp}
     Perhaps a more interesting example is needed. Let \(z_4 = 1.01\). As we did in \ref{XXX EXAMPLE ABOVE}, we will separate \(z_4\) in two parts; however, we immediately see that \(1\) is \(1\) in both decimal and binary system. We will therefore consider \(0.01\).
     \begin{align*}
@@ -132,6 +159,9 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \end{equation*}
     which is already normalized.
 \end{exmp}
+%
+% (5)
+%
 \begin{exmp}
     As we already fell into the rabit hole of numbers which have endlessly long binary forms, let's continue with \(z_5 = 0.0002\). For this example, we must stay diligent and iterate many times over the algorithm.
     \begin{align*}
