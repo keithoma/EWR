@@ -43,10 +43,6 @@ class Equation:
             equation_context_ (Context): this is the Context object from the decimal library with its 'prec'
             attribute to 'precision_' (see above); again this attribute should be private
 
-            default_x_ (None or Decimal): the user may set a default value for x which is used if no
-            value for x is passed in the functions below; this is also private in order to check the data
-            type before accepting the argument passed as valid
-
         Methods:
             change_precision(self, _precision): changes the precision for the Equation object
 
@@ -88,8 +84,6 @@ class Equation:
         self.precision_ = _precision
         self.equation_context_ = decimal.Context(_precision)
 
-        self.default_x = None
-
 
     def change_precision(self, _precision):
         """
@@ -107,33 +101,69 @@ class Equation:
             Raises:
                 ValueError: if zero or negative values are passed as '_precision'
         """
-        if _precision <= 1:
+        if _precision < 1:
             raise ValueError("Class Equation: The precision must not be 0 or negative.")
 
         self.precision_ = _precision
         self.equation_context_.prec = _precision
 
 
-    def left_side(self, _x = None):
-        _x = self.default_x if _x is None else _x
+    def left_side(self, _x):
+        """
+            She represents the left side of the equation '1/x - 1/(x + 1)'.
+
+            Arguments:
+                _x (int): the value for x; 0 and -1 are not allowed and this function will naturally raise
+                a ZeroDivisionError
+            
+            Returns:
+                (Decimal): the solution for the left side of the equation
+        """
         with decimal.localcontext(self.equation_context_):
             return (D('1') / D(str(_x))) - D('1') / (D(str(_x)) + D('1'))
 
 
-    def right_side(self, _x = None):
-        _x = self.default_x if _x is None else _x
+    def right_side(self, _x):
+        """
+            She represents the left side of the equation '1/x - 1/(x + 1)'.
+
+            Arguments:
+                _x (int): the value for x; 0 and -1 are not allowed and this function will naturally raise
+                a ZeroDivisionError
+            
+            Returns:
+                (Decimal): the solution for the right side of the equation
+        """
         with decimal.localcontext(self.equation_context_):
             return D('1') / (D(str(_x)) * (D(str(_x)) + D('1')))
 
 
-    def absolute_error(self, _x = None):
-        _x = self.default_x if _x is None else _x
+    def absolute_error(self, _x):
+        """
+            This methods computes the absolute difference between 'left_side(self, _x)' and
+            'right_side(self, _x)'.
+
+            Arguments:
+                _x (int): the value for x for the equation
+
+            Returns:
+                (Decimal): the absolute difference between both side of the equation
+        """
         with decimal.localcontext(self.equation_context_):
             return abs(self.left_side(_x) - self.right_side(_x))
 
 
-    def relative_error(self, _x = None):
-        _x = self.default_x if _x is None else _x
+    def relative_error(self, _x):
+        """
+            This methods computes the relative difference between 'left_side(self, _x)' and
+            'right_side(self, _x)'.
+
+            Arguments:
+                _x (int): the value for x for the equation
+
+            Returns:
+                (Decimal): the relative difference between both side of the equation
+        """
         with decimal.localcontext(self.equation_context_):
             return abs((self.left_side(_x) - self.right_side(_x)) / self.right_side(_x))
 
