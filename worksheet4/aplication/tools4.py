@@ -10,8 +10,8 @@
 # ----------------------------------------------------------------------------------------------------------
 
 # in class Equation, würde es nicht besser sein wenn die Funktionen static oder class methods wären?
-# in main() teste ich verschiedene Sachen aus und habe gerade ein if-Switch, der bestimmt von Pylint bemäckert
-# wird
+# in main() teste ich verschiedene Sachen aus und habe gerade ein if-Switch, der bestimmt von Pylint
+# bemäckert wird
 # wie macht man solche Sachen am besten?
 
 
@@ -64,18 +64,18 @@ class Equation:
     """
     def __init__(self, _precision = 28):
         """
-            She constructs an equation object with respect to the desired precision.
+        She constructs an equation object with respect to the desired precision.
 
-            Arguments:
-                _precision (int): the precision for the decimal.Decimal object; must not be zero or
-                negative; is directly stored under 'precision_'; the default value is 28, the same as the
-                default value in the decimal library
-            
-            Returns:
-                nothing
+        Arguments:
+            _precision (int): the precision for the decimal.Decimal object; must not be zero or negative;
+            is directly stored under 'precision_'; the default value is 28, the same as the default value in
+            the decimal library
+        
+        Returns:
+            nothing
 
-            Raises:
-                ValueError: if zero or negative values are passed as '_precision'
+        Raises:
+            ValueError: if zero or negative values are passed as '_precision'
         """
         if _precision <= 1:
             raise ValueError("Class Equation: The precision must not be 0 or negative.")
@@ -169,18 +169,17 @@ class Equation:
 
 
 
-    def draw_absolute_error(self, _x = None):
-        """Zeichnet einen Graph für den absoluten Fehler für eine gegebenen
-        Variable in Abhängigkeit von der Mantissenlänge.
-        Args:
-            vari (float): die Variable wofür die Abweichung der zwei Gleichungen
-                          berechnet werden soll
-        To-Do:
-        * Der Graph muss noch für die relative Abhängigkeit gezeichnet werden.
-        * Der Graph brauch noch Labels wahrscheinlich.
+    def draw_absolute_error(self, _x):
         """
-        _x = self.default_x if _x is None else _x
+        She draws a two dimensional graph of the absolute error of the equation for a fixed x depending on
+        the mantissa length
+    
+        Arguments:
+            _x (int): the fixed x for which the graph is drawn
 
+        Returns:
+            nothing
+        """
         # values for the x-axis (mantissa length)
         x_axis = np.arange(1, 28, 1)
 
@@ -202,17 +201,17 @@ class Equation:
         plt.show()
 
 
-    def draw_relative_error(self, _x = None):
-        """Zeichnet einen Graph für den relativen Fehler für eine gegebenen
-        Variable in Abhängigkeit von der Mantissenlänge.
-        Args:
-            vari (float): die Variable wofür die Abweichung der zwei Gleichungen
-                          berechnet werden soll
-        To-Do:
-        * Der Graph muss noch für die relative Abhängigkeit gezeichnet werden.
-        * Der Graph brauch noch Labels wahrscheinlich.
+    def draw_relative_error(self, _x):
         """
-        _x = self.default_x if _x is None else _x
+        She draws a two dimensional graph of the absolute error of the equation for a fixed x depending on
+        the mantissa length
+    
+        Arguments:
+            _x (int): the fixed x for which the graph is drawn
+
+        Returns:
+            nothing
+        """
         # values for the x-axis (mantissa length)
         x_axis = np.arange(1, 28, 1)
 
@@ -249,9 +248,8 @@ def explore_machine_epsilon(float_type):
 
         Returns:
             epsilon (float_type): the machine precision; its data type corresponds to the data type passed
-                                  as the argument
+            as the argument
     """
-    # remember that one can pass functions as arguments in Python
     epsilon = float_type(1.0)
 
     while float_type(1.0 + epsilon * 0.5) != 1.0:
@@ -265,7 +263,10 @@ def main():
         WRITE THIS.
     """
 
-    if False:
+    # set here what to test
+    test_switch = {'epsilon': False, 'equation': False, 'draw': True}
+
+    if test_switch['epsilon']:
         float_type_list = (np.float16, np.float32, np.float64)  
 
         print("In the following we print out for each given floating type the name of the type, the precision" +
@@ -285,9 +286,10 @@ def main():
             print("              {0}".format(explore_machine_epsilon(each)))
             print("it should be: {0}".format(np.finfo(each).eps))
             print("alternativly: {0}\n".format(alternative))
+        
+        print("\n\n")
 
-
-    if False:
+    if test_switch['equation']:
         print("Now we will test the class Equation.")
         print("\n\n")
 
@@ -309,11 +311,15 @@ def main():
             print("rel error:  {0}".format(obj2.relative_error(number)))
             print("\n--------------------\n")
 
+        print("\n\n")
 
-    if True:
-        obj3 = Equation(-1)
-        obj3.draw_absolute_error(5)
-        obj3.draw_relative_error(5)
+    if test_switch['draw']:
+        draw_graph_x = 5
+        print("We will draw the graph for x = {0}".format(draw_graph_x))
+        obj3 = Equation()
+        obj3.draw_absolute_error(draw_graph_x)
+        obj3.draw_relative_error(draw_graph_x)
+        print("\n\n")
 
 
 
