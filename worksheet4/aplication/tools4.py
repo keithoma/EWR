@@ -10,7 +10,8 @@
 # ----------------------------------------------------------------------------------------------------------
 
 # in class Equation, würde es nicht besser sein wenn die Funktionen static oder class methods wären?
-# in main() teste ich verschiedene Sachen aus und habe gerade ein if-Switch, der bestimmt von Pylint bemäckert wird
+# in main() teste ich verschiedene Sachen aus und habe gerade ein if-Switch, der bestimmt von Pylint bemäckert
+# wird
 # wie macht man solche Sachen am besten?
 
 
@@ -30,18 +31,85 @@ D = decimal.Decimal
 
 class Equation:
     """
-        WRITE THIS.
+        This is more of an auxiliary class to store the given equation '1/x - 1/(x + 1) = 1/(x * (x + 1))',
+        and the two formulas which returns the absolute and the relative error. It can also draw graphs for
+        both of the errors.
+
+        Attributes:
+            precision_ (int): the precision set for the whole Equation object; every term inside of an
+            Equation object adheres to this precision; note that this attribute should be private and must
+            not be changed unless 'change_precision(self, _precision)' is called
+
+            equation_context_ (Context): this is the Context object from the decimal library with its 'prec'
+            attribute to 'precision_' (see above); again this attribute should be private
+
+            default_x_ (None or Decimal): the user may set a default value for x which is used if no
+            value for x is passed in the functions below; this is also private in order to check the data
+            type before accepting the argument passed as valid
+
+        Methods:
+            change_precision(self, _precision): changes the precision for the Equation object
+
+            left_side(self, _x): the left side of the equation, '1/x - 1/(x + 1)'
+            
+            right_side(self, _x): the right side of the equation, '1/(x * (x + 1))'
+
+            absolute_error(self, _x): the absolute difference of 'left_side(self, _x)' and 'right_side(self,
+            _x)'
+
+            relative_error(self, _x): the relative difference of 'left_side(self, _x)' and 'right_side(self,
+            _x)'
+
+            draw_absolute_error(self, _x): draws an two dimensional graph using matplotlib of
+            'absolute_error(self, _x)' for a fixed x
+
+            draw_relative_error(self, _x): draws an two dimensional graph using matplotlib of
+            'relative_error(self, _x)' for a fixed x
     """
-    def __init__(self, _precision = 9, _default_x = None):
+    def __init__(self, _precision = 28):
+        """
+            She constructs an equation object with respect to the desired precision.
+
+            Arguments:
+                _precision (int): the precision for the decimal.Decimal object; must not be zero or
+                negative; is directly stored under 'precision_'; the default value is 28, the same as the
+                default value in the decimal library
+            
+            Returns:
+                nothing
+
+            Raises:
+                ValueError: if zero or negative values are passed as '_precision'
+        """
+        if _precision <= 1:
+            raise ValueError("Class Equation: The precision must not be 0 or negative.")
 
         # set precision for the equation object locally
         self.precision_ = _precision
         self.equation_context_ = decimal.Context(_precision)
 
-        self.default_x = _default_x
+        self.default_x = None
 
 
     def change_precision(self, _precision):
+        """
+            Since merely changing the 'precision_' attribute from the outside won't do anything, this
+            methods allows the user to change the precision for a given object by correctly changing the
+            'prec' attribute of the Context object
+
+            Arguments:
+                _precision (int): the precision for the decimal.Decimal object; must not be zero or
+                negative; is directly stored under 'precision_'
+            
+            Returns:
+                nothing
+
+            Raises:
+                ValueError: if zero or negative values are passed as '_precision'
+        """
+        if _precision <= 1:
+            raise ValueError("Class Equation: The precision must not be 0 or negative.")
+
         self.precision_ = _precision
         self.equation_context_.prec = _precision
 
@@ -143,8 +211,8 @@ class Equation:
 
 def explore_machine_epsilon(float_type):
     """
-        This little algorithm tries to find the machine precision of the given float type such as
-        np.float16 iterativly.
+        This little algorithm tries to find the machine precision of the given float type, such as
+        np.float16, iterativly.
 
         Arguments:
             float_type (class): the class for the float type we want to inspect; e.g. np.float32
@@ -213,7 +281,7 @@ def main():
 
 
     if True:
-        obj3 = Equation(1)
+        obj3 = Equation(-1)
         obj3.draw_absolute_error(5)
         obj3.draw_relative_error(5)
 
