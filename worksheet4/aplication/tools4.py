@@ -174,7 +174,7 @@ class Equation:
     def draw_absolute_error(self, _x):
         """
         She draws a two dimensional graph of the absolute error of the equation for a fixed x depending on
-        the mantissa length
+        the mantissa length.
 
         Arguments:
             _x (int): the fixed x for which the graph is drawn
@@ -205,8 +205,8 @@ class Equation:
 
     def draw_relative_error(self, _x):
         """
-        She draws a two dimensional graph of the absolute error of the equation for a fixed x depending on
-        the mantissa length
+        She draws a two dimensional graph of the relative error of the equation for a fixed x depending on
+        the mantissa length.
 
         Arguments:
             _x (int): the fixed x for which the graph is drawn

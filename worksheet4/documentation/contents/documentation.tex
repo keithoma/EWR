@@ -1,0 +1,141 @@
+\section{Documentation of tools4.py and ab4.py}
+\subsection{tools4.py Library API}
+\subsubsection{Imports}
+\texttt{tools4.py} requires three libraries namely \texttt{decimal}, \texttt{numpy} and \texttt{matplotlib.pyplot}. \texttt{decimal} is used to control the mantissa length for a given floating point number; we import \texttt{numpy} for its float data types; and finally, we use \texttt{matplotlib.pyplot} to draw the plot for the absolute and relative error.
+\subsubsection{class Equation}
+This is more of an auxiliary class to store the given equation
+\begin{equation*}
+    \frac{1}{x} - \frac{1}{x + 1} = \frac{1}{x (x + 1)} \text{,}
+\end{equation*}
+and the two formulas which returns the absolute and the relative error. He can also draw graphs for both of
+the errors.
+\paragraph{Attributes}
+\begin{itemize}
+    \item precision\_ (int): the precision set for the whole Equation object; every term inside of an Equation
+    object adheres to this precision; note that this attribute should be private and must not be changed
+    unless 'change\_precision(self, \_precision)' is called
+    \item equation\_context\_ (Context): this is the Context object from the decimal library with its 'prec'
+    attribute to 'precision\_' (see above); again this attribute should be private
+\end{itemize}
+\paragraph{\_\_init\_\_(self, \_precision=28)}
+\subparagraph*{Arguments}
+\begin{enumerate}
+    \item \_precision (int): the precision for the decimal.Decimal object; must not be zero or negative; is directly stored under 'precision\_'; the default value is 28, the same as the default value in the decimal library
+\end{enumerate}
+\subparagraph*{Returns}
+\begin{itemize}
+    \item nothing
+\end{itemize}
+\subparagraph*{Raises}
+\begin{itemize}
+    \item ValueError: if zero or negative values are passed as '\_precision'
+\end{itemize}
+\subparagraph*{Description}
+She constructs an equation object with respect to the desired precision.
+\paragraph{change\_precision(self, \_precision)}
+\subparagraph*{Arguments}
+\begin{enumerate}
+    \item \_precision (int): the precision for the decimal.Decimal object; must not be zero or negative; is
+    directly stored under 'precision\_'
+\end{enumerate}
+\subparagraph*{Returns}
+\begin{itemize}
+    \item nothing
+\end{itemize}
+\subparagraph*{Raises}
+\begin{itemize}
+    \item ValueError: if zero or negative values are passed as '\_precision'
+\end{itemize}
+\subparagraph*{Description}
+Since merely changing the 'precision\_' attribute from the outside won't do anything, this method allows the user to change the precision for a given object by correctly changing the 'prec' attribute of the Context object
+\paragraph{left\_side(self, \_x)}
+\subparagraph*{Arguments}
+\begin{enumerate}
+    \item \_x (int): the value for x; 0 and -1 are not allowed and this function will naturally raise a ZeroDivisionError
+\end{enumerate}
+\subparagraph*{Returns}
+\begin{itemize}
+    \item (Decimal): the solution for the left side of the equation
+\end{itemize}
+\subparagraph*{Description}
+She represents the left side of the equation
+\begin{equation*}
+    \frac{1}{x} - \frac{1}{x + 1} \text{.}
+\end{equation*}
+\paragraph{right\_side(self, \_x)}
+\subparagraph*{Arguments}
+\begin{enumerate}
+    \item \_x (int): the value for x; 0 and -1 are not allowed and this function will naturally raise a ZeroDivisionError
+\end{enumerate}
+\subparagraph*{Returns}
+\begin{itemize}
+    \item (Decimal): the solution for the right side of the equation
+\end{itemize}
+\subparagraph*{Description}
+She represents the left side of the equation
+\begin{equation*}
+    \frac{1}{x (x + 1)} \text{.}
+\end{equation*}
+\paragraph{absolute\_error(self, \_x)}
+\subparagraph*{Arguments}
+\begin{enumerate}
+    \item \_x (int): the value for x for the equation
+\end{enumerate}
+\subparagraph*{Returns}
+\begin{itemize}
+    \item (Decimal): the absolute difference between both side of the equation
+\end{itemize}
+\subparagraph*{Description}
+This methods computes the absolute difference between 'left\_side(self, \_x)' and 'right\_side(self, \_x)'.
+\paragraph{relative\_error(self, \_x)}
+\subparagraph*{Arguments}
+\begin{enumerate}
+    \item \_x (int): the value for x for the equation
+\end{enumerate}
+\subparagraph*{Returns}
+\begin{itemize}
+    \item (Decimal): the relative difference between both side of the equation
+\end{itemize}
+\subparagraph*{Description}
+This methods computes the relative difference between 'left\_side(self, \_x)' and
+\paragraph{draw\_absolute\_error(self, \_x)}
+\subparagraph*{Arguments}
+\begin{enumerate}
+    \item \_x (int): the fixed x for which the graph is drawn
+\end{enumerate}
+\subparagraph*{Returns}
+\begin{itemize}
+    \item nothing
+\end{itemize}
+\subparagraph*{Description}
+She draws a two dimensional graph of the absolute error of the equation for a fixed x depending on the mantissa length.
+\paragraph{draw\_relative\_error(self, \_x)}
+\subparagraph*{Arguments}
+\begin{enumerate}
+    \item \_x (int): the fixed x for which the graph is drawn
+\end{enumerate}
+\subparagraph*{Returns}
+\begin{itemize}
+    \item nothing
+\end{itemize}
+\subparagraph*{Description}
+She draws a two dimensional graph of the relative error of the equation for a fixed x depending on the mantissa length.
+\subsubsection{Free Functions}
+\paragraph{explore\_machine\_epsilon(float\_type)}
+\subparagraph*{Arguments}
+\begin{enumerate}
+    \item float\_type (class): the class for the float type we want to inspect e.g. np.float32;
+\end{enumerate}
+\subparagraph*{Returns}
+\begin{itemize}
+    \item epsilon (float\_type): the machine precision; its data type corresponds to the data type passed as the argument
+\end{itemize}
+\subparagraph*{Description}
+This little algorithm tries to find the machine precision of the given float type, such as np.float16, iterativly. See section \ref{XXX} for the validity of this algorithm.
+\subsubsection{main()}
+She is our main-function. Use the switch, 'test\_switch', to test various capabilities of this module.
+Here, we use as an alternative means to find the machine precision the following formula
+\begin{equation*}
+    \tau = \frac{7}{3} - \frac{4}{3} - 1
+\end{equation*}
+for the validity of this formula see section \ref{XXX}.
