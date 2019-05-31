@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 """
 In this module, we implemented the class Equation which represents '1/x - 1/(x + 1) = 1/(x * (x + 1))'.
 Each instance of this class is initalized with a fixed mantissa length to evaluate both side of this

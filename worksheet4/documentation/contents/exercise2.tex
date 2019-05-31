@@ -61,7 +61,7 @@ There are special values reserved on the computer. These are \(+\infty\), \(-\in
 %
 \begin{definition}
     \begin{equation*}
-        \tau := \text{max} \left\{ \left| \frac{\text{rd}_t(x) - x}{x}\right|, \left| \frac{\text{rd}_t(x) - x}{\text{rd}_t(x)} \right| \right\} \leq 2^{-t} \\
+        \tau := 2^{-t} \geq \text{max} \left\{ \left| \frac{\text{rd}_t(x) - x}{x}\right|, \left| \frac{\text{rd}_t(x) - x}{\text{rd}_t(x)} \right| \right\} \\
     \end{equation*}
     is called the relative machine precision.  \cite{bib:rabus}
 \end{definition}
@@ -73,6 +73,9 @@ There are special values reserved on the computer. These are \(+\infty\), \(-\in
             \includegraphics[width=0.4\textwidth]{graphics/machine_epsilon_flowchart}
         \caption{algorithm to find the relative machine precision}\label{fig:epsilon}
       \end{figure}
+\begin{proof}
+    By definition \(\tau = \frac{1}{2^{-t}}\). Consider \(\text{rd}_t(\frac{1}{2^{t+1}})\). This is by definition rounded to 0, but \(\text{rd}_t(\frac{1}{2^{t}})\) is not. Therefore, let \(x_p\) be the output of the algorithm. Then, \(p = t\) and we have \(x_p = \tau\).
+\end{proof}
 \end{theorem}
 
 \begin{theorem}

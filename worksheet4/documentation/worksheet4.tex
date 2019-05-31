@@ -6,6 +6,7 @@
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 
+\usepackage{url}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage[dvipsnames]{xcolor} 
@@ -14,6 +15,8 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
+
+%\usepackage{natbib}
 
 \usepackage{listings}
 
@@ -54,7 +57,6 @@
 \section{Introduction}
 %
 \input{contents/introduction}
-\newpage
 %
 \section{Theoretical Results}
 %
@@ -64,13 +66,19 @@
 %
 \input{contents/manual}
 \input{contents/documentation}
-\section{Reality}
 %
+\input{contents/experiments}
+%
+\newpage
 \section{Bibliography}
 \begin{thebibliography}{9}
     \bibitem{bib:rabus} 
     Dr. rer. nat. Hella Rabus. 
     \textit{Vorlesung Einfuehrung in das wissenschaftliche Rechnen}. 
     lecture notes, Humboldt-University of Berlin, 2019.
+    \bibitem{bib:numpy}
+    The Scipy community.
+    \textit{Data types}
+    NumPy v1.13 Manual, \url{https://docs.scipy.org/doc/numpy-1.13.0/user/basics.types.html}, Accessed: 2019-05-31
 \end{thebibliography}
 \end{document}

@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 """
 This module is equipped with capabilities to take the user's input which is then passed to the functions
 implemented in tools4.py. The main purpose of ab4.py is to test the equation
