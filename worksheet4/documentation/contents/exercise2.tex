@@ -61,7 +61,35 @@ There are special values reserved on the computer. These are \(+\infty\), \(-\in
 %
 \begin{definition}
     \begin{equation*}
-        \tau := \text{max} \left\{ \left( \frac{\text{rd}_t(x) - x}{x}\right), \left( \frac{\text{rd}_t(x) - x}{\text{rd}_t(x)} \right) \right\} \\
+        \tau := \text{max} \left\{ \left| \frac{\text{rd}_t(x) - x}{x}\right|, \left| \frac{\text{rd}_t(x) - x}{\text{rd}_t(x)} \right| \right\} \leq 2^{-t} \\
     \end{equation*}
     is called the relative machine precision.  \cite{bib:rabus}
 \end{definition}
+
+\begin{theorem}
+    The relative machine precision can be computed with the algorithm illustrated in figure \ref{fig:epsilon}.
+    \begin{figure}[h]
+        \centering
+            \includegraphics[width=0.4\textwidth]{graphics/machine_epsilon_flowchart}
+        \caption{algorithm to find the relative machine precision}\label{fig:epsilon}
+      \end{figure}
+\end{theorem}
+
+\begin{theorem}
+    Using a computer, the relative machine precision can be computed in the following manner
+    \begin{equation*}
+        \tau = \left|\frac{7}{3} - \frac{3}{4} - 1\right|
+    \end{equation*}
+\begin{proof}
+    We will first evaluate \(\frac{7}{3} - \frac{4}{3}\). We have
+    \begin{align}
+        \text{rd}_t(\frac{7}{3}) &= \text{rd}_t((10.\overline{01})_2) = \text{rd}_t((0.10\overline{01})_2 \times 2^2) \\
+        \text{rd}_t(\frac{4}{3}) &= \text{rd}_t((1.\overline{01})_2) = \text{rd}_t((0.1\overline{01})_2 \times 2^1)
+    \end{align}
+    The decimal places of the two numbers only differ in placing. Therefore, if we wound the two numbers above one will be rounded up and the other will be rounded down, and we have
+    \begin{equation*}
+        \left|\text{rd}_t(\frac{7}{3}) - \text{rd}_t(\frac{4}{3})\right| = 2^2 \cdot \sum_{i=1}^{t} \frac{1}{2} - \frac{1}{4} + 0 + \dots + 0 + \frac{1}{2^t} = 1 + \frac{1}{2^t}
+    \end{equation*}
+    If we subtract \(1\) from the last term, we get \(\tau = \frac{1}{2^t}\) as desired.
+\end{proof}
+\end{theorem}
