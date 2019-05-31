@@ -49,7 +49,7 @@ class Equation:
         change_precision(self, _precision): changes the precision for the Equation object
 
         left_side(self, _x): the left side of the equation, '1/x - 1/(x + 1)'
-        
+
         right_side(self, _x): the right side of the equation, '1/(x * (x + 1))'
 
         absolute_error(self, _x): the absolute difference of 'left_side(self, _x)' and 'right_side(self,
@@ -64,7 +64,7 @@ class Equation:
         draw_relative_error(self, _x): draws an two dimensional graph of 'relative_error(self, _x)' for a
         fixed x using matplotlib
     """
-    def __init__(self, _precision = 28):
+    def __init__(self, _precision=28):
         """
         She constructs an equation object with respect to the desired precision.
 
@@ -72,7 +72,7 @@ class Equation:
             _precision (int): the precision for the decimal.Decimal object; must not be zero or negative; is
             directly stored under 'precision_'; the default value is 28, the same as the default value in
             the decimal library
-        
+
         Returns:
             nothing
 
@@ -96,7 +96,7 @@ class Equation:
         Arguments:
             _precision (int): the precision for the decimal.Decimal object; must not be zero or negative; is
             directly stored under 'precision_'
-        
+
         Returns:
             nothing
 
@@ -117,7 +117,7 @@ class Equation:
         Arguments:
             _x (int): the value for x; 0 and -1 are not allowed and this function will naturally raise a
             ZeroDivisionError
-        
+
         Returns:
             (Decimal): the solution for the left side of the equation
         """
@@ -132,7 +132,7 @@ class Equation:
         Arguments:
             _x (int): the value for x; 0 and -1 are not allowed and this function will naturally raise a
             ZeroDivisionError
-        
+
         Returns:
             (Decimal): the solution for the right side of the equation
         """
@@ -175,7 +175,7 @@ class Equation:
         """
         She draws a two dimensional graph of the absolute error of the equation for a fixed x depending on
         the mantissa length
-    
+
         Arguments:
             _x (int): the fixed x for which the graph is drawn
 
@@ -197,7 +197,7 @@ class Equation:
 
         axe.set_title("absolute error for x = " + str(_x))
         axe.set_xlabel("mantissa length")
-        axe.set_ylabel("absolute error")   
+        axe.set_ylabel("absolute error")
 
         plt.plot(x_axis, y_axis)
         plt.show()
@@ -207,7 +207,7 @@ class Equation:
         """
         She draws a two dimensional graph of the absolute error of the equation for a fixed x depending on
         the mantissa length
-    
+
         Arguments:
             _x (int): the fixed x for which the graph is drawn
 
@@ -271,7 +271,7 @@ def main():
 
     # test here the machine precision of different data types
     if test_switch['epsilon']:
-        float_type_list = (np.float16, np.float32, np.float64)  
+        float_type_list = (np.float16, np.float32, np.float64)
 
         print("In the following we print out for each given floating type the name of the type, the" +
               "precision found by the algorithm (see explore_machine_epsilon(float_type), the actual" +
@@ -282,7 +282,7 @@ def main():
         for each in float_type_list:
             # the following is an alternative way to calculate the machine precision; for the validity of
             # this formula see the documentation
-            alternative = each(abs(each(7 / 3) - each(4 / 3) - each(1.0)))  
+            alternative = each(abs(each(7 / 3) - each(4 / 3) - each(1.0)))
 
             # padding in the second line added for readability
             # "__name__" returns the name of the class; such as "np.float16"
@@ -290,7 +290,7 @@ def main():
             print("              {0}".format(explore_machine_epsilon(each)))
             print("it should be: {0}".format(np.finfo(each).eps))
             print("alternativly: {0}\n".format(alternative))
-        
+
         print("\n\n")
 
     # test here the Equation class

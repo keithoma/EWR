@@ -15,8 +15,10 @@ License. You may obtain a copy of the License at: http://opensource.org/licenses
 """
 
 
-import tools4
 import numpy as np
+
+
+import tools4
 
 
 class _EndOfInput(Exception):
@@ -32,7 +34,7 @@ def get_uint(prompt_text):
 
     Arguments:
         prompt_text (string): the string displayed to the user
-    
+
     Raises:
         _EndOfInput: this is raised when the user wants to exit the application; used to exit the
         application in 'main()'
@@ -56,7 +58,7 @@ def get_x_and_mantissa_length():
 
     Arguments:
         nothing
-    
+
     Returns:
         (int, int): a a pair of two ints input by the user
     """
