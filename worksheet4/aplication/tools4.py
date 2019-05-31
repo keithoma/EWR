@@ -1,7 +1,20 @@
 """
-    forged by:
+In this module, we implemented the class Equation which represents '1/x - 1/(x + 1) = 1/(x * (x + 1))'.
+Each instance of this class is initalized with a fixed mantissa length to evaluate both side of this
+equation in order to observe the effect of decimal rounding in the floating point arithmetic.
+
+Furtheremore, we provided a function which approximates machine epsilon for a given floating type such as
+np.float16.
+
+forged by:
     Christian Parpart
     Kei Thoma (574 613)
+
+This file is part of the "The Lost World between Zero and Machine Epsilon" project.
+(c) 2019 Christian Parpart <christian@parpart.family>
+(c) 2019 Kei Thoma <thomakmj@gmail.com>
+Licensed under the MIT License (the "License"); you may not use this file except in compliance with the
+License. You may obtain a copy of the License at: http://opensource.org/licenses/MIT
 """
 
 import decimal
@@ -233,7 +246,7 @@ def explore_machine_epsilon(float_type):
     iterativly.
 
     Arguments:
-        float_type (class): the class for the float type we want to inspect; e.g. np.float32
+        float_type (class): the class for the float type we want to inspect e.g. np.float32;
 
     Returns:
         epsilon (float_type): the machine precision; its data type corresponds to the data type passed
@@ -246,13 +259,15 @@ def explore_machine_epsilon(float_type):
 
     return epsilon
 
-
 def main():
     """
-        WRITE THIS.
+    She is our main-function. Use the switch, 'test_switch', to test various capabilities of this module.
+    (See the docstring for more information.)
     """
     # set here what to test
     test_switch = {'epsilon': False, 'equation': False, 'draw': True}
+
+    print(globals()['__doc__'])
 
     # test here the machine precision of different data types
     if test_switch['epsilon']:
