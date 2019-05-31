@@ -4,10 +4,10 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
 % (a)
 % ===================================================================
 %
-% (i)
+% (i) SHOULD BE RIGHT
 %
 \begin{exmp} \label{exmp:xmax}
-    Given the context as defined above, the largest number that can be represented is \(x_\text{max} = 255\). The calculation is fairly simple; choose the largest exponent possible and fill every digit of the mantissa with ones. In binary, this would be
+    Given the context as defined above, the largest number that can be represented is \(x_\text{max} = 255\). The calculation is fairly simple, choose the largest exponent possible and fill every digit of the mantissa with ones. In binary, this would be
     \begin{equation*}
         x_\text{max} = (0.11111111)_2 \times 2^8 = (11111111)_2 \text{,}
     \end{equation*}
@@ -19,39 +19,39 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \end{align*}
 \end{exmp}
 %
-% (ii)
+% (ii) SHOULD BE RIGHT
 %
 \begin{exmp}
-    To find the smallest possible normalized positive value in the defined floating point arithmetic, we proceed similary to the example \ref{exmp:xmax}. Set the exponent as small as possible and fill the mantissa with zero but the first place. We have in binary
+    To find the smallest possible normalized positive value in the defined floating point arithmetic, we proceed similary to the example \ref{exmp:xmax}. Set the exponent as small as possible and fill the mantissa with zeros but the first place. We have in binary
     \begin{equation*}
-        x_\text{n-min} = (0.10000000)_2 \times 2^{-5} = 0.000001
+        x_\text{norm. min} = (0.10000000)_2 \times 2^{-4}
     \end{equation*}
-    which in decimal this translates together
+    which in decimal this translates to
     \begin{equation*}
-        x_\text{n-min} = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2^{-5} \cdot \frac{1}{2} = \frac{1}{32} = 0.03125
+        x_\text{norm. min} = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2^{-4} \cdot \frac{1}{2} = \frac{1}{32} = 0.03125
     \end{equation*}
 \end{exmp}
 %
-% (iii)
+% (iii) SHOULD BE RIGHT
 %
 \begin{exmp}
-    If we do not require the value to be normalized, the smallest possible positive value is much smaller. To find this \(x_\text{min}\), we again set \(N\) to \(-5\) and fill the mantissa with \(0\) except for the last place. We have in binary representation
+    If we do not require the value to be normalized, the smallest possible positive value is much smaller. To find \(x_\text{min}\), we again set \(N\) to \(-4\) and fill the mantissa with \(0\) except for the last place. We have in binary representation
     \begin{equation*}
-        x_\text{min} = (0.00000001)_2 \times 2^{-5} = 0.0000000000001
+        x_\text{min} = (0.00000001)_2 \times 2^{-4}
     \end{equation*}
     and decimal would be
     \begin{equation*}
-        x_\text{min} = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2^{-5} \times \frac{1}{256} = \frac{1}{8192} = 0.0001220703125
+        x_\text{min} = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2^{-4} \times \frac{1}{256} = \frac{1}{4096} = 0.000244140625
     \end{equation*}
 \end{exmp}
 %
-% (iv)
+% (iv) SHOULD BE RIGHT
 %
 \begin{exmp}
-    We want to find the margin for the absolute and the relative error. To find the largest possible absolute error, set the exponent to the maximum value and consider two neighboring floating point numbers such as \(1.00000000)_2 \times 2^8\) and \((1.00000001)_2 \times 2^8 = 1\). Worst case scenario, the given number is right in the middle of these two numbers; therefore, the maximum absolute error is \((0.00000001)_2 \times 2^7 = \frac{1}{2}\). This result is also verified by the lemma \ref{XXX}. The same lemma gives us the boundaries for the relative error, \(2^{-8}\). To conclude, we have
+    We want to find the margin for the absolute and the relative error. To find the largest possible absolute error, set the exponent to the maximum value and consider two neighboring floating point numbers such as \((1.00000000)_2 \times 2^8\) and \((1.00000001)_2 \times 2^8 = 1\). Worst case scenario, the given number is right in the middle of these two numbers; therefore, the maximum absolute error is \((0.00000001)_2 \times 2^7 = \frac{1}{2}\). This result is also verified by the lemma \ref{XXX}. The same lemma gives us the boundaries for the relative error, \(2^{-8}\). To conclude, we have
     \begin{align*}
         0 &\leq e_\text{abs} \leq \frac{1}{2} \\
-        0 &\leq e_\text{rel} \leq \frac{2}{256}
+        0 &\leq e_\text{rel} \leq \frac{1}{256}
     \end{align*}
 \end{exmp}
 %
@@ -59,7 +59,7 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
 % (b)
 % ===================================================================
 %
-% (1)
+% (1) SHOULD BE RIGHT
 %
 \begin{exmp}
     Let \(z_1 = 67.0\). We want to find the normalized binary form of this integer with ten decimal place accuracy. According to lemma \ref{XXX}, we have
@@ -82,12 +82,12 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \end{equation*}
     Now, let's consider the floating point number of \(67.0\). \(N = 7\) is between \(N_{\text{min}} = -5\) and \(N_{\text{max}} = 8\), also \(67.0\) has 7 digits in binary form; therefore, there is no rounding to do which means that \(67.0\) can be represented with the given floating point arithmetic without loss of precision.
     \begin{equation*}
-        \text{rd}_8(z_1) = (1.000011)_2 \times 2^6
+        \text{rd}_8(z_1) = (0.1000011)_2 \times 2^7
     \end{equation*}
     Since there is no loss of precision, one can easily conclude that the absolute and relative error of \(67.0\) and \(\text{rd}_8(67.0)\) is zero.
 \end{exmp}
 %
-% (2)
+% (2) SHOULD BE RIGHT
 %
 \begin{exmp}
     Let \(z_2 = 287.0\). To find the normalized binary form with ten decimal place accuracy, we have
@@ -106,8 +106,8 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \begin{equation*}
         z_2 = 287.0 = (0.100011111)_2 \times 2^9
     \end{equation*}
-    In this example, we have an exponent \(N = 9\) which is greater than \(N_{\text{max}} = 8\). This means that with the given floating point arithmetic, we have an overflow and \(287.0\) cannot be rounded to a floating point number. In example \ref{exmp:xmax}, we showed that \(x_{\text{max}} = 255\) which is another reason why \(z_2 > x_{\text{max}}\) cannot be expressed as a floating point number in this context.
-    Most trivially, both absolute and relative error are also undefined for \(287.0\).
+    In this example, we have an exponent \(N = 9\) which is greater than \(N_{\text{max}} = 8\). This means that with the given floating point arithmetic, we have an overflow and \(287.0\) cannot be sensibly rounded to a floating point number (instead, computing with the given arithmetic, \(z_2\) is the same as \(+\infty\)). In example \ref{exmp:xmax}, we showed that \(x_{\text{max}} = 255\) which is another reason for a overflow.
+    According to IEEE 754 standard, both absolute and relative error are also infinity for \(287.0\).
 \end{exmp}
 %
 % (3)
@@ -126,9 +126,9 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
         0.25 \times 2 &= 0.5 + 0 \\
         0.5 \times 2 &= 0.0 + 1
     \end{align*}
-    Combining both results together, we get \(z_3 = (1010.101)_2\). To normalize, we move the decimal place three digits to the left and we have
+    Combining both results together, we get \(z_3 = (1010.101)_2\). To normalize, we move the decimal place four digits to the left and we have
     \begin{equation*}
-        z_3 = 10.625 = (1.010101 \times 2^3)_2 \text{.}
+        z_3 = 10.625 = (0.1010101 \times 2^4)_2 \text{.}
     \end{equation*}
     Again we see that the exponent is between \(N_{\text{min}} = -5\) and \(N_{\text{min}} = 8\). The mantissa is also short enough; therefore, \(z_3\) is already a floating point number and we have
     \begin{equation*}
@@ -137,7 +137,7 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     Needless to say, the absolute and relative errors are both zero.
 \end{exmp}
 %
-% (4)
+% (4) SHOULD BE RIGHT
 %
 \begin{exmp}
     Perhaps a more interesting example is needed. Let \(z_4 = 1.01\). As we did in \ref{XXX EXAMPLE ABOVE}, we will separate \(z_4\) in two parts; however, we immediately see that \(1\) is \(1\) in both decimal and binary system. We will therefore consider \(0.01\).
@@ -150,16 +150,16 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
         0.32 \times 2 &= 0.64 + 0 \\
         1.28 \times 2 &= 0.28 + 1 \\
         0.28 \times 2 &= 0.56 + 0 \\
-        0.56 \times 2 &= 0.12 + 1 \\
-        0.12 \times 2 &= 0.24 + 0
+        0.56 \times 2 &= 0.12 + 1
     \end{align*}
     We could go on, but since we only need to find the normalized binary form with respect to ten decimal places. We have
     \begin{equation*}
-        z_4 = 1.01 \approx (1.0000001010)_2 \times 2^0
+        %1.00000010100011110101110000101
+        z_4 = 1.01 \approx (1.000000101)_2 \times 2^0
     \end{equation*}
     and in normalized form
     \begin{equation*}
-        z_4 = 1.01 \approx (0.10000001010)_2 \times 2^1
+        z_4 = 1.01 \approx (0.1000000101)_2 \times 2^1
     \end{equation*}
     Using the formula from lemma \ref{XXX}, we have the floating point number
     \begin{equation*}
@@ -167,14 +167,16 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \end{equation*}
     For the absolute and relative error we have
     \begin{align*}
+        % 0.0021875
         e_\text{abs} &= \left| {rd}_8(1.01) - 1.01 \right| \\
         &= 0.0021875 \\
         e_\text{rel} &= \left| \frac{{rd}_8(1.01) - 1.01}{{rd}_8(1.01)} \right| \\
         &= \frac{7}{3225} \approx 0.00217
+        % 0.002170542635658914
     \end{align*}
 \end{exmp}
 %
-% (5)
+% (5) SHOULD BE RIGHT
 %
 \begin{exmp}
     As we already fell into the rabit hole of numbers which have endlessly long binary forms, let's continue with \(z_5 = 0.0002\). For this example, we must stay diligent and iterate many times over the algorithm.
@@ -206,11 +208,23 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
         0.4304 \times 2 &= 0.8608 + 0 \\
         0.8608 \times 2 &= 0.7216 + 1
     \end{align*}
+    % 1.1010001101101110001011101011..._2×2^-13
     Therefore, we have \(z_5 = 0.0002 \approx (0.00000000000011010001101)_2\) and normalized we have
     \begin{equation*}
-        z_5 = 0.0002 \approx (0.1101000110 \times 2^{-12})_2 \text{.}
+        z_5 = 0.0002 \approx (0.1101000110)_2 \times 2^{-12} \text{.}
     \end{equation*}
-    
+    Following the formula from \ref{XXX} we have with \(n := N_{\text{min}} - N = -5 + 12 = 7\)
+    \begin{align*}
+        \text{rd}_8(z_5) &= (-1)^{\nu} \cdot 2^{N_\text{min}} \cdot \left( \sum_{j = n + 1}^{t} x_{j-n}2^{-j} + 2^{-t} \right) \\
+        &= 2^{-5} \cdot \left(\sum_{j = 8}^8 x_{j-7} \cdot 2^{-j} + 2^{-8} \right) \\
+        &= \frac{1}{4096} \approx 0.000244140625
+    \end{align*}
+    since \(x_{t + 1 - 7} = x_2 = 1\).
+    We have for the absolute and the relative error
+    \begin{align*}
+        e_{\text{abs}} &= \left| 0.0002 - \frac{1}{4096} \right| = \frac{113}{2560000} \approx 4.4140 \times 10^{-5} \\
+        e_{\text{rel}} &= \frac{\left| 0.0002 - \frac{1}{4096} \right|}{\frac{1}{4096}} = \frac{113}{625} = 0.1808
+    \end{align*}
 \end{exmp}
 \begin{exmp}
     For the more mathematically minded, we have last but not least \(z_6 = \frac{1}{3}\).
@@ -218,24 +232,34 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
         \frac{1}{3} \times 2 &= \frac{2}{3} + 0 \\
         \frac{2}{3} \times 2 &= \frac{1}{3} + 1
     \end{align*}
-    We already see a patern here; further calculation is not needed. We simply have
+    We already see a patern here; further calculations are not needed. We simply have
     \begin{equation*}
-        z_6 = \frac{1}{3} \approx (1.0101010101 \times 2^{-2})_2
+        z_6 = \frac{1}{3} \approx (0.1010101010)_2 \times 2^{-1})
     \end{equation*}
+    To find the floating point we have
+    \begin{align*}
+        \text{rd}_8(z_6) =& (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} \\
+        =& 2^{-1} \cdot \left(\frac{1}{2} + \frac{1}{8} + \frac{1}{32} + \frac{1}{128} \right) = \frac{85}{256} = 0.33203125 \text{,}
+    \end{align*}
+    and for its errors
+    \begin{align*}
+        e_{\text{abs}} &= \left| \frac{1}{3} - \frac{85}{256} \right| = \frac{1}{768} \approx 0.001302083 \\
+        e_{\text{rel}} &= \frac{\left| \frac{1}{3} - \frac{85}{256} \right|}{\frac{85}{256}} = \frac{1}{255} \approx 0.00392156 \text{.}
+    \end{align*}
 \end{exmp}
 %
-For posterity and stripped from tedious calculation, in the following is a table summerizing the results of \ref{XXX}.
-\begin{center}
-    \begin{tabular}{| c | c |}
-        \hline
-        decimal representation & normalized binary representation\\
-        \hline
-        \(67.0\) & \(1.000011 \times 2^6\) \\
-        \(287.0\) & \(1.00011111 \times 2^8\) \\
-        \(10.625\) & \(1.010101 \times 2^3\) \\
-        \(1.01\) & \(1.0000001010 \times 2^0\) \\
-        \(0.0002\) & \(1.1010001101 \times 2^{-13}\) \\
-        \(\frac{1}{3}\) & \(1.0101010101 \times 2^{-2}\) \\
-        \hline
-    \end{tabular}
-\end{center}
+%For posterity and stripped from tedious calculation, in the following is a table summerizing the results of \ref{XXX}.
+%\begin{center}
+%    \begin{tabular}{| c | c |}
+%        \hline
+%        decimal representation & normalized binary representation\\
+%        \hline
+%        \(67.0\) & \(1.000011 \times 2^6\) \\
+%        \(287.0\) & \(1.00011111 \times 2^8\) \\
+%        \(10.625\) & \(1.010101 \times 2^3\) \\
+%        \(1.01\) & \(1.0000001010 \times 2^0\) \\
+%        \(0.0002\) & \(1.1010001101 \times 2^{-13}\) \\
+%        \(\frac{1}{3}\) & \(1.0101010101 \times 2^{-2}\) \\
+%        \hline
+%    \end{tabular}
+%\end{center}
