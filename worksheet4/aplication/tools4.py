@@ -79,7 +79,7 @@ class Equation:
         Raises:
             ValueError: if zero or negative values are passed as '_precision'
         """
-        if _precision <= 1:
+        if _precision < 1:
             raise ValueError("Class Equation: The precision must not be 0 or negative.")
 
         # set precision for the equation object locally

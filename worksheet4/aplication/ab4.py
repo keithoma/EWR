@@ -86,8 +86,8 @@ def precision_calculation(_x, _significand):
         nothing
     """
     equation = tools4.Equation(_significand)
-    print("y = {}".format(equation.left_side(_x)))
-    print("z = {}".format(equation.right_side(_x)))
+    print("left side = {}".format(equation.left_side(_x)))
+    print("right side = {}".format(equation.right_side(_x)))
     print()
     print("absolute error: {}".format(equation.absolute_error(_x)))
     print("relative error: {}".format(equation.relative_error(_x)))
