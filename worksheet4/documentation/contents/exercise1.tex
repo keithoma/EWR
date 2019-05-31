@@ -1,3 +1,4 @@
+\subsection{Examples}
 For all following examples, let the mantissa length be \(t = 8\) and the exponent of the floating point arithmetic be bounded by \(N_{\text{min}} = -5\) and \(N_{\text{max}} = 8\).
 %
 % ===================================================================
@@ -48,7 +49,7 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
 % (iv) SHOULD BE RIGHT
 %
 \begin{exmp}
-    We want to find the margin for the absolute and the relative error. To find the largest possible absolute error, set the exponent to the maximum value and consider two neighboring floating point numbers such as \((1.00000000)_2 \times 2^8\) and \((1.00000001)_2 \times 2^8 = 1\). Worst case scenario, the given number is right in the middle of these two numbers; therefore, the maximum absolute error is \((0.00000001)_2 \times 2^7 = \frac{1}{2}\). This result is also verified by the lemma \ref{XXX}. The same lemma gives us the boundaries for the relative error, \(2^{-8}\). To conclude, we have
+    We want to find the margin for the absolute and the relative error. To find the largest possible absolute error, set the exponent to the maximum value and consider two neighboring floating point numbers such as \((1.00000000)_2 \times 2^8\) and \((1.00000001)_2 \times 2^8 = 1\). Worst case scenario, the given number is right in the middle of these two numbers; therefore, the maximum absolute error is \((0.00000001)_2 \times 2^7 = \frac{1}{2}\). This result is also verified by the lemma \ref{theo:margin}. The same lemma gives us the boundaries for the relative error, \(2^{-8}\). To conclude, we have
     \begin{align*}
         0 &\leq e_\text{abs} \leq \frac{1}{2} \\
         0 &\leq e_\text{rel} \leq \frac{1}{256}
@@ -61,8 +62,8 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
 %
 % (1) SHOULD BE RIGHT
 %
-\begin{exmp}
-    Let \(z_1 = 67.0\). We want to find the normalized binary form of this integer with ten decimal place accuracy. According to lemma \ref{XXX}, we have
+\begin{exmp}\label{exmp:z1}
+    Let \(z_1 = 67.0\). We want to find the normalized binary form of this integer with ten decimal place accuracy. According to lemma \ref{theo:bina}, we have
     \begin{align*}
         67.0 \div 2 &= 33.0 + 1 \\
         33.0 \div 2 &= 16.0 + 1 \\
@@ -112,8 +113,8 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
 %
 % (3)
 %
-\begin{exmp}
-    For a non-integer example, let \(z_3 = 10.625\). To find the binary form of this number, we first separate \(z_3 = 10.0 + 0.625\) and apply the algorithm of \ref{XXX} on each summand. For \(10.0\) we have
+\begin{exmp} \label{exmp:three}
+    For a non-integer example, let \(z_3 = 10.625\). To find the binary form of this number, we first separate \(z_3 = 10.0 + 0.625\) and apply the algorithm of \ref{theo:bina} on each summand. For \(10.0\) we have
     \begin{align*}
         10.0 \div 2 &= 5.0 + 0 \\
         5.0 \div 2 &= 2.0 + 1 \\
@@ -140,7 +141,7 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
 % (4) SHOULD BE RIGHT
 %
 \begin{exmp}
-    Perhaps a more interesting example is needed. Let \(z_4 = 1.01\). As we did in \ref{XXX EXAMPLE ABOVE}, we will separate \(z_4\) in two parts; however, we immediately see that \(1\) is \(1\) in both decimal and binary system. We will therefore consider \(0.01\).
+    Perhaps a more interesting example is needed. Let \(z_4 = 1.01\). As we did in \ref{exmp:three}, we will separate \(z_4\) in two parts; however, we immediately see that \(1\) is \(1\) in both decimal and binary system. We will therefore consider \(0.01\).
     \begin{align*}
         0.01 \times 2 &= 0.02 + 0 \\
         0.02 \times 2 &= 0.04 + 0 \\
@@ -161,7 +162,7 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \begin{equation*}
         z_4 = 1.01 \approx (0.1000000101)_2 \times 2^1
     \end{equation*}
-    Using the formula from lemma \ref{XXX}, we have the floating point number
+    Using the formula from lemma \ref{theo:bina}, we have the floating point number
     \begin{equation*}
         \text{rd}_8(z_4) = (-1)^{\nu} \cdot 2^N \cdot \sum_{i=1}^{t}x_i \beta^{-i} = 2 \cdot \left(\frac{1}{2} + \frac{1}{256}\right) = \frac{129}{128} = 1.0078125 \text{.}
     \end{equation*}
@@ -213,7 +214,7 @@ For all following examples, let the mantissa length be \(t = 8\) and the exponen
     \begin{equation*}
         z_5 = 0.0002 \approx (0.1101000110)_2 \times 2^{-12} \text{.}
     \end{equation*}
-    Following the formula from \ref{XXX} we have with \(n := N_{\text{min}} - N = -5 + 12 = 7\)
+    Following the formula from \ref{theo:round} we have with \(n := N_{\text{min}} - N = -5 + 12 = 7\)
     \begin{align*}
         \text{rd}_8(z_5) &= (-1)^{\nu} \cdot 2^{N_\text{min}} \cdot \left( \sum_{j = n + 1}^{t} x_{j-n}2^{-j} + 2^{-t} \right) \\
         &= 2^{-5} \cdot \left(\sum_{j = 8}^8 x_{j-7} \cdot 2^{-j} + 2^{-8} \right) \\

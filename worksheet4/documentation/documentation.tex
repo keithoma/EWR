@@ -13,14 +13,17 @@
 
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{amssymb}
 
 \usepackage{listings}
 
 \pagestyle{fancy}
 
 \theoremstyle{definition}
-\newtheorem{lemm}{lemma}[section]
-\newtheorem{exmp}{Example}[section]
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{exmp}{Example}
+\newtheorem{remark}{Remark}
 
 \begin{document}
 %
@@ -39,8 +42,9 @@
 \section{Introduction}
 %
 \input{contents/introduction}
+\newpage
 %
-\section{Theory}
+\section{Theoretical Results}
 %
 \input{contents/exercise2}
 \input{contents/exercise1}
@@ -50,4 +54,10 @@
 \section{Reality}
 %
 \section{Bibliography}
+\begin{thebibliography}{9}
+    \bibitem{bib:rabus} 
+    Dr. rer. nat. Hella Rabus. 
+    \textit{Vorlesung Einfuehrung in das wissenschaftliche Rechnen}. 
+    lecture notes, Humboldt-University of Berlin, 2019.
+\end{thebibliography}
 \end{document}
