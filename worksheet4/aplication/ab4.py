@@ -23,7 +23,7 @@ import tools4
 
 class _EndOfInput(Exception):
     """
-    Auxiliary class for easy out of 'get_uint(prompt_text)'
+    Auxiliary (exception) class for easy out of 'get_uint(prompt_text)'
     """
     pass
 
@@ -34,6 +34,9 @@ def get_uint(prompt_text):
 
     Arguments:
         prompt_text (string): the string displayed to the user
+
+    Returns:
+        num (int): non-zero positive integer input by the user
 
     Raises:
         _EndOfInput: this is raised when the user wants to exit the application; used to exit the
@@ -54,7 +57,7 @@ def get_uint(prompt_text):
 
 def get_x_and_mantissa_length():
     """
-    Auxiliary function to return valid user input.
+    Auxiliary function which returns valid user input using 'get_uint(prompt_text)'
 
     Arguments:
         nothing

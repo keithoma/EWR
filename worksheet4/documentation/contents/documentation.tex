@@ -1,5 +1,5 @@
 \section{Documentation of tools4.py and ab4.py}
-\subsection{tools4.py Library API}
+\subsection{tools4.py Library}
 \subsubsection{Imports}
 \texttt{tools4.py} requires three libraries namely \texttt{decimal}, \texttt{numpy} and \texttt{matplotlib.pyplot}. \texttt{decimal} is used to control the mantissa length for a given floating point number; we import \texttt{numpy} for its float data types; and finally, we use \texttt{matplotlib.pyplot} to draw the plot for the absolute and relative error.
 \subsubsection{class Equation}
@@ -139,3 +139,56 @@ Here, we use as an alternative means to find the machine precision the following
     \tau = \frac{7}{3} - \frac{4}{3} - 1
 \end{equation*}
 for the validity of this formula see section \ref{XXX}.
+%
+%
+%
+%
+%
+\subsection{ab4.py CLI}
+This module is equipped with capabilities to take the user's input which is then passed to the functions implemented in tools4.py. The main purpose of ab4.py is to test the equation 
+\begin{equation*}
+    \frac{1}{x} - \frac{1}{x + 1} = \frac{1}{x (x + 1)}
+\end{equation*}
+controlling for x and the mantissa length.
+\subsubsection{class \_EndOfInput}
+Auxiliary (exception) class for easy out of 'get\_uint(prompt\_text)'
+\subsubsection{get\_uint(prompt\_text)}
+\paragraph*{Arguments}
+\begin{enumerate}
+    \item prompt\_text (string): the string displayed to the user
+\end{enumerate}
+\paragraph*{Returns}
+\begin{itemize}
+    \item num (int): non-zero positive integer input by the user
+\end{itemize}
+\paragraph*{Raises}
+\begin{itemize}
+    \item \_EndOfInput: this is raised when the user wants to exit the application; used to exit the application in 'main()'
+\end{itemize}
+\paragraph*{Description}
+Auxiliary function. She forces the user to enter a positive integer.
+\subsubsection{get\_x\_and\_mantissa\_length()}
+\paragraph*{Arguments}
+\begin{enumerate}
+    \item nothing
+\end{enumerate}
+\paragraph*{Returns}
+\begin{itemize}
+    \item (int, int): a a pair of two ints input by the user
+\end{itemize}
+\paragraph*{Description}
+Auxiliary function which returns valid user input using 'get\_uint(prompt\_text)'
+\subsubsection{precision\_calculation(\_x, \_significand)}
+\paragraph*{Arguments}
+\begin{enumerate}
+    \item \_x (int): an unsigned int for which the equation is evaluated
+    \item  \_significand (int): an unsigned int for the mantissa length; this is used to calculate the absolute and the relative error, but is not used to draw the plot since there the mantissa length is the variable
+\end{enumerate}
+\paragraph*{Returns}
+\begin{itemize}
+    \item nothing
+\end{itemize}
+\paragraph*{Description}
+She calculates both errors for a given x and mantissa length ('\_significand'). Also draws the plot with the mantissa length as the variable.
+\subsubsection{main()}
+The main function. She takes user's input for x and the length of the mantissa to calculate the absolute and the relative error. A corresponding graph is also drawn.
