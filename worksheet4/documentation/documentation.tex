@@ -19,6 +19,7 @@
 \pagestyle{fancy}
 
 \theoremstyle{definition}
+\newtheorem{lemm}{lemma}[section]
 \newtheorem{exmp}{Example}[section]
 
 \begin{document}
@@ -27,7 +28,8 @@
 % TITLEPAGE & TABLE OF CONTENTS
 % ----------------------------------------------------------------------------------------------------------
 %
-\include{contents/titlepage}
+\input{contents/titlepage}
+\newpage
 %
 % ----------------------------------------------------------------------------------------------------------
 % CONTENTS
@@ -36,11 +38,12 @@
 % change section names later
 \section{Introduction}
 %
-\include{contents/introduction}
+\input{contents/introduction}
 %
 \section{Theory}
 %
-\include{contents/exercise1}
+\input{contents/exercise2}
+\input{contents/exercise1}
 %
 \section{Documentation}
 %
