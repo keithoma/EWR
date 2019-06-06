@@ -20,7 +20,9 @@ License. You may obtain a copy of the License at: http://opensource.org/licenses
 
 import decimal
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
+matplotlib.use('TkAgg')
 
 
 # for ease of use
@@ -200,7 +202,7 @@ class Equation:
         axe.set_xlabel("mantissa length")
         axe.set_ylabel("absolute error")
 
-        plt.plot(x_axis, y_axis)
+        plt.semilogy(x_axis, y_axis)
         plt.show()
 
 
@@ -232,7 +234,41 @@ class Equation:
         axe.set_xlabel("mantissa length")
         axe.set_ylabel("relative error")
 
-        plt.plot(x_axis, y_axis)
+        plt.semilogy(x_axis, y_axis)
+        plt.show()
+
+
+    def draw_errors_together(self, _x):
+        """
+        She draws a two dimensional graph of both errors togehter.
+
+        Arguments:
+            _x (int): the fixed x for which the graph is drawn
+
+        Returns:
+            nothing
+        """
+        # values for the x-axis (mantissa length)
+        x_axis = np.arange(1, 28, 1)
+
+        # values for the y-axis
+        absolute_error_axis = []
+        relative_error_axis = []
+        for significand in x_axis:
+            self.change_precision(int(significand))
+            absolute_error_axis.append(self.absolute_error(_x))
+            relative_error_axis.append(self.relative_error(_x))
+
+        # draw
+        fig = plt.figure()
+        axe = fig.add_subplot(1, 1, 1)
+
+        axe.set_title("relative error for x = " + str(_x))
+        axe.set_xlabel("mantissa length")
+        axe.set_ylabel("relative error")
+
+        plt.semilogy(x_axis, absolute_error_axis)
+        plt.semilogy(x_axis, relative_error_axis)
         plt.show()
 
 

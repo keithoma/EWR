@@ -95,6 +95,7 @@ def precision_calculation(_x, _significand):
     print()
     equation.draw_absolute_error(_x)
     equation.draw_relative_error(_x)
+    equation.draw_errors_together(_x)
 
 def main():
     """
