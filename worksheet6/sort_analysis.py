@@ -109,16 +109,53 @@ class HeapSort:
 class QuickSort:
     @staticmethod
     def partition(p, low, high, stats):
+        """
+        Arguments:
+            p (list):
+            low ():
+            high ():
+            stats (StatsBuilder):
+
+        Returns:
+            (int):
+        """
+
+        # nested functions
         def is_less(a, b):
+            """
+            This is an auxilary function which compares the two arguments 'a' and 'b'. If 'a' is strictly
+            smaller than 'b' she returns True and False otherwise. Also, the 'compare()' function from the
+            StatsBuilder class is called which adds 1 to the 'compares_' attribute (this is the reason why
+            this function is not redundant).
+
+            Arguments:
+                a (???)
+                b (???)
+            
+            Returns:
+                (bool): True if 'a' is strictly smaller than 'b' and False otherwise
+            """
             stats.compare()
             return a < b
 
         def inc_i_and_swap_at(i, j):
-            """ increments i and swaps p[i] with p[j] """
+            """
+            Another auxilary function which increments the argument 'i' and swaps p[i] and p[j]. As with
+            the function above, she calls the 'swap()' function from StatsBuilder class which adds 1 to the
+            'swaps_' attribute. Finally, the incremented 'i' is returned.
+
+            Arguments:
+                i (int): the first index to be swapped in p
+                j (int): the second index to be swapped in p
+            
+            Returns:
+                (int): the incremented i; so ++i is returned
+            """
             i = i + 1
             stats.swap()
             p[i], p[j] = p[j], p[i]
             return i
+        # end of nested functions
 
         i = low - 1
         pivot = p[high]
@@ -131,11 +168,23 @@ class QuickSort:
         return inc_i_and_swap_at(i, high)
 
     @staticmethod
-    def sort_range(p, low, high, stats):
-        stats.enter()
+    def sort_range(_partition, _low, _high, _stats):
+        """
+        This static method sorts the given list 'p' recursivly.
 
-        if low < high:
-            p_i = QuickSort.partition(p, low, high, stats)
+        Arguments:
+            p (list): the list to be sorted
+            low (int): the starting index of the list to be sorted
+            high (int): the last index of the list to be sorted
+            stats (StatsBuilder):
+
+        Returns:
+            None
+        """
+        _stats.enter()
+
+        if _low < _high:
+            p_i = QuickSort.partition(_partition, _low, _high, _stats)
             if p_i > 0:
                 QuickSort.sort_range(p, low, p_i - 1, stats)
             QuickSort.sort_range(p, p_i + 1, high, stats)
@@ -143,12 +192,26 @@ class QuickSort:
         stats.leave()
 
     @staticmethod
-    def sort(a):
+    def sort(_list):
+        """
+        Arguments:
+            _list (list): the list to be sorted with quicksort
+        
+        Returns:
+            (StatsBuilder):
+        """
         stats = StatsBuilder()
-        n = len(a)
-        if n != 0:
-            QuickSort.sort_range(a, 0, n - 1, stats)
+        list_length = len(_list)
+
+        # if the length of 'a' is exactly 0, there is no need to sort
+        if list_length != 0 or list_length != 1:
+            QuickSort.sort_range(_list, 0, list_length - 1, stats)
         return stats
+
+
+
+
+
 
 # as per home-assignment
 def sort_A(a):
