@@ -108,20 +108,20 @@ class HeapSort:
 
 class QuickSort:
     @staticmethod
-    def partition(p, low, high, stats):
+    def partition(_partition, _low, _high, _stats):
         """
         Arguments:
-            p (list):
-            low ():
-            high ():
-            stats (StatsBuilder):
+            _partition (list):
+            _low ():
+            _high ():
+            _stats (StatsBuilder):
 
         Returns:
             (int):
         """
 
         # nested functions
-        def is_less(a, b):
+        def is_less(_a, _b):
             """
             This is an auxilary function which compares the two arguments 'a' and 'b'. If 'a' is strictly
             smaller than 'b' she returns True and False otherwise. Also, the 'compare()' function from the
@@ -135,10 +135,10 @@ class QuickSort:
             Returns:
                 (bool): True if 'a' is strictly smaller than 'b' and False otherwise
             """
-            stats.compare()
-            return a < b
+            _stats.compare()
+            return _a < _b
 
-        def inc_i_and_swap_at(i, j):
+        def inc_i_and_swap_at(_i, _j):
             """
             Another auxilary function which increments the argument 'i' and swaps p[i] and p[j]. As with
             the function above, she calls the 'swap()' function from StatsBuilder class which adds 1 to the
@@ -151,21 +151,21 @@ class QuickSort:
             Returns:
                 (int): the incremented i; so ++i is returned
             """
-            i = i + 1
-            stats.swap()
-            p[i], p[j] = p[j], p[i]
-            return i
+            _i = _i + 1
+            _stats.swap()
+            _partition[_i], _partition[_j] = _partition[_j], _partition[_i]
+            return _i
         # end of nested functions
 
-        i = low - 1
-        pivot = p[high]
+        i = _low - 1
+        pivot = _partition[_high]
 
-        for j in range(low, high):
-            stats.iterate()
-            if is_less(p[j], pivot):
+        for j in range(_low, _high):
+            _stats.iterate()
+            if is_less(_partition[j], pivot):
                 i = inc_i_and_swap_at(i, j)
 
-        return inc_i_and_swap_at(i, high)
+        return inc_i_and_swap_at(i, _high)
 
     @staticmethod
     def sort_range(_partition, _low, _high, _stats):
@@ -186,17 +186,17 @@ class QuickSort:
         if _low < _high:
             p_i = QuickSort.partition(_partition, _low, _high, _stats)
             if p_i > 0:
-                QuickSort.sort_range(p, low, p_i - 1, stats)
-            QuickSort.sort_range(p, p_i + 1, high, stats)
+                QuickSort.sort_range(_partition, _low, p_i - 1, _stats)
+            QuickSort.sort_range(_partition, p_i + 1, _high, _stats)
 
-        stats.leave()
+        _stats.leave()
 
     @staticmethod
     def sort(_list):
         """
         Arguments:
             _list (list): the list to be sorted with quicksort
-        
+
         Returns:
             (StatsBuilder):
         """
