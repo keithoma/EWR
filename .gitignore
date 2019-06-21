@@ -1,5 +1,6 @@
 
 /worksheet3/gcd.bin
+build/
 
 *.aux
 *.fls
