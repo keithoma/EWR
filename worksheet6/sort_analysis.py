@@ -8,6 +8,7 @@
 # the License at: http://opensource.org/licenses/MIT
 
 import time
+from functools import reduce
 
 class StatsBuilder:
     def __init__(self):
@@ -167,13 +168,10 @@ def _private_test():
     def test_algo(name, sort, words):
         stats = sort(words)
         print("{}: {}".format(name, stats))
-        for w in words:
-            print("  word: {}".format(w))
+        print("  sorted: {}".format(reduce((lambda a, w: a + ' ' + w), words)))
 
     words = ["F", "A", "C", "B"] # read_words_from_file("test.txt")
-    print("input list:")
-    for w in words:
-        print("  word: {}".format(w))
+    print("input list: {}".format(reduce((lambda a, w: a + ' ' + w), words)))
 
     test_algo("quicksort", QuickSort.sort, words[:])
     test_algo("heapsort", HeapSort.sort, words[:])
