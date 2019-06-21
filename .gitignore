@@ -1,10 +1,11 @@
 
+/worksheet3/gcd.bin
+
 *.aux
 *.fls
 *.log
-week3/documentation.synctex(busy)
 *.fdb_latexmk
 *.gz
 *.toc
-week3/gcd.bin
-*.synctex(busy)
+*.pyc
+*.synctex*
