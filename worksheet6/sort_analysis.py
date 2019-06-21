@@ -129,8 +129,8 @@ class QuickSort:
             this function is not redundant).
 
             Arguments:
-                a (???)
-                b (???)
+                _a (int): the left side integer to be compared with '<'
+                _b (int): the right side integer to be compared with '<'
             
             Returns:
                 (bool): True if 'a' is strictly smaller than 'b' and False otherwise
@@ -145,9 +145,9 @@ class QuickSort:
             'swaps_' attribute. Finally, the incremented 'i' is returned.
 
             Arguments:
-                i (int): the first index to be swapped in p
-                j (int): the second index to be swapped in p
-            
+                _i (int): the first index to be swapped in p
+                _j (int): the second index to be swapped in p
+
             Returns:
                 (int): the incremented i; so ++i is returned
             """
@@ -195,7 +195,8 @@ class QuickSort:
     def sort(_list):
         """
         Arguments:
-            _list (list): the list to be sorted with quicksort
+            _list (list): the list to be sorted, each element must implement the comparison operator for <
+            (__lt__)
 
         Returns:
             (StatsBuilder):
@@ -203,8 +204,8 @@ class QuickSort:
         stats = StatsBuilder()
         list_length = len(_list)
 
-        # if the length of 'a' is exactly 0, there is no need to sort
-        if list_length != 0 or list_length != 1:
+        # if the list_length is exactly 0 or 1, there is no need to sort
+        if list_length != 0 and list_length != 1:
             QuickSort.sort_range(_list, 0, list_length - 1, stats)
         return stats
 
