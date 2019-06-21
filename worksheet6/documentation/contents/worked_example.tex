@@ -1,0 +1,109 @@
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | l | }
+      \hline
+      7 & 1 & 5 & 4 & 9 & 2 & 8 & 3 & 0 &\cellcolor{LightCyan}6 &find the \color{cyan}pivot\\ \hline % i = -1
+      \color{red}1 & \color{red}7 & 5 & 4 & 9 & 2 & 8 & 3 & 0 &\cellcolor{LightCyan}6 &swap \(\color{red}7\) and \(\color{red}1\)\\ \hline % i = 0
+      1 & \color{red}5 & \color{red}7 & 4 & 9 & 2 & 8 & 3 & 0 &\cellcolor{LightCyan}6 &swap \(\color{red}7\) and \(\color{red}5\)\\ \hline % i = 1
+      1 & 5 & \color{red}4 & \color{red}7 & 9 & 2 & 8 & 3 & 0 &\cellcolor{LightCyan}6 &swap \(\color{red}7\) and \(\color{red}4\)\\ \hline % i = 2
+      1 & 5 & 4 & \color{red}2 & 9 & \color{red} 7 & 8 & 3 & 0 &\cellcolor{LightCyan}6 &swap \(\color{red}7\) and \(\color{red}2\)\\ \hline % i = 3
+      1 & 5 & 4 & 2 & \color{red}3 & 7 & 8 & \color{red}9 & 0 &\cellcolor{LightCyan}6 &swap \(\color{red}9\) and \(\color{red}3\)\\ \hline % i = 4
+      1 & 5 & 4 & 2 & 3 & \color{red}0 & 8 & 9 & \color{red}7 &\cellcolor{LightCyan}6 &swap \(\color{red}7\) and \(\color{red}0\)\\ \hline % i = 5
+      1 & 5 & 4 & 2 & 3 & 0 & \color{cyan}6 & 9 & 7 & \color{red}8 &swap \(\color{red}8\) and the {\color{cyan}pivot}\\ \hline % i = 6 p_i = 6
+    \end{tabular}
+\end{center}
+
+Now, the pivot \(6\) is on the right place and every element on the left side is smaller and every element on the right side is larger than the pivot.
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c || c || c | c | c | }
+        \hline
+        1 & 5 & 4 & 2 & 3 & 0 & \cellcolor{LightCyan}6 & 9 & 7 & 8 \\ \hline
+    \end{tabular}
+\end{center}
+
+We partition the sequence into two smaller ones and apply the algorithm on each.
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | l | }
+        \hline
+        1 & 5 & 4 & 2 & 3 & \cellcolor{LightCyan}0 & find the {\color{cyan}pivot}\\ \hline
+        \color{cyan}0 & 5 & 4 & 2 & 3 & \color{red}1 & swap \(\color{red}1\) and the {\color{cyan}pivot}\\ \hline
+    \end{tabular}
+\end{center}
+
+The pivot \(0\) is correctly placed.
+
+\begin{center}
+    \begin{tabular}{ || c || c | c | c | c | c | }
+        \hline
+        \cellcolor{LightCyan}0 & 5 & 4 & 2 & 3 & 1 \\ \hline
+    \end{tabular}
+\end{center}
+
+Since there is no left side of the pivot, we proceed with the right side.
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | l | }
+        \hline
+        5 & 4 & 2 & 3 & \cellcolor{LightCyan}1 & find the {\color{cyan}pivot} \\ \hline
+        \color{cyan}1 & 4 & 2 & 3 & \color{red}5 & swap \(\color{red}5\) and the {\color{cyan}pivot} \\ \hline
+    \end{tabular}
+\end{center}
+
+Again, \(1\) is placed correctly in the far left. The following sequence is left.
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | }
+        \hline
+        \cellcolor{LightCyan}1 & 4 & 2 & 3 & 5 \\ \hline
+    \end{tabular}
+\end{center}
+
+Now we have
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | l | }
+        \hline
+        4 & 2 & 3 & \cellcolor{LightCyan}5 & find the {\color{cyan}pivot} \\ \hline
+    \end{tabular}
+\end{center}
+
+since the pivot \(5\) is already correctly placed, there is no swapping to do. We continue with
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | l | }
+        \hline
+        4 & 2 & \cellcolor{LightCyan}3 & find the {\color{cyan}pivot} \\ \hline
+        \color{red}2 & \color{red}4 & \cellcolor{LightCyan}3 & swap \(\color{red}4\) and \(\color{red}2\) \\ \hline
+        2 & \color{cyan}3 & \color{red}4 & swap \(\color{red}4\) and the {\color{cyan}pivot} \\ \hline
+    \end{tabular}
+\end{center}
+
+After this, the left side of the inital partition is correctly sorted.
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c || c || c | c | c | }
+        \hline
+        0 & 1 & 2 & 3 & 4 & 5 & \cellcolor{LightCyan}6 & 9 & 7 & 8 \\ \hline
+    \end{tabular}
+\end{center}
+
+We continue with the right side.
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | l |}
+        \hline
+        9 & 7 & \cellcolor{LightCyan}8 & find the {\color{cyan}pivot} \\ \hline
+        \color{red}7 & \color{red}9 & \cellcolor{LightCyan}8 & swap \(\color{red}9\) and \(\color{red}7\) \\ \hline
+        7 & \color{cyan}8 & \color{red}9 & swap \(\color{red}9\) and the {\color{cyan}pivot} \\ \hline
+    \end{tabular}
+\end{center}
+
+At the end of the algorithm we have the correctly sorted list.
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
+        \hline
+        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+    \end{tabular}
+\end{center}
