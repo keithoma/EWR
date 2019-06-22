@@ -232,13 +232,14 @@ class QuickSort:
             _i = _i + 1
             self.stats_.swap()
 
+            _partition[_i], _partition[_j] = _partition[_j], _partition[_i]
+
             self.logger_.set_foreground(_i, 'red')
             self.logger_.set_foreground(_j, 'red')
             self.logger_.log_action("swap {} with {}".format(_partition[_i], _partition[_j]))
             self.logger_.set_foreground(_i, '')
             self.logger_.set_foreground(_j, '')
 
-            _partition[_i], _partition[_j] = _partition[_j], _partition[_i]
             return _i
 
         def choose_pivot():
