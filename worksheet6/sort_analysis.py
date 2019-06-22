@@ -112,8 +112,8 @@ class QuickSort:
         """
         Arguments:
             _partition (list):
-            _low ():
-            _high ():
+            _low (int): the index for the lower end
+            _high (int): the index for the upper end
             _stats (StatsBuilder):
 
         Returns:
@@ -184,16 +184,18 @@ class QuickSort:
         _stats.enter()
 
         if _low < _high:
-            p_i = QuickSort.partition(_partition, _low, _high, _stats)
-            if p_i > 0:
-                QuickSort.sort_range(_partition, _low, p_i - 1, _stats)
-            QuickSort.sort_range(_partition, p_i + 1, _high, _stats)
+            pivot_index = QuickSort.partition(_partition, _low, _high, _stats)
+            if pivot_index > 0:
+                QuickSort.sort_range(_partition, _low, pivot_index - 1, _stats)
+            QuickSort.sort_range(_partition, pivot_index + 1, _high, _stats)
 
         _stats.leave()
 
     @staticmethod
     def sort(_list):
         """
+        The heart of the quicksort algorithm. 
+
         Arguments:
             _list (list): the list to be sorted, each element must implement the comparison operator for <
             (__lt__)
