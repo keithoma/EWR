@@ -9,13 +9,14 @@
         1 & 5 & 4 & \color{red}2 & 9 & \color{red} 7 & 8 & 3 & 0 &\cellcolor{LightCyan}6 &(5) swap \(\color{red}7\) and \(\color{red}2\)\\ \hline % i = 3
         1 & 5 & 4 & 2 & \color{red}3 & 7 & 8 & \color{red}9 & 0 &\cellcolor{LightCyan}6 &(6) swap \(\color{red}9\) and \(\color{red}3\)\\ \hline % i = 4
         1 & 5 & 4 & 2 & 3 & \color{red}0 & 8 & 9 & \color{red}7 &\cellcolor{LightCyan}6 &(7) swap \(\color{red}7\) and \(\color{red}0\)\\ \hline % i = 5
-        1 & 5 & 4 & 2 & 3 & 0 & \color{cyan}6 & 9 & 7 & \color{red}8 &(1) swap \(\color{red}8\) and the {\color{cyan}pivot}\\ \hline % i = 6 p_i = 6
-        1 & 5 & 4 & 2 & 3 & 0 & \cellcolor{LightGreen}6 & 9 & 7 & 8 &\(\color{green}6\) is in the correct place \\ \hline
-        \multicolumn{11}{ | c | }{partition the sequence} \\ \hline
-        \cellcolor{Amber}1 & \cellcolor{Amber}5 & \cellcolor{Amber}4 & \cellcolor{Amber}2 & \cellcolor{Amber}3 & \cellcolor{Amber}0 & \cellcolor{LightGreen}6 & \cellcolor{LightGrey}9 & \cellcolor{LightGrey}7 & \cellcolor{LightGrey}8 & sort {\color{DarkOrange}left side} \\ \hline \hline
+        1 & 5 & 4 & 2 & 3 & 0 & \color{cyan}6 & 9 & 7 & \color{red}8 &(8) swap \(\color{red}8\) and the {\color{cyan}pivot}\\ \hline % i = 6 p_i = 6
+        1 & 5 & 4 & 2 & 3 & 0 & \cellcolor{LightGreen}6 & 9 & 7 & 8 &(9) \(\color{green}6\) is in the correct place \\ \hline \hline
+        \multicolumn{11}{ | c | }{partition the sequence into \((1, 5, 4, 2, 3, 0)\) and \((9, 7, 8)\)} \\ \hline \hline
+        \cellcolor{Amber}1 & \cellcolor{Amber}5 & \cellcolor{Amber}4 & \cellcolor{Amber}2 & \cellcolor{Amber}3 & \cellcolor{Amber}0 & \cellcolor{LightGreen}6 & \cellcolor{LightGrey}9 & \cellcolor{LightGrey}7 & \cellcolor{LightGrey}8 & sort {\color{DarkOrange}left side} \\ \hline
         1 & 5 & 4 & 2 & 3 & \cellcolor{LightCyan}0 & \cellcolor{LightGreen}6 & \cellcolor{LightGrey}9 & \cellcolor{LightGrey}7 & \cellcolor{LightGrey}8 &find the {\color{cyan}pivot} \\ \hline
-        \color{cyan}0 & 5 & 4 & 2 & 3 & \color{red}1 & \cellcolor{LightGreen}6 & \cellcolor{LightGrey}9 & \cellcolor{LightGrey}7 & \cellcolor{LightGrey}8 &swap \(\color{red}1\) and the {\color{cyan}pivot}\\ \hline \hline
-        \cellcolor{LightGreen}0 & 5 & 4 & 2 & 3 & 1 & \cellcolor{LightGreen}6 & \cellcolor{LightGrey}9 & \cellcolor{LightGrey}7 & \cellcolor{LightGrey}8 &{\color{green}0} is in the correct place\\ \hline
+        \color{cyan}0 & 5 & 4 & 2 & 3 & \color{red}1 & \cellcolor{LightGreen}6 & \cellcolor{LightGrey}9 & \cellcolor{LightGrey}7 & \cellcolor{LightGrey}8 &swap \(\color{red}1\) and the {\color{cyan}pivot}\\ \hline
+        \cellcolor{LightGreen}0 & 5 & 4 & 2 & 3 & 1 & \cellcolor{LightGreen}6 & \cellcolor{LightGrey}9 & \cellcolor{LightGrey}7 & \cellcolor{LightGrey}8 &{\color{green}0} is in the correct place\\ \hline \hline
+        \multicolumn{11}{ | c | }{partition the sequence into \(()\) and \((5, 4, 2, 3, 1)\)} \\ \hline \hline
         \cellcolor{LightGreen}0 & \cellcolor{Amber}5 & \cellcolor{Amber}4 & \cellcolor{Amber}2 & \cellcolor{Amber}3 & \cellcolor{Amber}1 & \cellcolor{LightGreen}6 & \cellcolor{LightGrey}9 & \cellcolor{LightGrey}7 & \cellcolor{LightGrey}8 &sort {\color{DarkOrange}right side}\\ \hline \hline
         \cellcolor{LightGreen}0 & 5 & 4 & 2 & 3 & \cellcolor{LightCyan}1 & \cellcolor{LightGreen}6 & \cellcolor{LightGrey}9 & \cellcolor{LightGrey}7 & \cellcolor{LightGrey}8 &find the {\color{cyan}pivot} \\ \hline
         \cellcolor{LightGreen}0 & \color{cyan}1 & 4 & 2 & 3 & \color{red}5 & \cellcolor{LightGreen}6 & \cellcolor{LightGrey}9 & \cellcolor{LightGrey}7 & \cellcolor{LightGrey}8 &swap \(\color{red}5\) and the {\color{cyan}pivot} \\ \hline
