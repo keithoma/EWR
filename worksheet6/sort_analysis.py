@@ -10,12 +10,23 @@
 import time
 from functools import reduce
 
-class LaTexBuilder:
+class LaTeXBuilder:
     def __init__(self, _list):
         self.text_ = ""
         self.list_ = _list
         self.fg_colors_ = ['' for item in _list]
         self.bg_colors_ = ['' for item in _list]
+        self.delimiter_ = False
+
+    @staticmethod
+    def format_list(_list):
+        s = "\(("
+        for i in range(0, len(_list)):
+            if i != 0:
+                s += ", "
+            s += "{}".format(_list[i])
+        s += "\))"
+        return s
 
     def set_foreground(self, index, color):
         self.fg_colors_[index] = color
@@ -34,10 +45,14 @@ class LaTexBuilder:
         for i in range(0, len(self.list_)):
             self._append("| c ")
         self._append("|| l |}\n")
-        self._append("    \\hline\n")
 
-    def log(self, _msg):
+    def log_action(self, _msg):
         self._append("    ")
+        if not self.delimiter_:
+            self._append("\\hline ")
+        else:
+            self.delimiter_ = False
+
         for i in range(0, len(self.list_)):
             if i != 0:
                 self._append(" & ")
@@ -47,9 +62,17 @@ class LaTexBuilder:
                 self._append("\\color{{{}}}".format(self.fg_colors_[i]))
             self._append("{}".format(self.list_[i]))
         self._append(" & {}".format(_msg))
-        self._append("\\\\ \\hline \n")
+        self._append("\\\\\n")
+
+    def log_line(self, _msg):
+        self._append("\\hhline{===========}\n")
+        self._append("\\multicolumn{{{}}}{{ | c | }}{{{}}}".format(len(self.list_) + 1, _msg))
+        self._append("\\\\ \\hhline{===========}\n")
+        self.delimiter_ = True
 
     def end(self):
+        if not self.delimiter_:
+            self._append("    \\hline\n")
         self._append("\\end{tabular}\n")
 
     def _append(self, _text):
@@ -158,7 +181,7 @@ class QuickSort:
     def __init__(self, _list):
         self.list_ = _list
         self.stats_ = StatsBuilder()
-        self.logger_ = LaTexBuilder(_list)
+        self.logger_ = LaTeXBuilder(_list)
 
     def log(self, _depth, _message):
         #print("{length:>2}: {text:>{length}}".format(length=_depth * 2, text=_message))
@@ -211,7 +234,7 @@ class QuickSort:
 
             self.logger_.set_foreground(_i, 'red')
             self.logger_.set_foreground(_j, 'red')
-            self.logger_.log("swap {} with {}".format(_partition[_i], _partition[_j]))
+            self.logger_.log_action("swap {} with {}".format(_partition[_i], _partition[_j]))
             self.logger_.set_foreground(_i, '')
             self.logger_.set_foreground(_j, '')
 
@@ -226,7 +249,7 @@ class QuickSort:
 
             self.logger_.swap_background('LightCyan', '')
             self.logger_.set_background(_high, 'LightCyan')
-            self.logger_.log("choose the pivot")
+            self.logger_.log_action("choose the pivot")
 
             return pivot
 
@@ -266,7 +289,11 @@ class QuickSort:
                 self.logger_.set_background(i, 'Amber')
 
             pivot_index = self.partition(_partition, _low, _high)
+
             if pivot_index > 0:
+                a = LaTeXBuilder.format_list(_partition[_low:pivot_index])
+                b = LaTeXBuilder.format_list(_partition[pivot_index + 1: _high + 1])
+                self.logger_.log_line("Partition the sequence into {} and {}".format(a, b))
                 self.sort_range(_partition, _low, pivot_index - 1)
             self.sort_range(_partition, pivot_index + 1, _high)
 
@@ -300,7 +327,7 @@ class QuickSort:
         if list_length != 0 and list_length != 1:
             self.sort_range(self.list_, 0, list_length - 1)
 
-        self.logger_.log("final state")
+        self.logger_.log_action("final state")
         self.logger_.end()
 
         with open('quicksort.tex', 'wt') as f:
