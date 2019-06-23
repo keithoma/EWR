@@ -58,13 +58,13 @@ class _LaTeXBuilder:
         """
         self.bg_colors_[_index] = _color
 
-    def swap_background(self, old, new):
+    def swap_background(self, _old, _new):
         """
             Swaps the background colors of each list item to _new that matches _old.
         """
         for i in range(0, len(self.list_)):
-            if self.bg_colors_[i] == old:
-                self.bg_colors_[i] = new
+            if self.bg_colors_[i] == _old:
+                self.bg_colors_[i] = _new
 
     def log_action(self, _msg):
         """
