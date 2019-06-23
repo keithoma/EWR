@@ -1,18 +1,23 @@
 #! /usr/bin/env python3
-# This file is part of the "quicksort" project, http://github.com/christianparpart/quicksort>
-#   (c) 2019 Christian Parpart <christian@parpart.family>
-#   (c) 2019 Kei Thoma <thomakei@gmail.com>
-#
-# Licensed under the MIT License (the "License"); you may not use this
-# file except in compliance with the License. You may obtain a copy of
-# the License at: http://opensource.org/licenses/MIT
+
+"""
+    This file is part of the "EWR" project.
+      (c) 2019 Christian Parpart <christian@parpart.family>
+      (c) 2019 Kei Thoma <thomakei@gmail.com>
+
+    Licensed under the MIT License (the "License"); you may not use this
+    file except in compliance with the License. You may obtain a copy of
+    the License at: http://opensource.org/licenses/MIT
+
+    It implements QuickSort and Heapsort algorithms along with some statistical data retrieval
+    and requested methods by the Lecture we both attend(ed) to.
+"""
 
 import time
-from functools import reduce
 
 class _LaTeXBuilder:
     """
-        Helper class for constructing LaTeX tables for visualizing list modification,
+        Internal helper API for constructing LaTeX tables for visualizing list modification,
         as usually done by sorting algorithms.
     """
 
@@ -33,20 +38,13 @@ class _LaTeXBuilder:
 
         self._append("\\section{Auto Generated}\n")
         self._append("\\begin{tabular}{")
-        for i in range(0, len(self.list_)):
-            self._append("| c ")
+        self._append("| c " * len(self.list_))
         self._append("|| l |}\n")
 
     @staticmethod
     def format_list(_list):
         """ Static helper method for generating a text representation of lists. """
-        s = "\(("
-        for i in range(0, len(_list)):
-            if i != 0:
-                s += ", "
-            s += "{}".format(_list[i])
-        s += "\))"
-        return s
+        return "\\(({}\\))".format(', '.join(map(str, _list)))
 
     def set_foreground(self, _index, _color):
         """
@@ -122,7 +120,15 @@ class _LaTeXBuilder:
         self.text_ += _text
 
 class _StatsBuilder:
+    """
+        Internal helper API for constructing statistical metrics of (sorting) algorithms.
+    """
+
     def __init__(self):
+        """
+            Constructs the _StatsBuilder with all values set to 0 and
+            start_time_ set to current time.
+        """
         self.compares_ = 0
         self.swaps_ = 0
         self.calls_ = 0
@@ -132,29 +138,46 @@ class _StatsBuilder:
         self.start_time_ = time.time()
 
     def compare(self):
-        self.compares_ = self.compares_ + 1
+        """ Increments compare-count by one. """
+        self.compares_ += 1
 
     def swap(self):
-        self.swaps_ = self.swaps_ + 1
+        """ Increments swap-count by one. """
+        self.swaps_ += 1
 
     def call(self):
-        self.calls_ = self.calls_ + 1
+        """ Increments call-count by one. """
+        self.calls_ += 1
 
     def iterate(self):
-        self.iterations_ = self.iterations_ + 1
+        """ Increments iteration-count by one. """
+        self.iterations_ += 1
 
     def enter(self):
-        self.current_recursion_depth_ = self.current_recursion_depth_ + 1
+        """
+            Increments current recursion depth by one and updates maximum reached recursion depth
+            to current recursion depth if exceeded.
+        """
+        self.current_recursion_depth_ += 1
         if self.current_recursion_depth_ > self.recursion_depth_:
             self.recursion_depth_ = self.current_recursion_depth_
 
     def leave(self):
-        self.current_recursion_depth_ = self.current_recursion_depth_ - 1
+        """
+            Decrements current recursion depth by one.
+        """
+        self.current_recursion_depth_ -= 1
 
     def elapsed(self):
+        """
+            Returns the duration in milliseconds this _StatsBuilder object exists since construction.
+        """
         return time.time() - self.start_time_
 
     def __str__(self):
+        """
+            Returns a JSON-style string representation of the collected metrics.
+        """
         fmt = "{{compares: {}, swaps: {}, calls: {}, iterations: {}, recursion: {}, elapsed: {}}}"
         return fmt.format(self.compares_, self.swaps_, self.calls_, self.iterations_,
                           self.recursion_depth_, self.elapsed())
@@ -247,10 +270,6 @@ class QuickSort:
         self.stats_ = _StatsBuilder()
         self.logger_ = _LaTeXBuilder(_list)
 
-    def log(self, _depth, _message):
-        #print("{length:>2}: {text:>{length}}".format(length=_depth * 2, text=_message))
-        return True
-
     def partition(self, _partition, _low, _high):
         """
         Arguments:
@@ -273,7 +292,7 @@ class QuickSort:
             Arguments:
                 _a (int): the left side integer to be compared with '<'
                 _b (int): the right side integer to be compared with '<'
-            
+
             Returns:
                 (bool): True if 'a' is strictly smaller than 'b' and False otherwise
             """
@@ -375,7 +394,7 @@ class QuickSort:
     @staticmethod
     def sort(_list):
         """
-        The heart of the quicksort algorithm. 
+        The heart of the quicksort algorithm.
 
         Arguments:
             _list (list): the list to be sorted, each element must implement the comparison operator for <
@@ -385,7 +404,7 @@ class QuickSort:
             (_StatsBuilder):
         """
         quicksort = QuickSort(_list)
-        quicksort.run()
+        return quicksort.run()
 
     def run(self):
         list_length = len(self.list_)
@@ -418,7 +437,7 @@ def _private_test():
     def test_algo(name, sort, words):
         stats = sort(words)
         print("{}: {}".format(name, stats))
-        print("  sorted: {}".format(reduce((lambda a, w: "{} {}".format(a, w)), words)))
+        print("  sorted: {}".format(', '.join(map(str, words))))
 
     #words = read_words_from_file('test.txt')
     #words = ["F", "A", "C", "B"]
@@ -427,7 +446,7 @@ def _private_test():
     #words = [4, 3, 2, 1, 0]
     #words = [4, 10, 3, 5, 1] #geeksforgeeks
     words = [6, 5, 3, 1, 8, 7, 2, 4] #wikipedia
-    print("input list: {}".format(reduce((lambda a, w: "{} {}".format(a, w)), words)))
+    print("input list: {}".format(', '.join(map(str, words))))
 
     test_algo("quicksort", QuickSort.sort, words[:])
     test_algo("heapsort", HeapSort.sort, words[:])
