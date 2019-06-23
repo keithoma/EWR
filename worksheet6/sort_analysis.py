@@ -65,9 +65,9 @@ class LaTeXBuilder:
         self._append("\\\\\n")
 
     def log_line(self, _msg):
-        self._append("\\hhline{===========}\n")
-        self._append("\\multicolumn{{{}}}{{ | c | }}{{{}}}".format(len(self.list_) + 1, _msg))
-        self._append("\\\\ \\hhline{===========}\n")
+        self._append("\\hhline{{{}}}\n".format('=' * (len(self.list_) + 1)))
+        self._append("\\multicolumn{{{}}}{{ | c | }}{{{}}}\\\\".format(len(self.list_) + 1, _msg))
+        self._append("\\hhline{{{}}}\n".format('=' * (len(self.list_) + 1)))
         self.delimiter_ = True
 
     def end(self):
@@ -214,6 +214,7 @@ class QuickSort:
                 (bool): True if 'a' is strictly smaller than 'b' and False otherwise
             """
             self.stats_.compare()
+            # self.logger_.log_action("is {} less than {}?".format(_a, _b))
             return _a < _b
 
         def inc_i_and_swap_at(_i, _j):
@@ -246,11 +247,21 @@ class QuickSort:
             """
                 Chooses a pivot element within the given partition.
             """
-            pivot = _partition[_high]
+            pivot_index = _high
+            pivot = _partition[pivot_index]
+
+            oldBgColors = self.logger_.bg_colors_.copy()
 
             self.logger_.swap_background('LightCyan', '')
             self.logger_.set_background(_high, 'LightCyan')
-            self.logger_.log_action("choose the pivot")
+
+            for j in range(_low, pivot_index):
+                self.logger_.set_background(j, 'Amber')
+
+            self.logger_.log_action("choose the pivot {}".format(pivot))
+
+            for j in range(_low, pivot_index):
+                self.logger_.set_background(j, oldBgColors[j])
 
             return pivot
 
@@ -284,10 +295,10 @@ class QuickSort:
         self.stats_.enter()
 
         if _low < _high:
-            old = self.logger_.bg_colors_.copy()
-            self.logger_.swap_background('Amber', '')
-            for i in range(_low, _high + 1):
-                self.logger_.set_background(i, 'Amber')
+            # old = self.logger_.bg_colors_.copy()
+            # self.logger_.swap_background('Amber', '')
+            # for i in range(_low, _high + 1):
+            #     self.logger_.set_background(i, 'Amber')
 
             pivot_index = self.partition(_partition, _low, _high)
 
@@ -358,7 +369,8 @@ def _private_test():
 
     #words = read_words_from_file('test.txt')
     #words = ["F", "A", "C", "B"]
-    words = [7, 1, 5, 4, 9, 2, 8, 3, 0, 6]
+    #words = [7, 1, 5, 4, 9, 2, 8, 3, 0, 6]
+    words = [0, 1, 2, 3, 4]
     print("input list: {}".format(reduce((lambda a, w: "{} {}".format(a, w)), words)))
 
     test_algo("quicksort", QuickSort.sort, words[:])
