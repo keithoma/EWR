@@ -46,6 +46,72 @@ class _LaTeXBuilder:
         """ Static helper method for generating a text representation of lists. """
         return "\\(({}\\))".format(', '.join(map(str, _list)))
 
+    class Context:
+        """ Helper class for scoped color setting via with-statement. """
+        def __init__(self, _builder, _index, _foreground, _background):
+            """
+                Constructs color setter.
+                Parameters:
+                    _builder (_LaTeXBuilder): LaTeX builder to operate on.
+                    _index (int): list index to set color at.
+                    _foreground (str): background color to set or None
+                    _background (str): foreground color to set or None
+            """
+            self.builder_ = _builder
+            self.index_ = _index
+            self.foreground_ = _foreground
+            self.background_ = _background
+
+            if _foreground != None:
+                self.old_foreground_ = _builder.fg_colors_[_index]
+            else:
+                self.old_foreground_ = None
+
+            if _background != None:
+                self.old_background_ = _builder.bg_colors_[_index]
+            else:
+                self.old_background_ = None
+
+        def __enter__(self):
+            """ Internal magic-method to be invoked upon with-statement scope entrance,
+                setting colors. """
+            if self.foreground_ != None:
+                self.builder_.set_foreground(self.index_, self.foreground_)
+
+            if self.background_:
+                self.builder_.set_background(self.index_, self.background_)
+
+        def __exit__(self, _type, _value, _traceback):
+            """ Internal magic-method to be invoked upon with-statement scope exit,
+                reverting set colors. """
+            if self.old_foreground_ != None:
+                self.builder_.fg_colors_[self.index_] = self.old_foreground_
+
+            if self.old_background_ != None:
+                self.builder_.bg_colors_[self.index_] = self.old_background_
+
+    def foreground(self, _index, _color):
+        """
+            Constructs scoped foreground color. Use with with-statement.
+            Parameters:
+                _index (int): list index to set color at
+                _color (str): foreground color to set
+            Returns:
+                (Context): The context object being used internally by the with-statement.
+        """
+        return _LaTeXBuilder.Context(self, _index, _color, None)
+
+    def background(self, _index, _color):
+        """
+            Constructs scoped background color. Use with with-statement.
+            Parameters:
+                _index (int): list index to set color at
+                _color (str): background color to set
+            Returns:
+                (Context): The context object being used internally by the with-statement.
+        """
+        return _LaTeXBuilder.Context(self, _index, None, _color)
+
     def set_foreground(self, _index, _color):
         """
             Sets the foreground color of the list value at given index.
@@ -224,62 +290,60 @@ def heapsort(_list):
         Returns:
             (_StatsBuilder): Execution statistics.
     """
-    def heapify(_list, _n, i, _stats, _logger):
+    def heapify(_list, _n, _i, _stats, _logger):
         """
             TODO
         """
-        largest_element_index = i
-        left_child_index = 2 * i + 1
-        right_child_index = 2 * i + 2
-
-        #_logger.log_line("Heapify with i = {}, _n = {}".format(i, _n))
         _stats.enter()
 
-        if left_child_index < _n:
+        # determine largest element index
+        largest_element_index = _i
+        LEFT_CHILD_INDEX = 2 * _i + 1
+        if LEFT_CHILD_INDEX < _n:
             _stats.compare()
-            if _list[left_child_index] > _list[largest_element_index]:
-                largest_element_index = left_child_index
+            if _list[LEFT_CHILD_INDEX] > _list[largest_element_index]:
+                largest_element_index = LEFT_CHILD_INDEX 
 
-        if right_child_index < _n:
+        RIGHT_CHILD_INDEX = 2 * _i + 2
+        if RIGHT_CHILD_INDEX < _n:
             _stats.compare()
-            if _list[right_child_index] > _list[largest_element_index]:
-                largest_element_index = right_child_index
+            if _list[RIGHT_CHILD_INDEX] > _list[largest_element_index]:
+                largest_element_index = RIGHT_CHILD_INDEX
 
-        if largest_element_index != i:
+        # if the largest element isn't at index _i, swap!
+        if largest_element_index != _i:
             _stats.swap()
-            _list[i], _list[largest_element_index] = _list[largest_element_index], _list[i]
+            _list[_i], _list[largest_element_index] = _list[largest_element_index], _list[_i]
 
-            _logger.set_foreground(largest_element_index, _LaTeXBuilder.SWAP_FG)
-            _logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
-            _logger.log_action("swap {} with {}".format(_list[largest_element_index], _list[i]))
-            _logger.set_foreground(largest_element_index, _LaTeXBuilder.CLEAR)
-            _logger.set_foreground(i, _LaTeXBuilder.CLEAR)
+            with _logger.foreground(largest_element_index, _LaTeXBuilder.SWAP_FG):
+                with _logger.foreground(_i, _LaTeXBuilder.SWAP_FG):
+                    _logger.log_action("swap {} with {}".format(_list[largest_element_index], _list[_i]))
 
             heapify(_list, _n, largest_element_index, _stats, _logger)
 
         _stats.leave()
 
     stats = _StatsBuilder()
-    n = len(_list)
 
     # short-circuit trivial inputs
-    if n < 2:
+    if len(_list) < 2:
         return stats
 
     logger = _LaTeXBuilder(_list)
     logger.log_action("initial state")
 
     # build heap by rearranging array
-    i = n // 2 - 1
-    logger.log_line("build heap between {} and {}".format(0, i))
-    while i >= 0:
-        stats.iterate()
-        heapify(_list, n, i, stats, logger)
-        i = i - 1
+    i = len(_list) // 2 - 1
+    logger.log_line("build heap with middle element {}".format(_list[i]))
+    with logger.background(i, _LaTeXBuilder.ACTIVE_BG):
+        while i >= 0:
+            stats.iterate()
+            heapify(_list, len(_list), i, stats, logger)
+            i = i - 1
 
     # one-by-one, extract an element from the heap
     logger.log_line("extract elements from heap")
-    i = n - 1
+    i = len(_list) - 1
     while i >= 0:
         stats.iterate()
 
@@ -287,11 +351,9 @@ def heapsort(_list):
         stats.swap()
         _list[0], _list[i] = _list[i], _list[0]
 
-        logger.set_foreground(0, _LaTeXBuilder.SWAP_FG)
-        logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
-        logger.log_action("swap {} with {}".format(_list[0], _list[i]))
-        logger.set_foreground(0, _LaTeXBuilder.CLEAR)
-        logger.set_foreground(i, _LaTeXBuilder.CLEAR)
+        with logger.foreground(0, _LaTeXBuilder.SWAP_FG):
+            with logger.foreground(i, _LaTeXBuilder.SWAP_FG):
+                logger.log_action("swap {} with {}".format(_list[0], _list[i]))
         logger.set_background(i, _LaTeXBuilder.CORRECT_BG)
 
         # call max heapify on the reduced heap
