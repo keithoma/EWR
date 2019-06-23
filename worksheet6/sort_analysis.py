@@ -183,35 +183,49 @@ class _StatsBuilder:
                           self.recursion_depth_, self.elapsed())
 
 def heapsort(_list):
-    def heapify(_list, n, i, _stats, _logger):
-        largest = i
-        l = 2 * i + 1
-        r = 2 * i + 2
+    """
+        Implements heapsort algorithm on given list.
+        Parameters:
+            _list (list): The list to be sorted (in-place).
+            _n (int): Number of elements in the list to operate on.
+            _i (int): Middle element.
+            _stats (_StatsBuilder): Statistics builder
+            _logger (_LaTeXBuilder): LaTeX builder instance.
+        Returns:
+            (_StatsBuilder): Execution statistics.
+    """
+    def heapify(_list, _n, i, _stats, _logger):
+        """
+            TODO
+        """
+        largest_element_index = i
+        left_child_index = 2 * i + 1
+        right_child_index = 2 * i + 2
 
-        #_logger.log_line("Heapify with i = {}, n = {}".format(i, n))
+        #_logger.log_line("Heapify with i = {}, _n = {}".format(i, _n))
         _stats.enter()
 
-        if l < n:
+        if left_child_index < _n:
             _stats.compare()
-            if _list[l] > _list[largest]:
-                largest = l
+            if _list[left_child_index] > _list[largest_element_index]:
+                largest_element_index = left_child_index
 
-        if r < n:
+        if right_child_index < _n:
             _stats.compare()
-            if _list[r] > _list[largest]:
-                largest = r
+            if _list[right_child_index] > _list[largest_element_index]:
+                largest_element_index = right_child_index
 
-        if largest != i:
+        if largest_element_index != i:
             _stats.swap()
-            _list[i], _list[largest] = _list[largest], _list[i]
+            _list[i], _list[largest_element_index] = _list[largest_element_index], _list[i]
 
-            _logger.set_foreground(largest, _LaTeXBuilder.SWAP_FG)
+            _logger.set_foreground(largest_element_index, _LaTeXBuilder.SWAP_FG)
             _logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
-            _logger.log_action("swap {} with {}".format(_list[largest], _list[i]))
-            _logger.set_foreground(largest, _LaTeXBuilder.CLEAR)
+            _logger.log_action("swap {} with {}".format(_list[largest_element_index], _list[i]))
+            _logger.set_foreground(largest_element_index, _LaTeXBuilder.CLEAR)
             _logger.set_foreground(i, _LaTeXBuilder.CLEAR)
 
-            heapify(_list, n, largest, _stats, _logger)
+            heapify(_list, _n, largest_element_index, _stats, _logger)
 
         _stats.leave()
 
@@ -275,7 +289,7 @@ class QuickSort:
             _high (int): the index for the upper end
 
         Returns:
-            (int):
+            (int): new pivot index
         """
 
         # nested functions
@@ -432,6 +446,7 @@ def read_words_from_file(filename):
 
 def _private_test():
     def test_algo(name, sort, words):
+        """ tiny helper for generic testing sort algos. """
         stats = sort(words)
         print("{}: {}".format(name, stats))
         print("  sorted: {}".format(', '.join(map(str, words))))
