@@ -10,7 +10,12 @@
 import time
 from functools import reduce
 
-class LaTeXBuilder:
+class _LaTeXBuilder:
+    """
+        Helper class for constructing LaTeX tables for visualizing list modification,
+        as usually done by sorting algorithms.
+    """
+
     # color coding constants
     SWAP_FG = 'red'
     CORRECT_BG = 'LightGreen'
@@ -19,14 +24,22 @@ class LaTeXBuilder:
     CLEAR = ''
 
     def __init__(self, _list):
+        """ Constructs the LaTeX builder with the list (_list) to be worked on. """
         self.text_ = ""
         self.list_ = _list
         self.fg_colors_ = ['' for item in _list]
         self.bg_colors_ = ['' for item in _list]
         self.delimiter_ = False
 
+        self._append("\\section{Auto Generated}\n")
+        self._append("\\begin{tabular}{")
+        for i in range(0, len(self.list_)):
+            self._append("| c ")
+        self._append("|| l |}\n")
+
     @staticmethod
     def format_list(_list):
+        """ Static helper method for generating a text representation of lists. """
         s = "\(("
         for i in range(0, len(_list)):
             if i != 0:
@@ -35,25 +48,31 @@ class LaTeXBuilder:
         s += "\))"
         return s
 
-    def set_foreground(self, index, color):
-        self.fg_colors_[index] = color
+    def set_foreground(self, _index, _color):
+        """
+            Sets the foreground color of the list value at given index.
+        """
+        self.fg_colors_[_index] = _color
 
-    def set_background(self, index, color):
-        self.bg_colors_[index] = color
+    def set_background(self, _index, _color):
+        """
+            Sets the background color of the list value at the given index.
+        """
+        self.bg_colors_[_index] = _color
 
     def swap_background(self, old, new):
+        """
+            Swaps the background colors of each list item to _new that matches _old.
+        """
         for i in range(0, len(self.list_)):
             if self.bg_colors_[i] == old:
                 self.bg_colors_[i] = new
 
-    def begin(self):
-        self._append("\\section{Auto Generated}\n")
-        self._append("\\begin{tabular}{")
-        for i in range(0, len(self.list_)):
-            self._append("| c ")
-        self._append("|| l |}\n")
-
     def log_action(self, _msg):
+        """
+            Logs a list action by adding a new line to the generated LaTeX table
+            showing the list and the given message _msg at its right hand side.
+        """
         self._append("    ")
         if not self.delimiter_:
             self._append("\\hline ")
@@ -72,27 +91,37 @@ class LaTeXBuilder:
         self._append("\\\\\n")
 
     def log_line(self, _msg):
+        """
+            Logs given message _msg to the generated LaTeX table as a new
+            full row at the end.
+        """
         self._append("\\hhline{{{}}}\n".format('=' * (len(self.list_) + 1)))
         self._append("\\multicolumn{{{}}}{{ | c | }}{{{}}}\\\\".format(len(self.list_) + 1, _msg))
         self._append("\\hhline{{{}}}\n".format('=' * (len(self.list_) + 1)))
         self.delimiter_ = True
 
-    def end(self):
+    def finish(self):
+        """
+            Finalizes the generated LaTeX table by appending the table trailer to it.
+        """
         if not self.delimiter_:
             self._append("    \\hline\n")
         self._append("\\end{tabular}\n")
 
     def save(self, _filename):
+        """
+            Saves the generated LaTeX output to given filename, _filename.
+        """
         with open(_filename, 'wt') as f:
             f.write(self.text_)
 
-    def __str__(self):
-        return self.text_;
-
     def _append(self, _text):
+        """
+            Internal helper function for conviniently appending text to the internal buffer.
+        """
         self.text_ += _text
 
-class StatsBuilder:
+class _StatsBuilder:
     def __init__(self):
         self.compares_ = 0
         self.swaps_ = 0
@@ -154,11 +183,11 @@ class HeapSort:
             stats.swap()
             a[i], a[largest] = a[largest], a[i]
 
-            logger.set_foreground(largest, LaTeXBuilder.SWAP_FG)
-            logger.set_foreground(i, LaTeXBuilder.SWAP_FG)
+            logger.set_foreground(largest, _LaTeXBuilder.SWAP_FG)
+            logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
             logger.log_action("swap {} with {}".format(a[largest], a[i]))
-            logger.set_foreground(largest, LaTeXBuilder.CLEAR)
-            logger.set_foreground(i, LaTeXBuilder.CLEAR)
+            logger.set_foreground(largest, _LaTeXBuilder.CLEAR)
+            logger.set_foreground(i, _LaTeXBuilder.CLEAR)
 
             HeapSort.heapify(a, n, largest, stats, logger)
 
@@ -166,15 +195,14 @@ class HeapSort:
 
     @staticmethod
     def sort(a):
-        stats = StatsBuilder()
+        stats = _StatsBuilder()
         n = len(a)
 
         # short-circuit trivial inputs
         if n < 2:
             return stats
 
-        logger = LaTeXBuilder(a)
-        logger.begin()
+        logger = _LaTeXBuilder(a)
         logger.log_action("initial state")
 
         # build heap by rearranging array
@@ -195,12 +223,12 @@ class HeapSort:
             stats.swap()
             a[0], a[i] = a[i], a[0]
 
-            logger.set_foreground(0, LaTeXBuilder.SWAP_FG)
-            logger.set_foreground(i, LaTeXBuilder.SWAP_FG)
+            logger.set_foreground(0, _LaTeXBuilder.SWAP_FG)
+            logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
             logger.log_action("swap {} with {}".format(a[0], a[i]))
-            logger.set_foreground(0, LaTeXBuilder.CLEAR)
-            logger.set_foreground(i, LaTeXBuilder.CLEAR)
-            logger.set_background(i, LaTeXBuilder.CORRECT_BG)
+            logger.set_foreground(0, _LaTeXBuilder.CLEAR)
+            logger.set_foreground(i, _LaTeXBuilder.CLEAR)
+            logger.set_background(i, _LaTeXBuilder.CORRECT_BG)
 
             # call max heapify on the reduced heap
             logger.log_line("rebuild heap between {} and {}".format(0, i))
@@ -208,7 +236,7 @@ class HeapSort:
 
             i = i - 1
 
-        logger.end()
+        logger.finish()
         logger.save('heapsort.tex')
 
         return stats
@@ -216,8 +244,8 @@ class HeapSort:
 class QuickSort:
     def __init__(self, _list):
         self.list_ = _list
-        self.stats_ = StatsBuilder()
-        self.logger_ = LaTeXBuilder(_list)
+        self.stats_ = _StatsBuilder()
+        self.logger_ = _LaTeXBuilder(_list)
 
     def log(self, _depth, _message):
         #print("{length:>2}: {text:>{length}}".format(length=_depth * 2, text=_message))
@@ -239,7 +267,7 @@ class QuickSort:
             """
             This is an auxilary function which compares the two arguments 'a' and 'b'. If 'a' is strictly
             smaller than 'b' she returns True and False otherwise. Also, the 'compare()' function from the
-            StatsBuilder class is called which adds 1 to the 'compares_' attribute (this is the reason why
+            _StatsBuilder class is called which adds 1 to the 'compares_' attribute (this is the reason why
             this function is not redundant).
 
             Arguments:
@@ -256,7 +284,7 @@ class QuickSort:
         def inc_i_and_swap_at(_i, _j):
             """
             Another auxilary function which increments the argument 'i' and swaps p[i] and p[j]. As with
-            the function above, she calls the 'swap()' function from StatsBuilder class which adds 1 to the
+            the function above, she calls the 'swap()' function from _StatsBuilder class which adds 1 to the
             'swaps_' attribute. Finally, the incremented 'i' is returned.
 
             Arguments:
@@ -271,11 +299,11 @@ class QuickSort:
 
             _partition[_i], _partition[_j] = _partition[_j], _partition[_i]
 
-            self.logger_.set_foreground(_i, LaTeXBuilder.SWAP_FG)
-            self.logger_.set_foreground(_j, LaTeXBuilder.SWAP_FG)
+            self.logger_.set_foreground(_i, _LaTeXBuilder.SWAP_FG)
+            self.logger_.set_foreground(_j, _LaTeXBuilder.SWAP_FG)
             self.logger_.log_action("swap {} with {}".format(_partition[_i], _partition[_j]))
-            self.logger_.set_foreground(_i, LaTeXBuilder.CLEAR)
-            self.logger_.set_foreground(_j, LaTeXBuilder.CLEAR)
+            self.logger_.set_foreground(_i, _LaTeXBuilder.CLEAR)
+            self.logger_.set_foreground(_j, _LaTeXBuilder.CLEAR)
 
             return _i
 
@@ -288,11 +316,11 @@ class QuickSort:
 
             oldBgColors = self.logger_.bg_colors_.copy()
 
-            self.logger_.swap_background(LaTeXBuilder.PIVOT_BG, LaTeXBuilder.CLEAR)
-            self.logger_.set_background(_high, LaTeXBuilder.PIVOT_BG)
+            self.logger_.swap_background(_LaTeXBuilder.PIVOT_BG, _LaTeXBuilder.CLEAR)
+            self.logger_.set_background(_high, _LaTeXBuilder.PIVOT_BG)
 
             for j in range(_low, pivot_index):
-                self.logger_.set_background(j, LaTeXBuilder.ACTIVE_BG)
+                self.logger_.set_background(j, _LaTeXBuilder.ACTIVE_BG)
 
             self.logger_.log_action("choose the pivot {}".format(pivot))
 
@@ -312,7 +340,7 @@ class QuickSort:
                 i = inc_i_and_swap_at(i, j)
 
         i = inc_i_and_swap_at(i, _high)
-        self.logger_.set_background(i, LaTeXBuilder.CORRECT_BG)
+        self.logger_.set_background(i, _LaTeXBuilder.CORRECT_BG)
         return i
 
     def sort_range(self, _partition, _low, _high):
@@ -323,7 +351,7 @@ class QuickSort:
             p (list): the list to be sorted
             low (int): the starting index of the list to be sorted
             high (int): the last index of the list to be sorted
-            stats (StatsBuilder):
+            stats (_StatsBuilder):
 
         Returns:
             None
@@ -334,8 +362,8 @@ class QuickSort:
             pivot_index = self.partition(_partition, _low, _high)
 
             if pivot_index > 0:
-                a = LaTeXBuilder.format_list(_partition[_low:pivot_index])
-                b = LaTeXBuilder.format_list(_partition[pivot_index + 1: _high + 1])
+                a = _LaTeXBuilder.format_list(_partition[_low:pivot_index])
+                b = _LaTeXBuilder.format_list(_partition[pivot_index + 1: _high + 1])
                 self.logger_.log_line("Partition the sequence into {} and {}".format(a, b))
 
                 self.sort_range(_partition, _low, pivot_index - 1)
@@ -354,14 +382,12 @@ class QuickSort:
             (__lt__)
 
         Returns:
-            (StatsBuilder):
+            (_StatsBuilder):
         """
         quicksort = QuickSort(_list)
         quicksort.run()
 
     def run(self):
-        self.logger_.begin()
-
         list_length = len(self.list_)
 
         # if the list_length is exactly 0 or 1, there is no need to sort
@@ -369,7 +395,7 @@ class QuickSort:
             self.sort_range(self.list_, 0, list_length - 1)
 
         self.logger_.log_action("final state")
-        self.logger_.end()
+        self.logger_.finish()
         self.logger_.save('quicksort.tex')
 
         return self.stats_
