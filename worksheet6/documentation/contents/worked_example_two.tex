@@ -1,4 +1,9 @@
 \begin{center}
+%
+% 1 to 10
+%
+\begin{figure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -32,6 +37,9 @@
                 }
             };
     \end{tikzpicture}
+    \caption{initial state}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -65,6 +73,9 @@
                 }
             };
     \end{tikzpicture}
+    \caption{swap {\color{red}5} and {\color{red}8}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -98,6 +109,9 @@
                 }
             };
     \end{tikzpicture}
+    \caption{swap {\color{red}1} and {\color{red}9}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -131,6 +145,9 @@
                 }
             };
     \end{tikzpicture}
+    \caption{swap {\color{red}1} and {\color{red}6}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -164,6 +181,9 @@
                 }
             };
     \end{tikzpicture}
+    \caption{swap {\color{red}7} and {\color{red}9}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -197,6 +217,9 @@
                 }
             };
     \end{tikzpicture}
+    \caption{max heap - swap {\color{red}1} and {\color{DarkGreen}9}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -216,7 +239,8 @@
                 child {
                     node {6}
                     child {
-                        node {\color{DarkGreen}9}
+                        [LightGrey]
+                        node {\color{LightGrey}9}
                     }
                 }
             }
@@ -230,6 +254,9 @@
                 }
             };
     \end{tikzpicture}
+    \caption{swap {\color{red}1} and {\color{red}8}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -249,7 +276,8 @@
                 child {
                     node {6}
                     child {
-                        node {\color{DarkGreen}9}
+                        [LightGrey]
+                        node {\color{LightGrey}9}
                     }
                 }
             }
@@ -263,6 +291,9 @@
                 }
             };
     \end{tikzpicture}
+    \caption{swap {\color{red}1} and {\color{red}5}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -282,7 +313,8 @@
                 child {
                     node {6}
                     child {
-                        node {\color{DarkGreen}9}
+                        [LightGrey]
+                        node {\color{LightGrey}9}
                     }
                 }
             }
@@ -296,6 +328,9 @@
                 }
             };
     \end{tikzpicture}
+    \caption{max heap - swap {\color{red}0} and {\color{DarkGreen}8}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -309,13 +344,15 @@
                         node {3}
                     }
                     child {
-                        node {\color{DarkGreen}8}
+                        [LightGrey]
+                        node {\color{LightGrey}8}
                     }
                 }
                 child {
                     node {6}
                     child {
-                        node {\color{DarkGreen}9}
+                        [LightGrey]
+                        node {\color{LightGrey}9}
                     }
                 }
             }
@@ -329,6 +366,14 @@
                 }
             };
     \end{tikzpicture}
+    \caption{swap {\color{red}0} and {\color{red}7}}
+    \end{subfigure}
+\end{figure}
+%
+% 11 to 20
+%
+\begin{figure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -342,13 +387,15 @@
                         node {3}
                     }
                     child {
-                        node {\color{DarkGreen}8}
+                        [LightGrey]
+                        node {\color{LightGrey}8}
                     }
                 }
                 child {
                     node {\color{red}0}
                     child {
-                        node {\color{DarkGreen}9}
+                        [LightGrey]
+                        node {\color{LightGrey}9}
                     }
                 }
             }
@@ -362,6 +409,9 @@
                 }
             };
     \end{tikzpicture}
+    \caption{swap {\color{red}0} and {\color{red}6}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
     \begin{tikzpicture}[level distance=1cm,
         level 1/.style={sibling distance=3cm},
         level 2/.style={sibling distance=1.5cm},
@@ -375,13 +425,15 @@
                         node {\color{DarkGreen}7}
                     }
                     child {
-                        node {\color{DarkGreen}8}
+                        [LightGrey]
+                        node {\color{LightGrey}8}
                     }
                 }
                 child {
                     node {0}
                     child {
-                        node {\color{DarkGreen}9}
+                        [LightGrey]
+                        node {\color{LightGrey}9}
                     }
                 }
             }
@@ -395,4 +447,762 @@
                 }
             };
     \end{tikzpicture}
+    \caption{max heap - swap {\color{red}3} and {\color{DarkGreen}7}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+    \begin{tikzpicture}[level distance=1cm,
+        level 1/.style={sibling distance=3cm},
+        level 2/.style={sibling distance=1.5cm},
+        level 3/.style={sibling distance=1cm}]
+        \node {\color{red}6}
+            child {
+                node {\color{red}3}
+                child {
+                    node {4}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}7}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}8}
+                    }
+                }
+                child {
+                    node {0}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}9}
+                    }
+                }
+            }
+            child {
+                node {5}
+                child {
+                    node {2}
+                }
+                child {
+                    node {1}
+                }
+            };
+    \end{tikzpicture}
+    \caption{swap {\color{red}3} and {\color{red}6}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+    \begin{tikzpicture}[level distance=1cm,
+        level 1/.style={sibling distance=3cm},
+        level 2/.style={sibling distance=1.5cm},
+        level 3/.style={sibling distance=1cm}]
+        \node {6}
+            child {
+                node {\color{red}4}
+                child {
+                    node {\color{red}3}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}7}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}8}
+                    }
+                }
+                child {
+                    node {0}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}9}
+                    }
+                }
+            }
+            child {
+                node {5}
+                child {
+                    node {2}
+                }
+                child {
+                    node {1}
+                }
+            };
+    \end{tikzpicture}
+    \caption{swap {\color{red}3} and {\color{red}4}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+    \begin{tikzpicture}[level distance=1cm,
+        level 1/.style={sibling distance=3cm},
+        level 2/.style={sibling distance=1.5cm},
+        level 3/.style={sibling distance=1cm}]
+        \node {\color{red}1}
+            child {
+                node {4}
+                child {
+                    node {3}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}7}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}8}
+                    }
+                }
+                child {
+                    node {0}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}9}
+                    }
+                }
+            }
+            child {
+                node {5}
+                child {
+                    node {2}
+                }
+                child {
+                    node {\color{DarkGreen}6}
+                }
+            };
+    \end{tikzpicture}
+    \caption{max heap - {\color{red}1} and {\color{DarkGreen}6}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+    \begin{tikzpicture}[level distance=1cm,
+        level 1/.style={sibling distance=3cm},
+        level 2/.style={sibling distance=1.5cm},
+        level 3/.style={sibling distance=1cm}]
+        \node {\color{red}5}
+            child {
+                node {4}
+                child {
+                    node {3}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}7}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}8}
+                    }
+                }
+                child {
+                    node {0}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}9}
+                    }
+                }
+            }
+            child {
+                node {\color{red}1}
+                child {
+                    node {2}
+                }
+                child {
+                    [LightGrey]
+                    node {\color{LightGrey}6}
+                }
+            };
+    \end{tikzpicture}
+    \caption{swap {\color{red}1} and {\color{red}5}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+    \begin{tikzpicture}[level distance=1cm,
+        level 1/.style={sibling distance=3cm},
+        level 2/.style={sibling distance=1.5cm},
+        level 3/.style={sibling distance=1cm}]
+        \node {5}
+            child {
+                node {4}
+                child {
+                    node {3}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}7}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}8}
+                    }
+                }
+                child {
+                    node {0}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}9}
+                    }
+                }
+            }
+            child {
+                node {\color{red}2}
+                child {
+                    node {\color{red}1}
+                }
+                child {
+                    [LightGrey]
+                    node {\color{LightGrey}6}
+                }
+            };
+    \end{tikzpicture}
+    \caption{swap {\color{red}1} and {\color{red}2}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+    \begin{tikzpicture}[level distance=1cm,
+        level 1/.style={sibling distance=3cm},
+        level 2/.style={sibling distance=1.5cm},
+        level 3/.style={sibling distance=1cm}]
+        \node {\color{red}1}
+            child {
+                node {4}
+                child {
+                    node {3}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}7}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}8}
+                    }
+                }
+                child {
+                    node {0}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}9}
+                    }
+                }
+            }
+            child {
+                node {2}
+                child {
+                    node {\color{DarkGreen}5}
+                }
+                child {
+                    [LightGrey]
+                    node {\color{LightGrey}6}
+                }
+            };
+    \end{tikzpicture}
+    \caption{max heap - swap {\color{red}1} and {\color{DarkGreen}5}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {\color{red}4}
+                child {
+                    node {\color{red}1}
+                    child {
+                        node {3}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}7}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}8}
+                        }
+                    }
+                    child {
+                        node {0}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}9}
+                        }
+                    }
+                }
+                child {
+                    node {2}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}5}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}6}
+                    }
+                };
+        \end{tikzpicture}
+        \caption{swap {\color{red}1} and {\color{red}4}}
+        \end{subfigure}
+        \begin{subfigure}[c]{0.5\textwidth}
+            \begin{tikzpicture}[level distance=1cm,
+                level 1/.style={sibling distance=3cm},
+                level 2/.style={sibling distance=1.5cm},
+                level 3/.style={sibling distance=1cm}]
+                \node {4}
+                    child {
+                        node {\color{red}3}
+                        child {
+                            node {\color{red}1}
+                            child {
+                                [LightGrey]
+                                node {\color{LightGrey}7}
+                            }
+                            child {
+                                [LightGrey]
+                                node {\color{LightGrey}8}
+                            }
+                        }
+                        child {
+                            node {0}
+                            child {
+                                [LightGrey]
+                                node {\color{LightGrey}9}
+                            }
+                        }
+                    }
+                    child {
+                        node {2}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}5}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}6}
+                        }
+                    };
+        \end{tikzpicture}
+        \caption{swap {\color{red}1} and {\color{red}3}}
+        \end{subfigure}
+\end{figure}
+%
+% 21 to 30
+%
+\begin{figure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {\color{red}0}
+                child {
+                    node {3}
+                    child {
+                        node {1}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}7}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}8}
+                        }
+                    }
+                    child {
+                        node {\color{DarkGreen}4}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}9}
+                        }
+                    }
+                }
+                child {
+                    node {2}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}5}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}6}
+                    }
+                };
+    \end{tikzpicture}
+    \caption{swap {\color{red}0} and {\color{DarkGreen}4}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {\color{red}3}
+                child {
+                    node {\color{red}0}
+                    child {
+                        node {1}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}7}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}8}
+                        }
+                    }
+                    child {
+                        node {\color{LightGrey}4}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}9}
+                        }
+                    }
+                }
+                child {
+                    node {2}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}5}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}6}
+                    }
+                };
+    \end{tikzpicture}
+    \caption{swap {\color{red}0} and {\color{red}3}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {3}
+                child {
+                    node {\color{red}1}
+                    child {
+                        node {\color{red}0}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}7}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}8}
+                        }
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}4}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}9}
+                        }
+                    }
+                }
+                child {
+                    node {2}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}5}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}6}
+                    }
+                };
+    \end{tikzpicture}
+    \caption{swap {\color{red}0} and {\color{red}1}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {\color{red}0}
+                child {
+                    node {1}
+                    child {
+                        node {\color{DarkGreen}3}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}7}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}8}
+                        }
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}4}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}9}
+                        }
+                    }
+                }
+                child {
+                    node {2}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}5}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}6}
+                    }
+                };
+    \end{tikzpicture}
+    \caption{max heap - swap {\color{red}0} and {\color{DarkGreen}3}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {\color{red}2}
+                child {
+                    node {1}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}3}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}7}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}8}
+                        }
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}4}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}9}
+                        }
+                    }
+                }
+                child {
+                    node {\color{red}0}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}5}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}6}
+                    }
+                };
+    \end{tikzpicture}
+    \caption{swap {\color{red}0} and {\color{red}2}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {\color{red}0}
+                child {
+                    node {1}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}3}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}7}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}8}
+                        }
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}4}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}9}
+                        }
+                    }
+                }
+                child {
+                    node {\color{DarkGreen}2}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}5}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}6}
+                    }
+                };
+    \end{tikzpicture}
+    \caption{max heap - swap {\color{red}0} and {\color{DarkGreen}2}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {\color{red}1}
+                child {
+                    node {\color{red}0}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}3}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}7}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}8}
+                        }
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}4}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}9}
+                        }
+                    }
+                }
+                child {
+                    [LightGrey]
+                    node {\color{LightGrey}2}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}5}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}6}
+                    }
+                };
+    \end{tikzpicture}
+    \caption{swap {\color{red}0} and {\color{red}1}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {\color{red}0}
+                child {
+                    node {\color{DarkGreen}1}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}3}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}7}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}8}
+                        }
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}4}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}9}
+                        }
+                    }
+                }
+                child {
+                    [LightGrey]
+                    node {\color{LightGrey}2}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}5}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}6}
+                    }
+                };
+    \end{tikzpicture}
+    \caption{max heap - swap {\color{red}0} and {\color{DarkGreen}1}}
+    \end{subfigure}
+\end{figure}
+\begin{figure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {\color{DarkGreen}0}
+                child {
+                    [LightGrey]
+                    node {\color{LightGrey}1}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}3}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}7}
+                        }
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}8}
+                        }
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}4}
+                        child {
+                            [LightGrey]
+                            node {\color{LightGrey}9}
+                        }
+                    }
+                }
+                child {
+                    [LightGrey]
+                    node {\color{LightGrey}2}
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}5}
+                    }
+                    child {
+                        [LightGrey]
+                        node {\color{LightGrey}6}
+                    }
+                };
+    \end{tikzpicture}
+    \caption{max heap - swap {\color{DarkGreen}0} and {\color{DarkGreen}0}}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \begin{tikzpicture}[level distance=1cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=1.5cm},
+            level 3/.style={sibling distance=1cm}]
+            \node {0}
+                child {
+                    node {1}
+                    child {
+                        node {3}
+                        child {
+                            node {7}
+                        }
+                        child {
+                            node {8}
+                        }
+                    }
+                    child {
+                        node {4}
+                        child {
+                            node {9}
+                        }
+                    }
+                }
+                child {
+                    node {2}
+                    child {
+                        node {5}
+                    }
+                    child {
+                        node {6}
+                    }
+                };
+    \end{tikzpicture}
+    \caption{the binary tree is correctly sorted}
+    \end{subfigure}
+\begin{subfigure}[c]{1\textwidth}
+    \centering
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
+        \hline
+        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+    \end{tabular}
+    \caption{deconstruct the binary tree to a sorted list}
+\end{subfigure}
+\end{figure}
 \end{center}
