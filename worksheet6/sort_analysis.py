@@ -49,18 +49,33 @@ class _LaTeXBuilder:
     def set_foreground(self, _index, _color):
         """
             Sets the foreground color of the list value at given index.
+            Parameters:
+                _index (int): list index to set color at
+                _color (str): foreground color to set
+            Returns:
+                (None): None
         """
         self.fg_colors_[_index] = _color
 
     def set_background(self, _index, _color):
         """
             Sets the background color of the list value at the given index.
+            Parameters:
+                _index (int): list index to set color at
+                _color (str): background color to set
+            Returns:
+                (None): None
         """
         self.bg_colors_[_index] = _color
 
     def swap_background(self, _old, _new):
         """
             Swaps the background colors of each list item to _new that matches _old.
+            Parameters:
+                _old (str): old color to swap from
+                _new (str): new color to swap to
+            Returns:
+                (None): None
         """
         for i in range(0, len(self.list_)):
             if self.bg_colors_[i] == _old:
@@ -70,6 +85,10 @@ class _LaTeXBuilder:
         """
             Logs a list action by adding a new line to the generated LaTeX table
             showing the list and the given message _msg at its right hand side.
+            Parameters:
+                _msg (str): the message to be printed as action along-side the list in a row
+            Returns:
+                (None): None
         """
         self._append("    ")
         if not self.delimiter_:
@@ -92,6 +111,10 @@ class _LaTeXBuilder:
         """
             Logs given message _msg to the generated LaTeX table as a new
             full row at the end.
+            Parameters:
+                _msg (str): the message to be printed in its dedicated single row
+            Returns:
+                (None): None
         """
         self._append("\\hhline{{{}}}\n".format('=' * (len(self.list_) + 1)))
         self._append("\\multicolumn{{{}}}{{ | c | }}{{{}}}\\\\".format(len(self.list_) + 1, _msg))
@@ -109,6 +132,9 @@ class _LaTeXBuilder:
     def save(self, _filename):
         """
             Saves the generated LaTeX output to given filename, _filename.
+            Parameters:
+                _filename (str): Filename to the local filesystems file to store the generated LaTeX
+                                 fragment to.
         """
         with open(_filename, 'wt') as f:
             f.write(self.text_)
@@ -116,6 +142,10 @@ class _LaTeXBuilder:
     def _append(self, _text):
         """
             Internal helper function for conviniently appending text to the internal buffer.
+            Parameters:
+                _text (str): The bare text to append to the internal LaTeX buffer.
+            Returns:
+                (None): None
         """
         self.text_ += _text
 
