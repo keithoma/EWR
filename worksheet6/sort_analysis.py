@@ -182,87 +182,84 @@ class _StatsBuilder:
         return fmt.format(self.compares_, self.swaps_, self.calls_, self.iterations_,
                           self.recursion_depth_, self.elapsed())
 
-class HeapSort:
-    @staticmethod
-    def heapify(a, n, i, stats, logger):
+def heapsort(_list):
+    def heapify(_list, n, i, _stats, _logger):
         largest = i
         l = 2 * i + 1
         r = 2 * i + 2
 
-        #logger.log_line("Heapify with i = {}, n = {}".format(i, n))
-        stats.enter()
+        #_logger.log_line("Heapify with i = {}, n = {}".format(i, n))
+        _stats.enter()
 
         if l < n:
-            stats.compare()
-            if a[l] > a[largest]:
+            _stats.compare()
+            if _list[l] > _list[largest]:
                 largest = l
 
         if r < n:
-            stats.compare()
-            if a[r] > a[largest]:
+            _stats.compare()
+            if _list[r] > _list[largest]:
                 largest = r
 
         if largest != i:
-            stats.swap()
-            a[i], a[largest] = a[largest], a[i]
+            _stats.swap()
+            _list[i], _list[largest] = _list[largest], _list[i]
 
-            logger.set_foreground(largest, _LaTeXBuilder.SWAP_FG)
-            logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
-            logger.log_action("swap {} with {}".format(a[largest], a[i]))
-            logger.set_foreground(largest, _LaTeXBuilder.CLEAR)
-            logger.set_foreground(i, _LaTeXBuilder.CLEAR)
+            _logger.set_foreground(largest, _LaTeXBuilder.SWAP_FG)
+            _logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
+            _logger.log_action("swap {} with {}".format(_list[largest], _list[i]))
+            _logger.set_foreground(largest, _LaTeXBuilder.CLEAR)
+            _logger.set_foreground(i, _LaTeXBuilder.CLEAR)
 
-            HeapSort.heapify(a, n, largest, stats, logger)
+            heapify(_list, n, largest, _stats, _logger)
 
-        stats.leave()
+        _stats.leave()
 
-    @staticmethod
-    def sort(a):
-        stats = _StatsBuilder()
-        n = len(a)
+    stats = _StatsBuilder()
+    n = len(_list)
 
-        # short-circuit trivial inputs
-        if n < 2:
-            return stats
-
-        logger = _LaTeXBuilder(a)
-        logger.log_action("initial state")
-
-        # build heap by rearranging array
-        i = n // 2 - 1
-        logger.log_line("build heap between {} and {}".format(0, i))
-        while i >= 0:
-            stats.iterate()
-            HeapSort.heapify(a, n, i, stats, logger)
-            i = i - 1
-
-        # one-by-one, extract an element from the heap
-        logger.log_line("extract elements from heap")
-        i = n - 1
-        while i >= 0:
-            stats.iterate()
-
-            # move current root to the end
-            stats.swap()
-            a[0], a[i] = a[i], a[0]
-
-            logger.set_foreground(0, _LaTeXBuilder.SWAP_FG)
-            logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
-            logger.log_action("swap {} with {}".format(a[0], a[i]))
-            logger.set_foreground(0, _LaTeXBuilder.CLEAR)
-            logger.set_foreground(i, _LaTeXBuilder.CLEAR)
-            logger.set_background(i, _LaTeXBuilder.CORRECT_BG)
-
-            # call max heapify on the reduced heap
-            logger.log_line("rebuild heap between {} and {}".format(0, i))
-            HeapSort.heapify(a, i, 0, stats, logger)
-
-            i = i - 1
-
-        logger.finish()
-        logger.save('heapsort.tex')
-
+    # short-circuit trivial inputs
+    if n < 2:
         return stats
+
+    logger = _LaTeXBuilder(_list)
+    logger.log_action("initial state")
+
+    # build heap by rearranging array
+    i = n // 2 - 1
+    logger.log_line("build heap between {} and {}".format(0, i))
+    while i >= 0:
+        stats.iterate()
+        heapify(_list, n, i, stats, logger)
+        i = i - 1
+
+    # one-by-one, extract an element from the heap
+    logger.log_line("extract elements from heap")
+    i = n - 1
+    while i >= 0:
+        stats.iterate()
+
+        # move current root to the end
+        stats.swap()
+        _list[0], _list[i] = _list[i], _list[0]
+
+        logger.set_foreground(0, _LaTeXBuilder.SWAP_FG)
+        logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
+        logger.log_action("swap {} with {}".format(_list[0], _list[i]))
+        logger.set_foreground(0, _LaTeXBuilder.CLEAR)
+        logger.set_foreground(i, _LaTeXBuilder.CLEAR)
+        logger.set_background(i, _LaTeXBuilder.CORRECT_BG)
+
+        # call max heapify on the reduced heap
+        logger.log_line("rebuild heap between {} and {}".format(0, i))
+        heapify(_list, i, 0, stats, logger)
+
+        i = i - 1
+
+    logger.finish()
+    logger.save('heapsort.tex')
+
+    return stats
 
 class QuickSort:
     def __init__(self, _list):
@@ -420,13 +417,13 @@ class QuickSort:
         return self.stats_
 
 # as per home-assignment
-def sort_A(a):
-    stats = QuickSort.sort(a)
+def sort_A(_list):
+    stats = QuickSort.sort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 # as per home-assignment
-def sort_B(a):
-    stats = HeapSort.sort(a)
+def sort_B(_list):
+    stats = heapsort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 def read_words_from_file(filename):
@@ -449,7 +446,7 @@ def _private_test():
     print("input list: {}".format(', '.join(map(str, words))))
 
     test_algo("quicksort", QuickSort.sort, words[:])
-    test_algo("heapsort", HeapSort.sort, words[:])
+    test_algo("heapsort", heapsort, words[:])
 
 if __name__ == "__main__":
     _private_test()
