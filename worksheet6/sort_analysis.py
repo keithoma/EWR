@@ -13,6 +13,7 @@
     and requested methods by the Lecture we both attend(ed) to.
 """
 
+import sys
 import time
 
 class _LaTeXBuilder:
@@ -302,7 +303,7 @@ def heapsort(_list):
         if LEFT_CHILD_INDEX < _n:
             _stats.compare()
             if _list[LEFT_CHILD_INDEX] > _list[largest_element_index]:
-                largest_element_index = LEFT_CHILD_INDEX 
+                largest_element_index = LEFT_CHILD_INDEX
 
         RIGHT_CHILD_INDEX = 2 * _i + 2
         if RIGHT_CHILD_INDEX < _n:
@@ -368,6 +369,8 @@ def heapsort(_list):
     return stats
 
 class QuickSort:
+    """ TODO: docstring """
+
     def __init__(self, _list):
         self.list_ = _list
         self.stats_ = _StatsBuilder()
@@ -510,6 +513,7 @@ class QuickSort:
         return quicksort.run()
 
     def run(self):
+        """ TODO: docstring """
         list_length = len(self.list_)
 
         # if the list_length is exactly 0 or 1, there is no need to sort
@@ -524,36 +528,48 @@ class QuickSort:
 
 # as per home-assignment
 def sort_A(_list):
+    """ TODO: docstring """
     stats = QuickSort.sort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 # as per home-assignment
 def sort_B(_list):
+    """ TODO: docstring """
     stats = heapsort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
-def read_words_from_file(filename):
-    with open(filename, mode='r', encoding='utf-8') as f:
+def read_words_from_file(_filename):
+    """ TODO: docstring """
+    with open(_filename, mode='r', encoding='utf-8') as f:
         return f.read().split()
 
-def _private_test():
-    def test_algo(name, sort, words):
+def _private_test(_list):
+    """ TODO: docstring """
+
+    def test_algo(name, sort, _list):
         """ tiny helper for generic testing sort algos. """
-        stats = sort(words)
+        stats = sort(_list)
         print("{}: {}".format(name, stats))
-        print("  sorted: {}".format(', '.join(map(str, words))))
+        print("  sorted: {}".format(', '.join(map(str, _list))))
 
-    #words = read_words_from_file('test.txt')
-    #words = ["F", "A", "C", "B"]
-    #words = [7, 1, 5, 4, 9, 2, 8, 3, 0, 6]
-    #words = [0, 1, 2, 3, 4]
-    #words = [4, 3, 2, 1, 0]
-    #words = [4, 10, 3, 5, 1] #geeksforgeeks
-    words = [6, 5, 3, 1, 8, 7, 2, 4] #wikipedia
-    print("input list: {}".format(', '.join(map(str, words))))
+    print("input list: {}".format(', '.join(map(str, _list))))
 
-    test_algo("quicksort", QuickSort.sort, words[:])
-    test_algo("heapsort", heapsort, words[:])
+    test_algo("quicksort", QuickSort.sort, _list[:])
+    test_algo("heapsort", heapsort, _list[:])
 
 if __name__ == "__main__":
-    _private_test()
+    if len(sys.argv) == 1:
+        #words = read_words_from_file('test.txt')
+        #words = ["F", "A", "C", "B"]
+        #words = [7, 1, 5, 4, 9, 2, 8, 3, 0, 6]
+        #words = [0, 1, 2, 3, 4]
+        #words = [4, 3, 2, 1, 0]
+        #words = [4, 10, 3, 5, 1] #geeksforgeeks
+        words = [6, 5, 3, 1, 8, 7, 2, 4] #wikipedia
+        _private_test(words)
+    elif len(sys.argv) != 2:
+        print("Invalid usage. Please check LaTeX documentation.")
+    else:
+        filename = sys.argv[1]
+        print("Loading space delimited words from file {}.".format(filename))
+        _private_test(read_words_from_file(filename))
