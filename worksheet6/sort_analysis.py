@@ -23,7 +23,11 @@ class _LaTeXBuilder:
         as usually done by sorting algorithms.
     """
 
-    # color coding constants (TODO: future improvements: make them configurable)
+    # Color Coding Constants:
+    # NB: They *ARE* potentially being modified at file's CLI level.
+    # While this is okay, we still consider them "runtime constants", i.e.
+    # These values MAY change at startup but will NOT change during runtime.
+    # Hence, capital letters to denote this constness.
     SWAP_FG = "red"
     CORRECT_BG = "LightGreen"
     ACTIVE_BG = "Amber"
@@ -659,6 +663,26 @@ def _main(argv):
                                 help=("Specifies file name to write LaTeX fragment to that contains"
                                       " a log table of all instructions being done (as readable as"
                                       " possible)."))
+        arg_parser.add_argument("--tr-swap-fg",
+                                default="red", #_LaTeXBuilder.SWAP_FG.__str__(),
+                                metavar="LATEX_COLOR",
+                                help=("LaTeX transaction cell text-coloring for swap action"
+                                      " (default: %(default)s)."))
+        arg_parser.add_argument("--tr-active-bg",
+                                default=_LaTeXBuilder.ACTIVE_BG,
+                                metavar="LATEX_COLOR",
+                                help=("LaTeX transaction cell background-coloring for active element."
+                                      " (default: %(default)s)."))
+        arg_parser.add_argument("--tr-pivot-bg",
+                                default=_LaTeXBuilder.PIVOT_BG,
+                                metavar="LATEX_COLOR",
+                                help=("LaTeX transaction cell background-coloring for pivot element."
+                                      " (default: %(default)s)."))
+        arg_parser.add_argument("--tr-correct-bg",
+                                default=_LaTeXBuilder.CORRECT_BG,
+                                metavar="LATEX_COLOR",
+                                help=("LaTeX transaction cell background-coloring final position."
+                                      " (default: %(default)s)."))
         args = arg_parser.parse_args(argv)
         if (args.heapsort and args.quicksort) or (not args.heapsort and not args.quicksort):
             print("You must specify at exactly one algorithm, --quicksort or --heapsort.")
@@ -666,6 +690,12 @@ def _main(argv):
         return args
 
     args = parse_args()
+
+    # Adjust colors in case the caller customized them.
+    _LaTeXBuilder.SWAP_FG = args.tr_swap_fg
+    _LaTeXBuilder.ACTIVE_BG = args.tr_active_bg
+    _LaTeXBuilder.PIVOT_BG = args.tr_pivot_bg
+    _LaTeXBuilder.CORRECT_BG = args.tr_correct_bg
 
     if args.word_file:
         print("Loading word set from file: {}".format(args.word_file))
