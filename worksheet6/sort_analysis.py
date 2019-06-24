@@ -540,7 +540,7 @@ def read_words_from_file(_filename):
     with open(_filename, mode="r", encoding="utf-8") as f:
         return f.read().split()
 
-def main(argv):
+def _main(argv):
     """
         main function actually implementing command line interface
         Parameters:
@@ -591,4 +591,4 @@ def main(argv):
         test_algo("quicksort", QuickSort.sort, words[:], args.latex_trace)
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    _main(sys.argv[1:])
