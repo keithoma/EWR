@@ -136,6 +136,19 @@ class _LaTeXBuilder:
         """
         self.bg_colors_[_index] = _color
 
+    def set_background_range(self, _from_index, _to_index, _color):
+        """
+            Sets the background color of the list value at the given index range.
+            Parameters:
+                _from_index (int): first index into the list to set color at
+                _to_index (int): last index into the list to set color at
+                _color (str): background color to set
+            Returns:
+                (None): None
+        """
+        for i in range(_from_index, _to_index + 1):
+            self.bg_colors_[i] = _color
+
     def swap_background(self, _old, _new):
         """
             Swaps the background colors of each list item to _new that matches _old.
@@ -421,11 +434,9 @@ class QuickSort:
 
             _partition[_i], _partition[_j] = _partition[_j], _partition[_i]
 
-            self.logger_.set_foreground(_i, _LaTeXBuilder.SWAP_FG)
-            self.logger_.set_foreground(_j, _LaTeXBuilder.SWAP_FG)
-            self.logger_.log_action("swap {} with {}".format(_partition[_i], _partition[_j]))
-            self.logger_.set_foreground(_i, _LaTeXBuilder.CLEAR)
-            self.logger_.set_foreground(_j, _LaTeXBuilder.CLEAR)
+            with self.logger_.foreground(_i, _LaTeXBuilder.SWAP_FG):
+                with self.logger_.foreground(_j, _LaTeXBuilder.SWAP_FG):
+                    self.logger_.log_action("swap {} with {}".format(_partition[_i], _partition[_j]))
 
             return _i
 
@@ -440,9 +451,7 @@ class QuickSort:
 
             self.logger_.swap_background(_LaTeXBuilder.PIVOT_BG, _LaTeXBuilder.CLEAR)
             self.logger_.set_background(_high, _LaTeXBuilder.PIVOT_BG)
-
-            for j in range(_low, pivot_index):
-                self.logger_.set_background(j, _LaTeXBuilder.ACTIVE_BG)
+            self.logger_.set_background_range(_low, pivot_index - 1, _LaTeXBuilder.ACTIVE_BG)
 
             self.logger_.log_action("choose the pivot {}".format(pivot))
 
@@ -548,7 +557,7 @@ def _main(argv):
     """
 
     def test_algo(_name, _sort, _list, _latex_tracefile):
-        """ tiny helper for generic testing sort algos. """
+        """ Tiny helper for generic testing sort algos. """
         stats, _latex = _sort(_list)
         print("{}: {}".format(_name, stats))
         print("  sorted: {}".format(", ".join(map(str, _list))))
@@ -557,7 +566,10 @@ def _main(argv):
 
     def parse_args():
         """
-            tiny helper function for setting up CLI parser and parsing argv."
+            Tiny helper function for setting up CLI parser and parsing argv.
+
+            TODO: we could add our own `--test` unit-testing option here to internally test the
+            correctness of our algorithm(s)
         """
         arg_parser = argparse.ArgumentParser(prog="sort_analyzer.py",
                                              description="Sorting algorithm analysis.")
