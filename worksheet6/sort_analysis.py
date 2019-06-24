@@ -13,7 +13,9 @@
     and requested methods by the Lecture we both attend(ed) to.
 """
 
+import sys
 import time
+import argparse
 
 class _LaTeXBuilder:
     """
@@ -21,19 +23,19 @@ class _LaTeXBuilder:
         as usually done by sorting algorithms.
     """
 
-    # color coding constants
-    SWAP_FG = 'red'
-    CORRECT_BG = 'LightGreen'
-    ACTIVE_BG = 'Amber'
-    PIVOT_BG = 'LightCyan'
-    CLEAR = ''
+    # color coding constants (TODO: future improvements: make them configurable)
+    SWAP_FG = "red"
+    CORRECT_BG = "LightGreen"
+    ACTIVE_BG = "Amber"
+    PIVOT_BG = "LightCyan"
+    CLEAR = ""
 
     def __init__(self, _list):
         """ Constructs the LaTeX builder with the list (_list) to be worked on. """
         self.text_ = ""
         self.list_ = _list
-        self.fg_colors_ = ['' for item in _list]
-        self.bg_colors_ = ['' for item in _list]
+        self.fg_colors_ = ["" for item in _list]
+        self.bg_colors_ = ["" for item in _list]
         self.delimiter_ = False
 
         self._append("\\section{Auto Generated}\n")
@@ -44,23 +46,117 @@ class _LaTeXBuilder:
     @staticmethod
     def format_list(_list):
         """ Static helper method for generating a text representation of lists. """
-        return "\\(({}\\))".format(', '.join(map(str, _list)))
+        return "\\(({}\\))".format(", ".join(map(str, _list)))
+
+    class Context:
+        """ Helper class for scoped color setting via with-statement. """
+        def __init__(self, _builder, _index, _foreground, _background):
+            """
+                Constructs color setter.
+                Parameters:
+                    _builder (_LaTeXBuilder): LaTeX builder to operate on.
+                    _index (int): list index to set color at.
+                    _foreground (str): background color to set or None
+                    _background (str): foreground color to set or None
+            """
+            self.builder_ = _builder
+            self.index_ = _index
+            self.foreground_ = _foreground
+            self.background_ = _background
+
+            if _foreground != None:
+                self.old_foreground_ = _builder.fg_colors_[_index]
+            else:
+                self.old_foreground_ = None
+
+            if _background != None:
+                self.old_background_ = _builder.bg_colors_[_index]
+            else:
+                self.old_background_ = None
+
+        def __enter__(self):
+            """ Internal magic-method to be invoked upon with-statement scope entrance,
+                setting colors. """
+            if self.foreground_ != None:
+                self.builder_.set_foreground(self.index_, self.foreground_)
+
+            if self.background_:
+                self.builder_.set_background(self.index_, self.background_)
+
+        def __exit__(self, _type, _value, _traceback):
+            """ Internal magic-method to be invoked upon with-statement scope exit,
+                reverting set colors. """
+            if self.old_foreground_ != None:
+                self.builder_.fg_colors_[self.index_] = self.old_foreground_
+
+            if self.old_background_ != None:
+                self.builder_.bg_colors_[self.index_] = self.old_background_
+
+    def foreground(self, _index, _color):
+        """
+            Constructs scoped foreground color. Use with with-statement.
+            Parameters:
+                _index (int): list index to set color at
+                _color (str): foreground color to set
+            Returns:
+                (Context): The context object being used internally by the with-statement.
+        """
+        return _LaTeXBuilder.Context(self, _index, _color, None)
+
+    def background(self, _index, _color):
+        """
+            Constructs scoped background color. Use with with-statement.
+            Parameters:
+                _index (int): list index to set color at
+                _color (str): background color to set
+            Returns:
+                (Context): The context object being used internally by the with-statement.
+        """
+        return _LaTeXBuilder.Context(self, _index, None, _color)
 
     def set_foreground(self, _index, _color):
         """
             Sets the foreground color of the list value at given index.
+            Parameters:
+                _index (int): list index to set color at
+                _color (str): foreground color to set
+            Returns:
+                (None): None
         """
         self.fg_colors_[_index] = _color
 
     def set_background(self, _index, _color):
         """
             Sets the background color of the list value at the given index.
+            Parameters:
+                _index (int): list index to set color at
+                _color (str): background color to set
+            Returns:
+                (None): None
         """
         self.bg_colors_[_index] = _color
+
+    def set_background_range(self, _from_index, _to_index, _color):
+        """
+            Sets the background color of the list value at the given index range.
+            Parameters:
+                _from_index (int): first index into the list to set color at
+                _to_index (int): last index into the list to set color at
+                _color (str): background color to set
+            Returns:
+                (None): None
+        """
+        for i in range(_from_index, _to_index + 1):
+            self.bg_colors_[i] = _color
 
     def swap_background(self, _old, _new):
         """
             Swaps the background colors of each list item to _new that matches _old.
+            Parameters:
+                _old (str): old color to swap from
+                _new (str): new color to swap to
+            Returns:
+                (None): None
         """
         for i in range(0, len(self.list_)):
             if self.bg_colors_[i] == _old:
@@ -70,6 +166,10 @@ class _LaTeXBuilder:
         """
             Logs a list action by adding a new line to the generated LaTeX table
             showing the list and the given message _msg at its right hand side.
+            Parameters:
+                _msg (str): the message to be printed as action along-side the list in a row
+            Returns:
+                (None): None
         """
         self._append("    ")
         if not self.delimiter_:
@@ -80,9 +180,9 @@ class _LaTeXBuilder:
         for i in range(0, len(self.list_)):
             if i != 0:
                 self._append(" & ")
-            if self.bg_colors_[i] != '':
+            if self.bg_colors_[i] != "":
                 self._append("\\cellcolor{{{}}}".format(self.bg_colors_[i]))
-            if self.fg_colors_[i] != '':
+            if self.fg_colors_[i] != "":
                 self._append("\\color{{{}}}".format(self.fg_colors_[i]))
             self._append("{}".format(self.list_[i]))
         self._append(" & {}".format(_msg))
@@ -92,10 +192,14 @@ class _LaTeXBuilder:
         """
             Logs given message _msg to the generated LaTeX table as a new
             full row at the end.
+            Parameters:
+                _msg (str): the message to be printed in its dedicated single row
+            Returns:
+                (None): None
         """
-        self._append("\\hhline{{{}}}\n".format('=' * (len(self.list_) + 1)))
+        self._append("\\hhline{{{}}}\n".format("=" * (len(self.list_) + 1)))
         self._append("\\multicolumn{{{}}}{{ | c | }}{{{}}}\\\\".format(len(self.list_) + 1, _msg))
-        self._append("\\hhline{{{}}}\n".format('=' * (len(self.list_) + 1)))
+        self._append("\\hhline{{{}}}\n".format("=" * (len(self.list_) + 1)))
         self.delimiter_ = True
 
     def finish(self):
@@ -109,13 +213,20 @@ class _LaTeXBuilder:
     def save(self, _filename):
         """
             Saves the generated LaTeX output to given filename, _filename.
+            Parameters:
+                _filename (str): Filename to the local filesystems file to store the generated LaTeX
+                                 fragment to.
         """
-        with open(_filename, 'wt') as f:
+        with open(_filename, "wt") as f:
             f.write(self.text_)
 
     def _append(self, _text):
         """
             Internal helper function for conviniently appending text to the internal buffer.
+            Parameters:
+                _text (str): The bare text to append to the internal LaTeX buffer.
+            Returns:
+                (None): None
         """
         self.text_ += _text
 
@@ -194,88 +305,82 @@ def heapsort(_list):
         Returns:
             (_StatsBuilder): Execution statistics.
     """
-    def heapify(_list, _n, i, _stats, _logger):
-        """
-            TODO
-        """
-        largest_element_index = i
-        left_child_index = 2 * i + 1
-        right_child_index = 2 * i + 2
-
-        #_logger.log_line("Heapify with i = {}, _n = {}".format(i, _n))
+    def heapify(_list, _n, _i, _stats, _logger):
+        """ TODO: docstring """
         _stats.enter()
 
-        if left_child_index < _n:
+        # determine largest element index
+        largest_element_index = _i
+        LEFT_CHILD_INDEX = 2 * _i + 1
+        if LEFT_CHILD_INDEX < _n:
             _stats.compare()
-            if _list[left_child_index] > _list[largest_element_index]:
-                largest_element_index = left_child_index
+            if _list[LEFT_CHILD_INDEX] > _list[largest_element_index]:
+                largest_element_index = LEFT_CHILD_INDEX
 
-        if right_child_index < _n:
+        RIGHT_CHILD_INDEX = 2 * _i + 2
+        if RIGHT_CHILD_INDEX < _n:
             _stats.compare()
-            if _list[right_child_index] > _list[largest_element_index]:
-                largest_element_index = right_child_index
+            if _list[RIGHT_CHILD_INDEX] > _list[largest_element_index]:
+                largest_element_index = RIGHT_CHILD_INDEX
 
-        if largest_element_index != i:
+        # if the largest element isn't at index _i, swap!
+        if largest_element_index != _i:
             _stats.swap()
-            _list[i], _list[largest_element_index] = _list[largest_element_index], _list[i]
+            _list[_i], _list[largest_element_index] = _list[largest_element_index], _list[_i]
 
-            _logger.set_foreground(largest_element_index, _LaTeXBuilder.SWAP_FG)
-            _logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
-            _logger.log_action("swap {} with {}".format(_list[largest_element_index], _list[i]))
-            _logger.set_foreground(largest_element_index, _LaTeXBuilder.CLEAR)
-            _logger.set_foreground(i, _LaTeXBuilder.CLEAR)
+            with _logger.foreground(largest_element_index, _LaTeXBuilder.SWAP_FG):
+                with _logger.foreground(_i, _LaTeXBuilder.SWAP_FG):
+                    _logger.log_action("swap {} with {}".format(_list[largest_element_index], _list[_i]))
 
             heapify(_list, _n, largest_element_index, _stats, _logger)
 
         _stats.leave()
 
     stats = _StatsBuilder()
-    n = len(_list)
-
-    # short-circuit trivial inputs
-    if n < 2:
-        return stats
-
     logger = _LaTeXBuilder(_list)
     logger.log_action("initial state")
 
-    # build heap by rearranging array
-    i = n // 2 - 1
-    logger.log_line("build heap between {} and {}".format(0, i))
-    while i >= 0:
-        stats.iterate()
-        heapify(_list, n, i, stats, logger)
-        i = i - 1
+    # short-circuit trivial inputs
+    if len(_list) > 1:
+        # build heap by rearranging array
+        i = len(_list) // 2 - 1
+        logger.log_line("build heap with middle element {}".format(_list[i]))
+        with logger.background(i, _LaTeXBuilder.ACTIVE_BG):
+            while i >= 0:
+                stats.iterate()
+                heapify(_list, len(_list), i, stats, logger)
+                i = i - 1
 
-    # one-by-one, extract an element from the heap
-    logger.log_line("extract elements from heap")
-    i = n - 1
-    while i >= 0:
-        stats.iterate()
+        # one-by-one, extract an element from the heap
+        logger.log_line("extract elements from heap")
+        i = len(_list) - 1
+        while i >= 0:
+            stats.iterate()
 
-        # move current root to the end
-        stats.swap()
-        _list[0], _list[i] = _list[i], _list[0]
+            # move current root to the end
+            stats.swap()
+            _list[0], _list[i] = _list[i], _list[0]
 
-        logger.set_foreground(0, _LaTeXBuilder.SWAP_FG)
-        logger.set_foreground(i, _LaTeXBuilder.SWAP_FG)
-        logger.log_action("swap {} with {}".format(_list[0], _list[i]))
-        logger.set_foreground(0, _LaTeXBuilder.CLEAR)
-        logger.set_foreground(i, _LaTeXBuilder.CLEAR)
-        logger.set_background(i, _LaTeXBuilder.CORRECT_BG)
+            with logger.foreground(0, _LaTeXBuilder.SWAP_FG):
+                with logger.foreground(i, _LaTeXBuilder.SWAP_FG):
+                    logger.log_action("swap {} with {}".format(_list[0], _list[i]))
+            logger.set_background(i, _LaTeXBuilder.CORRECT_BG)
 
-        # call max heapify on the reduced heap
-        logger.log_line("rebuild heap between {} and {}".format(0, i))
-        heapify(_list, i, 0, stats, logger)
+            # call max heapify on the reduced heap
+            logger.log_line("rebuild heap between {} and {}".format(0, i))
+            heapify(_list, i, 0, stats, logger)
 
-        i = i - 1
+            i = i - 1
 
     logger.finish()
-    logger.save('heapsort.tex')
-
-    return stats
+    return stats, logger
 
 class QuickSort:
+    """
+        Implements quicksort algorithm. This is a class instead of a function due to helper methods
+        being more well and clean when not all nested, due to shared variable use.
+    """
+
     def __init__(self, _list):
         self.list_ = _list
         self.stats_ = _StatsBuilder()
@@ -329,11 +434,9 @@ class QuickSort:
 
             _partition[_i], _partition[_j] = _partition[_j], _partition[_i]
 
-            self.logger_.set_foreground(_i, _LaTeXBuilder.SWAP_FG)
-            self.logger_.set_foreground(_j, _LaTeXBuilder.SWAP_FG)
-            self.logger_.log_action("swap {} with {}".format(_partition[_i], _partition[_j]))
-            self.logger_.set_foreground(_i, _LaTeXBuilder.CLEAR)
-            self.logger_.set_foreground(_j, _LaTeXBuilder.CLEAR)
+            with self.logger_.foreground(_i, _LaTeXBuilder.SWAP_FG):
+                with self.logger_.foreground(_j, _LaTeXBuilder.SWAP_FG):
+                    self.logger_.log_action("swap {} with {}".format(_partition[_i], _partition[_j]))
 
             return _i
 
@@ -348,9 +451,7 @@ class QuickSort:
 
             self.logger_.swap_background(_LaTeXBuilder.PIVOT_BG, _LaTeXBuilder.CLEAR)
             self.logger_.set_background(_high, _LaTeXBuilder.PIVOT_BG)
-
-            for j in range(_low, pivot_index):
-                self.logger_.set_background(j, _LaTeXBuilder.ACTIVE_BG)
+            self.logger_.set_background_range(_low, pivot_index - 1, _LaTeXBuilder.ACTIVE_BG)
 
             self.logger_.log_action("choose the pivot {}".format(pivot))
 
@@ -418,6 +519,7 @@ class QuickSort:
         return quicksort.run()
 
     def run(self):
+        """ TODO: docstring """
         list_length = len(self.list_)
 
         # if the list_length is exactly 0 or 1, there is no need to sort
@@ -426,42 +528,79 @@ class QuickSort:
 
         self.logger_.log_action("final state")
         self.logger_.finish()
-        self.logger_.save('quicksort.tex')
 
-        return self.stats_
+        return self.stats_, self.logger_
 
 # as per home-assignment
 def sort_A(_list):
-    stats = QuickSort.sort(_list)
+    """ TODO: docstring """
+    stats, _ = QuickSort.sort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 # as per home-assignment
 def sort_B(_list):
-    stats = heapsort(_list)
+    """ TODO: docstring """
+    stats, _ = heapsort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
-def read_words_from_file(filename):
-    with open(filename, mode='r', encoding='utf-8') as f:
+# as per home-assignment, except that the naming wasn't mentioned, so we chose one.
+def read_words_from_file(_filename):
+    """ TODO: docstring """
+    with open(_filename, mode="r", encoding="utf-8") as f:
         return f.read().split()
 
-def _private_test():
-    def test_algo(name, sort, words):
-        """ tiny helper for generic testing sort algos. """
-        stats = sort(words)
-        print("{}: {}".format(name, stats))
-        print("  sorted: {}".format(', '.join(map(str, words))))
+def _main(argv):
+    """
+        main function actually implementing command line interface
+        Parameters:
+            argv (list): reflecting sys.argv, list of strings
+    """
 
-    #words = read_words_from_file('test.txt')
-    #words = ["F", "A", "C", "B"]
-    #words = [7, 1, 5, 4, 9, 2, 8, 3, 0, 6]
-    #words = [0, 1, 2, 3, 4]
-    #words = [4, 3, 2, 1, 0]
-    #words = [4, 10, 3, 5, 1] #geeksforgeeks
-    words = [6, 5, 3, 1, 8, 7, 2, 4] #wikipedia
-    print("input list: {}".format(', '.join(map(str, words))))
+    def test_algo(_name, _sort, _list, _latex_tracefile):
+        """ Tiny helper for generic testing sort algos. """
+        stats, _latex = _sort(_list)
+        print("{}: {}".format(_name, stats))
+        print("  sorted: {}".format(", ".join(map(str, _list))))
+        if _latex_tracefile:
+            _latex.save(_latex_tracefile)
 
-    test_algo("quicksort", QuickSort.sort, words[:])
-    test_algo("heapsort", heapsort, words[:])
+    def parse_args():
+        """
+            Tiny helper function for setting up CLI parser and parsing argv.
+
+            TODO: we could add our own `--test` unit-testing option here to internally test the
+            correctness of our algorithm(s)
+        """
+        arg_parser = argparse.ArgumentParser(prog="sort_analyzer.py",
+                                             description="Sorting algorithm analysis.")
+        arg_parser.add_argument("--quicksort", action="store_true", help="Uses quicksort algorithm.")
+        arg_parser.add_argument("--heapsort", action="store_true", help="Uses heapsort algorithm.")
+        arg_parser.add_argument("--word-file", help="Specifies file to load words from.")
+        arg_parser.add_argument("--latex-trace",
+                                help=("Specifies file name to write LaTeX fragment to that contains"
+                                      " a log table of all instructions being done (as readable as"
+                                      " possible)."))
+        args = arg_parser.parse_args(argv)
+        if (args.heapsort and args.quicksort) or (not args.heapsort and not args.quicksort):
+            print("You must specify at exactly one algorithm, --quicksort or --heapsort.")
+            sys.exit(1)
+        return args
+
+    args = parse_args()
+
+    if args.word_file:
+        print("Loading word set from file: {}".format(args.word_file))
+        words = read_words_from_file(args.word_file)
+        print("    words: {}".format(words))
+    else:
+        words = [6, 5, 3, 1, 8, 7, 2, 4]
+        print("Defaulting to demo word set: {}".format(words))
+
+    if args.heapsort:
+        test_algo("heapsort", heapsort, words[:], args.latex_trace)
+
+    if args.quicksort:
+        test_algo("quicksort", QuickSort.sort, words[:], args.latex_trace)
 
 if __name__ == "__main__":
-    _private_test()
+    _main(sys.argv[1:])
