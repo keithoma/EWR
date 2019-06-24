@@ -490,7 +490,7 @@
     \end{tikzpicture}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
         \hline
-        \color{red}3 & 0 & 5 & 4 & 6 & 2 & 1 & \color{DarkGreen}7 & \color{gray}8 & \color{gray}9 \\ \hline
+        \color{red}3 & 6 & 5 & 4 & 0 & 2 & 1 & \color{DarkGreen}7 & \color{gray}8 & \color{gray}9 \\ \hline
     \end{tabular}
     \caption{max heap - swap {\color{red}3} and {\color{DarkGreen}7}}
     \end{subfigure}
@@ -533,7 +533,7 @@
     \end{tikzpicture}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
         \hline
-        \color{red}6 & 0 & 5 & 4 & \color{red}3 & 2 & 1 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+        \color{red}6 & \color{red}3 & 5 & 4 & 0 & 2 & 1 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
     \end{tabular}
     \caption{swap {\color{red}3} and {\color{red}6}}
     \end{subfigure}
@@ -576,7 +576,7 @@
     \end{tikzpicture}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
         \hline
-        6 & 0 & 5 & \color{red}3 & \color{red}4 & 2 & 1 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+        6 & \color{red}4 & 5 & \color{red}3 & 0 & 2 & 1 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
     \end{tabular}
     \caption{swap {\color{red}3} and {\color{red}4}}
     \end{subfigure}
@@ -619,7 +619,7 @@
     \end{tikzpicture}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
         \hline
-        \color{red}1 & 0 & 5 & 3 & 4 & 2 & \color{DarkGreen}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+        \color{red}1 & 4 & 5 & 3 & 0 & 2 & \color{DarkGreen}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
     \end{tabular}
     \caption{max heap - {\color{red}1} and {\color{DarkGreen}6}}
     \end{subfigure}
@@ -663,7 +663,7 @@
     \end{tikzpicture}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
         \hline
-        \color{red}5 & 0 & \color{red}1 & 3 & 4 & 2 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+        \color{red}5 & 4 & \color{red}1 & 3 & 0 & 2 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
     \end{tabular}
     \caption{swap {\color{red}1} and {\color{red}5}}
     \end{subfigure}
@@ -709,7 +709,7 @@
     \end{tikzpicture}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
         \hline
-        5 & 0 & \color{red}2 & 3 & 4 & \color{red}1 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+        5 & 4 & \color{red}2 & 3 & 0 & \color{red}1 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
     \end{tabular}
     \caption{swap {\color{red}1} and {\color{red}2}}
     \end{subfigure}
@@ -753,7 +753,7 @@
     \end{tikzpicture}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
         \hline
-        \color{red}1 & 0 & 2 & 3 & 4 & \color{DarkGreen}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+        \color{red}1 & 4 & 2 & 3 & 0 & \color{DarkGreen}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
     \end{tabular}
     \caption{max heap - swap {\color{red}1} and {\color{DarkGreen}5}}
     \end{subfigure}
@@ -798,7 +798,7 @@
         \end{tikzpicture}
         \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
             \hline
-            \color{red}4 & 0 & 2 & 3 & \color{red}1 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+            \color{red}4 & \color{red}1 & 2 & 3 & 0 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
         \end{tabular}
         \caption{swap {\color{red}1} and {\color{red}4}}
         \end{subfigure}
@@ -843,7 +843,7 @@
         \end{tikzpicture}
         \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
             \hline
-            4 & 0 & 2 & \color{red}1 & \color{red}3 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+            4 & \color{red}3 & 2 & \color{red}1 & 0 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
         \end{tabular}
         \caption{swap {\color{red}1} and {\color{red}3}}
         \end{subfigure}
@@ -888,7 +888,7 @@
     \end{tikzpicture}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
         \hline
-        4 & 0 & 2 & \color{red}1 & \color{red}3 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+        \color{red}0 & 3 & 2 & 1 & \color{DarkGreen}4 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
     \end{tabular}
     \caption{swap {\color{red}0} and {\color{DarkGreen}4}}
     \end{subfigure}
@@ -931,6 +931,10 @@
                     }
                 };
     \end{tikzpicture}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
+        \hline
+        \color{red}3 & \color{red}0 & 2 & 1 & \color{gray}4 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+    \end{tabular}
     \caption{swap {\color{red}0} and {\color{red}3}}
     \end{subfigure}
     \begin{subfigure}[c]{0.5\textwidth}
@@ -973,6 +977,10 @@
                     }
                 };
     \end{tikzpicture}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
+        \hline
+        3 & \color{red}1 & 2 & \color{red}0 & \color{gray}4 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+    \end{tabular}
     \caption{swap {\color{red}0} and {\color{red}1}}
     \end{subfigure}
     \begin{subfigure}[c]{0.5\textwidth}
@@ -1015,8 +1023,14 @@
                     }
                 };
     \end{tikzpicture}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
+        \hline
+        \color{red}0 & 1 & 2 & \color{DarkGreen}3 & \color{gray}4 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+    \end{tabular}
     \caption{max heap - swap {\color{red}0} and {\color{DarkGreen}3}}
     \end{subfigure}
+\end{figure}
+\begin{figure}
     \begin{subfigure}[c]{0.5\textwidth}
         \begin{tikzpicture}[level distance=1cm,
             level 1/.style={sibling distance=3cm},
@@ -1058,6 +1072,10 @@
                     }
                 };
     \end{tikzpicture}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
+        \hline
+        \color{red}2 & 1 & \color{red}0 & \color{gray}3 & \color{gray}4 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+    \end{tabular}
     \caption{swap {\color{red}0} and {\color{red}2}}
     \end{subfigure}
     \begin{subfigure}[c]{0.5\textwidth}
@@ -1101,6 +1119,10 @@
                     }
                 };
     \end{tikzpicture}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
+        \hline
+        \color{red}0 & 1 & \color{DarkGreen}2 & \color{gray}3 & \color{gray}4 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+    \end{tabular}
     \caption{max heap - swap {\color{red}0} and {\color{DarkGreen}2}}
     \end{subfigure}
     \begin{subfigure}[c]{0.5\textwidth}
@@ -1145,6 +1167,10 @@
                     }
                 };
     \end{tikzpicture}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
+        \hline
+        \color{red}1 & \color{red}0 & \color{gray}2 & \color{gray}3 & \color{gray}4 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+    \end{tabular}
     \caption{swap {\color{red}0} and {\color{red}1}}
     \end{subfigure}
     \begin{subfigure}[c]{0.5\textwidth}
@@ -1189,10 +1215,12 @@
                     }
                 };
     \end{tikzpicture}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
+        \hline
+        \color{red}0 & \color{DarkGreen}1 & \color{gray}2 & \color{gray}3 & \color{gray}4 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+    \end{tabular}
     \caption{max heap - swap {\color{red}0} and {\color{DarkGreen}1}}
     \end{subfigure}
-\end{figure}
-\begin{figure}
     \begin{subfigure}[c]{0.5\textwidth}
         \begin{tikzpicture}[level distance=1cm,
             level 1/.style={sibling distance=3cm},
@@ -1236,6 +1264,10 @@
                     }
                 };
     \end{tikzpicture}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
+        \hline
+        \color{DarkGreen}0 & \color{gray}1 & \color{gray}2 & \color{gray}3 & \color{gray}4 & \color{gray}5 & \color{gray}6 & \color{gray}7 & \color{gray}8 & \color{gray}9 \\ \hline
+    \end{tabular}
     \caption{max heap - swap {\color{DarkGreen}0} and {\color{DarkGreen}0}}
     \end{subfigure}
     \begin{subfigure}[c]{0.5\textwidth}
@@ -1272,15 +1304,11 @@
                     }
                 };
     \end{tikzpicture}
-    \caption{the binary tree is correctly sorted}
-    \end{subfigure}
-\begin{subfigure}[c]{1\textwidth}
-    \centering
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
         \hline
         0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
     \end{tabular}
-    \caption{deconstruct the binary tree to a sorted list}
-\end{subfigure}
+    \caption{the binary tree is correctly sorted}
+    \end{subfigure}
 \end{figure}
 \end{center}
