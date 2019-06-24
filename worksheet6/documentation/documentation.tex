@@ -11,10 +11,14 @@
 \usepackage{graphicx}
 \usepackage{hhline}
 \usepackage[utf8]{inputenc}
+\usepackage[procnames]{listings}
 \usepackage{longtable}
 \usepackage{tikz}
 \usepackage{subcaption}
 \usepackage{xcolor}
+%
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 %
 \pagestyle{fancy}
 %
@@ -26,6 +30,30 @@
 \definecolor{Amber}{rgb}{1.0, 0.75, 0.0}
 \definecolor{DarkOrange}{rgb}{1.0, 0.55, 0.0}
 \definecolor{DarkGreen}{rgb}{0.15, 0.85, 0.3}
+%
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+%
+\definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
+%
+\definecolor{keywords}{rgb}{0.54, 0.17, 0.89}
+\definecolor{comments}{RGB}{0,0,113}
+\definecolor{red}{RGB}{160,0,0}
+\definecolor{green}{RGB}{0,150,0}
+ 
+\lstset{language=Python,
+        numbers=left,
+        stepnumber=1,
+        breakatwhitespace=true,
+        numberstyle=\tiny\color{gray},
+        basicstyle=\ttfamily\small, 
+        keywordstyle=\color{keywords},
+        commentstyle=\fontseries{lc}\selectfont\itshape\color{gray},
+        stringstyle=\color{red},
+        showstringspaces=false,
+        identifierstyle=\color{darkmidnightblue},
+        procnamekeys={def,class}}
 %
 % ----------------------------------------------------------------------------------------------------------
 % TITLEPAGE & TABLE OF CONTENTS

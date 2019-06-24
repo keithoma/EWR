@@ -11,3 +11,5 @@ build/
 *.pyc
 *.synctex*
 worksheet6/notes.txt
+worksheet6/documentation/_minted-documentation/default.pygstyle
+worksheet6/documentation/_minted-documentation/default-pyg-prefix.pygstyle

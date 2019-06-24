@@ -3,3 +3,40 @@
 Quicksort is a recursive sorting algorithm. Informally speaking, quicksort first chooses a pivot element (in our case, the last element of the list\footnote{For the purpose of this paper, we define a list to be an ordered set for which an order relation such as \(<\) is defined. In terms of computer science, this equates to an array-like data type (in Python this would be a list) with elements which can be compared. An concrete example would be \((0, 1, 2, 3)\) which is incidentally already sorted according to the smaller relation, \(<\).} is chosen as the pivot\footnote{There are more sophisticated ways to choose the pivot. See section XXX for more information.}), then compares every element of the given list to the pivot placing elements smaller than the pivot to the left and every other element to the right. This partitions the list into two. The initial pivot is placed between the two partitions. Note that the pivot is correctly placed since every element smaller than the pivot are in the left partition. Then, the quicksort algorithm is applied to both partitions. The recursion is broken if the current partition only contains zero or one elements.
 
 More formally, we present the pseudocode for the procedure.
+
+\begin{lstlisting}
+def partition(_partition, _low, _high):
+    i = _low - 1
+
+    # here, we choose the pivot as the far right element of the
+    # partition
+    pivot = _partition[_high]
+
+    # from line 12 to line 17 we move every element smaller than 
+    # the pivot to the left and every other element to the right
+    # then we place the pivot in the middle of the two partitions
+    for j in range(_low, _high):
+        if _partition[j] < pivot:
+            ++i
+            _partition[i], _partition[j] = _partition[j], 
+                                           _partition[i]
+    ++i
+    _partition[i], _partition[j] = _partition[j], _partition[i]
+
+    return i
+
+def sort_range(_partition, _low, _high):
+    if _low < _high:
+        pivot_index = partition(_partition)
+
+        if pivot_index > 0:
+            sort_range(_partition, _low, pivot_index - 1)
+        sort_range(_partition, pivot_index + 1, _high)
+
+
+# entry point of the algorithm
+def quicksort(_list):
+    list_length = len(_list)
+    sort_range(_list, 0, list_length - 1)
+
+\end{lstlisting}
