@@ -15,6 +15,7 @@
 
 import sys
 import time
+import argparse
 
 class _LaTeXBuilder:
     """
@@ -22,19 +23,19 @@ class _LaTeXBuilder:
         as usually done by sorting algorithms.
     """
 
-    # color coding constants
-    SWAP_FG = 'red'
-    CORRECT_BG = 'LightGreen'
-    ACTIVE_BG = 'Amber'
-    PIVOT_BG = 'LightCyan'
-    CLEAR = ''
+    # color coding constants (TODO: future improvements: make them configurable)
+    SWAP_FG = "red"
+    CORRECT_BG = "LightGreen"
+    ACTIVE_BG = "Amber"
+    PIVOT_BG = "LightCyan"
+    CLEAR = ""
 
     def __init__(self, _list):
         """ Constructs the LaTeX builder with the list (_list) to be worked on. """
         self.text_ = ""
         self.list_ = _list
-        self.fg_colors_ = ['' for item in _list]
-        self.bg_colors_ = ['' for item in _list]
+        self.fg_colors_ = ["" for item in _list]
+        self.bg_colors_ = ["" for item in _list]
         self.delimiter_ = False
 
         self._append("\\section{Auto Generated}\n")
@@ -45,7 +46,7 @@ class _LaTeXBuilder:
     @staticmethod
     def format_list(_list):
         """ Static helper method for generating a text representation of lists. """
-        return "\\(({}\\))".format(', '.join(map(str, _list)))
+        return "\\(({}\\))".format(", ".join(map(str, _list)))
 
     class Context:
         """ Helper class for scoped color setting via with-statement. """
@@ -166,9 +167,9 @@ class _LaTeXBuilder:
         for i in range(0, len(self.list_)):
             if i != 0:
                 self._append(" & ")
-            if self.bg_colors_[i] != '':
+            if self.bg_colors_[i] != "":
                 self._append("\\cellcolor{{{}}}".format(self.bg_colors_[i]))
-            if self.fg_colors_[i] != '':
+            if self.fg_colors_[i] != "":
                 self._append("\\color{{{}}}".format(self.fg_colors_[i]))
             self._append("{}".format(self.list_[i]))
         self._append(" & {}".format(_msg))
@@ -183,9 +184,9 @@ class _LaTeXBuilder:
             Returns:
                 (None): None
         """
-        self._append("\\hhline{{{}}}\n".format('=' * (len(self.list_) + 1)))
+        self._append("\\hhline{{{}}}\n".format("=" * (len(self.list_) + 1)))
         self._append("\\multicolumn{{{}}}{{ | c | }}{{{}}}\\\\".format(len(self.list_) + 1, _msg))
-        self._append("\\hhline{{{}}}\n".format('=' * (len(self.list_) + 1)))
+        self._append("\\hhline{{{}}}\n".format("=" * (len(self.list_) + 1)))
         self.delimiter_ = True
 
     def finish(self):
@@ -203,7 +204,7 @@ class _LaTeXBuilder:
                 _filename (str): Filename to the local filesystems file to store the generated LaTeX
                                  fragment to.
         """
-        with open(_filename, 'wt') as f:
+        with open(_filename, "wt") as f:
             f.write(self.text_)
 
     def _append(self, _text):
@@ -292,9 +293,7 @@ def heapsort(_list):
             (_StatsBuilder): Execution statistics.
     """
     def heapify(_list, _n, _i, _stats, _logger):
-        """
-            TODO
-        """
+        """ TODO: docstring """
         _stats.enter()
 
         # determine largest element index
@@ -325,51 +324,49 @@ def heapsort(_list):
         _stats.leave()
 
     stats = _StatsBuilder()
-
-    # short-circuit trivial inputs
-    if len(_list) < 2:
-        return stats
-
     logger = _LaTeXBuilder(_list)
     logger.log_action("initial state")
 
-    # build heap by rearranging array
-    i = len(_list) // 2 - 1
-    logger.log_line("build heap with middle element {}".format(_list[i]))
-    with logger.background(i, _LaTeXBuilder.ACTIVE_BG):
+    # short-circuit trivial inputs
+    if len(_list) > 1:
+        # build heap by rearranging array
+        i = len(_list) // 2 - 1
+        logger.log_line("build heap with middle element {}".format(_list[i]))
+        with logger.background(i, _LaTeXBuilder.ACTIVE_BG):
+            while i >= 0:
+                stats.iterate()
+                heapify(_list, len(_list), i, stats, logger)
+                i = i - 1
+
+        # one-by-one, extract an element from the heap
+        logger.log_line("extract elements from heap")
+        i = len(_list) - 1
         while i >= 0:
             stats.iterate()
-            heapify(_list, len(_list), i, stats, logger)
+
+            # move current root to the end
+            stats.swap()
+            _list[0], _list[i] = _list[i], _list[0]
+
+            with logger.foreground(0, _LaTeXBuilder.SWAP_FG):
+                with logger.foreground(i, _LaTeXBuilder.SWAP_FG):
+                    logger.log_action("swap {} with {}".format(_list[0], _list[i]))
+            logger.set_background(i, _LaTeXBuilder.CORRECT_BG)
+
+            # call max heapify on the reduced heap
+            logger.log_line("rebuild heap between {} and {}".format(0, i))
+            heapify(_list, i, 0, stats, logger)
+
             i = i - 1
 
-    # one-by-one, extract an element from the heap
-    logger.log_line("extract elements from heap")
-    i = len(_list) - 1
-    while i >= 0:
-        stats.iterate()
-
-        # move current root to the end
-        stats.swap()
-        _list[0], _list[i] = _list[i], _list[0]
-
-        with logger.foreground(0, _LaTeXBuilder.SWAP_FG):
-            with logger.foreground(i, _LaTeXBuilder.SWAP_FG):
-                logger.log_action("swap {} with {}".format(_list[0], _list[i]))
-        logger.set_background(i, _LaTeXBuilder.CORRECT_BG)
-
-        # call max heapify on the reduced heap
-        logger.log_line("rebuild heap between {} and {}".format(0, i))
-        heapify(_list, i, 0, stats, logger)
-
-        i = i - 1
-
     logger.finish()
-    logger.save('heapsort.tex')
-
-    return stats
+    return stats, logger
 
 class QuickSort:
-    """ TODO: docstring """
+    """
+        Implements quicksort algorithm. This is a class instead of a function due to helper methods
+        being more well and clean when not all nested, due to shared variable use.
+    """
 
     def __init__(self, _list):
         self.list_ = _list
@@ -522,54 +519,76 @@ class QuickSort:
 
         self.logger_.log_action("final state")
         self.logger_.finish()
-        self.logger_.save('quicksort.tex')
 
-        return self.stats_
+        return self.stats_, self.logger_
 
 # as per home-assignment
 def sort_A(_list):
     """ TODO: docstring """
-    stats = QuickSort.sort(_list)
+    stats, _ = QuickSort.sort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 # as per home-assignment
 def sort_B(_list):
     """ TODO: docstring """
-    stats = heapsort(_list)
+    stats, _ = heapsort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
+# as per home-assignment, except that the naming wasn't mentioned, so we chose one.
 def read_words_from_file(_filename):
     """ TODO: docstring """
-    with open(_filename, mode='r', encoding='utf-8') as f:
+    with open(_filename, mode="r", encoding="utf-8") as f:
         return f.read().split()
 
-def _private_test(_list):
-    """ TODO: docstring """
+def main(argv):
+    """
+        main function actually implementing command line interface
+        Parameters:
+            argv (list): reflecting sys.argv, list of strings
+    """
 
-    def test_algo(name, sort, _list):
+    def test_algo(_name, _sort, _list, _latex_tracefile):
         """ tiny helper for generic testing sort algos. """
-        stats = sort(_list)
-        print("{}: {}".format(name, stats))
-        print("  sorted: {}".format(', '.join(map(str, _list))))
+        stats, _latex = _sort(_list)
+        print("{}: {}".format(_name, stats))
+        print("  sorted: {}".format(", ".join(map(str, _list))))
+        if _latex_tracefile:
+            _latex.save(_latex_tracefile)
 
-    print("input list: {}".format(', '.join(map(str, _list))))
+    def parse_args():
+        """
+            tiny helper function for setting up CLI parser and parsing argv."
+        """
+        arg_parser = argparse.ArgumentParser(prog="sort_analyzer.py",
+                                             description="Sorting algorithm analysis.")
+        arg_parser.add_argument("--quicksort", action="store_true", help="Uses quicksort algorithm.")
+        arg_parser.add_argument("--heapsort", action="store_true", help="Uses heapsort algorithm.")
+        arg_parser.add_argument("--word-file", help="Specifies file to load words from.")
+        arg_parser.add_argument("--latex-trace",
+                                help=("Specifies file name to write LaTeX fragment to that contains"
+                                      " a log table of all instructions being done (as readable as"
+                                      " possible)."))
+        args = arg_parser.parse_args(argv)
+        if (args.heapsort and args.quicksort) or (not args.heapsort and not args.quicksort):
+            print("You must specify at exactly one algorithm, --quicksort or --heapsort.")
+            sys.exit(1)
+        return args
 
-    test_algo("quicksort", QuickSort.sort, _list[:])
-    test_algo("heapsort", heapsort, _list[:])
+    args = parse_args()
+
+    if args.word_file:
+        print("Loading word set from file: {}".format(args.word_file))
+        words = read_words_from_file(args.word_file)
+        print("    words: {}".format(words))
+    else:
+        words = [6, 5, 3, 1, 8, 7, 2, 4]
+        print("Defaulting to demo word set: {}".format(words))
+
+    if args.heapsort:
+        test_algo("heapsort", heapsort, words[:], args.latex_trace)
+
+    if args.quicksort:
+        test_algo("quicksort", QuickSort.sort, words[:], args.latex_trace)
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        #words = read_words_from_file('test.txt')
-        #words = ["F", "A", "C", "B"]
-        #words = [7, 1, 5, 4, 9, 2, 8, 3, 0, 6]
-        #words = [0, 1, 2, 3, 4]
-        #words = [4, 3, 2, 1, 0]
-        #words = [4, 10, 3, 5, 1] #geeksforgeeks
-        words = [6, 5, 3, 1, 8, 7, 2, 4] #wikipedia
-        _private_test(words)
-    elif len(sys.argv) != 2:
-        print("Invalid usage. Please check LaTeX documentation.")
-    else:
-        filename = sys.argv[1]
-        print("Loading space delimited words from file {}.".format(filename))
-        _private_test(read_words_from_file(filename))
+    main(sys.argv[1:])
