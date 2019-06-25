@@ -1,0 +1,27 @@
+We will test quicksort and heapsort by sorting 5 lists all containing exactly 100 integers from 1 to 100. 
+\begin{center}
+\begin{figure}[h]
+
+    \begin{tabular}{ | l | l | l | l | l | l |}
+        \hline
+        & time elapsed (in s)\footnote{Time elapsed on the computer used for the experiment. This can vary depending on many different factors and should not be weighted too much importance.} & compares & swaps & iteration & recursion \\ \hline
+        \textbf{Test 1} & & & & & \\ \hline
+        quicksort & 171.30 & 1474 & 1288 & 1474 & 34 \\ \hline
+        heapsort & 18.49 & 1031 & 600 & 150 & 7 \\ \hline
+        \textbf{Test 2} & & & & & \\ \hline
+        quicksort & 24.00 & 1022 & 515 & 1022 & 20 \\ \hline
+        heapsort & 23.55 & 962 & 516 & 151 & 7 \\ \hline
+        \textbf{Test 3} & & & & & \\ \hline
+        quicksort & 5.75 & 672 & 381 & 647 & 12 \\ \hline
+        heapsort & 18.19 & 1033 & 581 & 150 & 7 \\ \hline
+        \textbf{Test 4} & & & & & \\ \hline
+        quicksort & 3.16 & 576 & 343 & 576 & 11 \\ \hline
+        heapsort & 18.79 & 1039 & 588 & 150 & 7 \\ \hline
+        \textbf{Test 5} & & & & & \\ \hline
+        quicksort & 4.40 & 749 & 414 & 749 & 16 \\ \hline
+        heapsort & 16.23 & 1004 & 559 & 150 & 7 \\ \hline
+    \end{tabular}
+    \caption{The results of the python module. For the input lists of the tests, see the appendix.}\label{test}
+\end{figure}
+\end{center}
+Test 1 was a list of integers already sorted (1, 2, 3, ...) while the list used in test 2 was reversed sorted (i.e. 100, 99, 98, ...). The other three lists were a list of random integers from 1 to 100 each occuring once. See figure \ref{test} for detailed results.

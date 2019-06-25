@@ -17,6 +17,7 @@
 \usepackage{subcaption}
 \usepackage{xcolor}
 \usepackage{wrapfig}
+\usepackage[nottoc,numbib]{tocbibind}
 \usepackage{amsmath}
 %
 \usepackage[T1]{fontenc}
@@ -80,7 +81,8 @@
 \input{contents/user_manual.tex}
 \section{sorting\_analysis.py API}
 \input{contents/api.tex}
-\section{Experiments}
+\section{Experiments}\label{sec:exp}
+\input{contents/experiments.tex}
 \section{Conclusion and the Future}
 \newpage
 \begin{thebibliography}{9}
@@ -88,6 +90,13 @@
         Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein. 
         \textit{Introduction to Algorithms}. 
         The MIT Press, Second Edition, Cambridge, Massachusetts, 2003.
+        \bibitem{bib:thealgorithmdesignmanual}
+        Steven S. Skiena.
+        \textit{The Algorithm Design Manual}
+        Springer, Second Edition, 2008.
 %\input{contents/worked_example_two.tex}
 \end{thebibliography}
+
+\section{Appendix}
+\input{contents/appendix.tex}
 \end{document}

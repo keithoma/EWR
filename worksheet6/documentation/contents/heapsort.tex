@@ -80,7 +80,7 @@ def heapsort(_list):
         --i
     
     i = len(_list) - 1
-    while i >=0:
+    while i >= 0:
         _list[0], _list[i] = _list[0], _list[i]
         heapify(_list, i, 0)
         --i
@@ -105,5 +105,8 @@ We will sort this list using heapsort in the following (see figure \ref{fig:heap
 \subsection{Complexity}
 
 The initial build-max-heap takes time \(O(n)\) and heapify which takes time \(O(\ln(n))\) and is called \(n - 1\) times. Together, this means that the complexity of heapsort is \(O(n \ln(n))\).\cite[p.~136]{bib:introductiontoalgorithms}
+
+Heapsort is not stable. Consider the following list \(2^{*}, 1, 2
+)\). If heapsort is applied, this list is sorted to \(2, 1, 2^{*}\) thus the algorithm is unstable.
 
 \input{contents/simplified_example.tex}
