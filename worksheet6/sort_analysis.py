@@ -273,7 +273,6 @@ class _StatsBuilder:
         """
         self.compares_ = 0
         self.swaps_ = 0
-        self.calls_ = 0
         self.iterations_ = 0
         self.recursion_depth_ = 0
         self.current_recursion_depth_ = 0
@@ -286,10 +285,6 @@ class _StatsBuilder:
     def swap(self):
         """ Increments swap-count by one. """
         self.swaps_ += 1
-
-    def call(self):
-        """ Increments call-count by one. """
-        self.calls_ += 1
 
     def iterate(self):
         """ Increments iteration-count by one. """
@@ -320,8 +315,8 @@ class _StatsBuilder:
         """
             Returns a JSON-style string representation of the collected metrics.
         """
-        fmt = "{{compares: {}, swaps: {}, calls: {}, iterations: {}, recursion: {}, elapsed: {}}}"
-        return fmt.format(self.compares_, self.swaps_, self.calls_, self.iterations_,
+        fmt = "{{compares: {}, swaps: {}, iterations: {}, recursion: {}, elapsed: {}}}"
+        return fmt.format(self.compares_, self.swaps_, self.iterations_,
                           self.recursion_depth_, self.elapsed())
 
 def _heapsort(_list):
@@ -710,7 +705,7 @@ def _main(argv):
         print("Defaulting to demo word set: {}".format(words))
 
     if args.heapsort:
-        test_algo("heapsort", heapsort, words[:], args.latex_trace)
+        test_algo("heapsort", _heapsort, words[:], args.latex_trace)
 
     if args.quicksort:
         test_algo("quicksort", _QuickSort.sort, words[:], args.latex_trace)
