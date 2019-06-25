@@ -273,7 +273,6 @@ class _StatsBuilder:
         """
         self.compares_ = 0
         self.swaps_ = 0
-        self.calls_ = 0
         self.iterations_ = 0
         self.recursion_depth_ = 0
         self.current_recursion_depth_ = 0
@@ -286,10 +285,6 @@ class _StatsBuilder:
     def swap(self):
         """ Increments swap-count by one. """
         self.swaps_ += 1
-
-    def call(self):
-        """ Increments call-count by one. """
-        self.calls_ += 1
 
     def iterate(self):
         """ Increments iteration-count by one. """
@@ -320,13 +315,15 @@ class _StatsBuilder:
         """
             Returns a JSON-style string representation of the collected metrics.
         """
-        fmt = "{{compares: {}, swaps: {}, calls: {}, iterations: {}, recursion: {}, elapsed: {}}}"
-        return fmt.format(self.compares_, self.swaps_, self.calls_, self.iterations_,
+        fmt = "{{compares: {}, swaps: {}, iterations: {}, recursion: {}, elapsed: {}}}"
+        return fmt.format(self.compares_, self.swaps_, self.iterations_,
                           self.recursion_depth_, self.elapsed())
 
-def heapsort(_list):
+def _heapsort(_list):
     """
         Implements heapsort algorithm on given list.
+
+        This function is gifted an underscore-prefix, as it is internal. Please use sort_B() instead.
 
         Arguments:
             _list (list): The list to be sorted (in-place).
@@ -610,7 +607,7 @@ def sort_B(_list):
             (int, int): 2-tuple with first value the number of operations (compares + swaps) and
                         second value the time consumed in milliseconds.
     """
-    stats, _ = heapsort(_list)
+    stats, _ = _heapsort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 # as per home-assignment, except that the naming wasn't mentioned, so we chose one.
@@ -685,8 +682,7 @@ def _main(argv):
                                       " (default: %(default)s)."))
         args = arg_parser.parse_args(argv)
         if (args.heapsort and args.quicksort) or (not args.heapsort and not args.quicksort):
-            print("You must specify at exactly one algorithm, --quicksort or --heapsort.")
-            sys.exit(1)
+            sys.exit("You must specify at exactly one algorithm, --quicksort or --heapsort.")
         return args
 
     args = parse_args()
@@ -699,14 +695,17 @@ def _main(argv):
 
     if args.word_file:
         print("Loading word set from file: {}".format(args.word_file))
-        words = read_words_from_file(args.word_file)
+        try:
+            words = read_words_from_file(args.word_file)
+        except FileNotFoundError:
+            sys.exit("Word file {} not found.".format(args.word_file))
         print("    words: {}".format(words))
     else:
         words = [6, 5, 3, 1, 8, 7, 2, 4]
         print("Defaulting to demo word set: {}".format(words))
 
     if args.heapsort:
-        test_algo("heapsort", heapsort, words[:], args.latex_trace)
+        test_algo("heapsort", _heapsort, words[:], args.latex_trace)
 
     if args.quicksort:
         test_algo("quicksort", _QuickSort.sort, words[:], args.latex_trace)
