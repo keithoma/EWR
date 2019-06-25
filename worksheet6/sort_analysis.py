@@ -324,9 +324,11 @@ class _StatsBuilder:
         return fmt.format(self.compares_, self.swaps_, self.calls_, self.iterations_,
                           self.recursion_depth_, self.elapsed())
 
-def heapsort(_list):
+def _heapsort(_list):
     """
         Implements heapsort algorithm on given list.
+
+        This function is gifted an underscore-prefix, as it is internal. Please use sort_B() instead.
 
         Arguments:
             _list (list): The list to be sorted (in-place).
@@ -610,7 +612,7 @@ def sort_B(_list):
             (int, int): 2-tuple with first value the number of operations (compares + swaps) and
                         second value the time consumed in milliseconds.
     """
-    stats, _ = heapsort(_list)
+    stats, _ = _heapsort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 # as per home-assignment, except that the naming wasn't mentioned, so we chose one.
