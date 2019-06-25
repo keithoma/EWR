@@ -44,7 +44,7 @@ This list can be arranged into a heap simply by placing the first element of the
     \caption{the given list arranged into a heap}\label{fig:heap}
 \end{wrapfigure}
 
-In essence, the goal of heapsort is to first sort the heap into a \textit{max-heap} where each parent is larger than each of its children. Then, the root element which by necessity must be the largest element is removed from the heap and the element on the lowest branch (in figure \ref{fig:heap} where 6 currently is) is moved to the root.
+In essence, the goal of heapsort is to first sort the heap into a \textit{max-heap} where each parent is larger than each of its children. Then, the root element which by necessity must be the largest element is removed from the heap and the element on the lowest branch (in figure \ref{fig:heap} where 6 currently is) is moved to the root (this procedure as a function is called \textit{build-max-heap}).
 
 It turns out however, that not every recursion needs to check if the heap is a max-heap. After sorting the initial heap, one can assume that the heap is already sorted except for the root. The function which partially sorts the heap after the largest element was removed and the element of the lowest branch is moved to the top is called \textit{heapify}.\cite[p.~135]{bib:introductiontoalgorithms} 
 
@@ -85,3 +85,25 @@ def heapsort(_list):
         heapify(_list, i, 0)
         --i
 \end{lstlisting}
+
+\subsection{Worked Example}
+As before, consider the list
+
+\begin{equation*}
+    (7, 1, 5, 6, 9, 2, 8, 3, 0, 6)\text{.}
+\end{equation*}
+
+We will sort this list using heapsort in the following (see figure \ref{fig:heapsortexample}). Due to space restrictions, steps between max heaps were condensed into one.
+
+\textbf{Color Key}
+
+\begin{itemize}
+    \item the numbers swapped in the last step are in {\color{red}red} and {\color{green}green}, where {\color{green}green} indicates that the number was previously the root of the heap
+    \item numbers {\color{gray}grayed} out are the numbers which are correctly sorted (removed from the heap)
+\end{itemize}
+
+\subsection{Complexity}
+
+The initial build-max-heap takes time \(O(n)\) and heapify which takes time \(O(\ln(n))\) and is called \(n - 1\) times. Together, this means that the complexity of heapsort is \(O(n \ln(n))\).\cite[p.~136]{bib:introductiontoalgorithms}
+
+\input{contents/simplified_example.tex}

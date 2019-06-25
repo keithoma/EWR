@@ -420,7 +420,7 @@ def heapsort(_list):
     logger.finish()
     return stats, logger
 
-class QuickSort:
+class _QuickSort:
     """
         Implements quicksort algorithm. This is a class instead of a function due to helper methods
         being more well and clean when not all nested, due to shared variable use.

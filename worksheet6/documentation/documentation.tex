@@ -24,6 +24,8 @@
 %
 \pagestyle{fancy}
 %
+\captionsetup[subfigure]{labelformat=empty}
+%
 \usetikzlibrary{trees}
 %
 \definecolor{LightCyan}{rgb}{0.60, 1, 1}
@@ -62,16 +64,30 @@
 % ----------------------------------------------------------------------------------------------------------
 %
 \begin{document}
-%\input{contents/titlepage}
+\input{contents/titlepage}
 \newpage
 %
 % 1 INTRODUCTION
-%\input{contents/introduction}
+\input{contents/introduction}
 %
-%\input{contents/description_quicksort.tex}
+\input{contents/description_quicksort.tex}
 %
 \input{contents/heapsort.tex}
 %\input{contents/worked_example_two}
 %\input{contents/worked_example_one}
 %\input{contents/worked_example}
+\section{Sorting Algorithm User Manual}
+\section{Sorting Algorithm API}
+\input{contents/api.tex}
+\section{Experiments}
+\section{Conclusion and the Future}
+\newpage
+\section{Appendix}
+\begin{thebibliography}{9}
+        \bibitem{bib:introductiontoalgorithms} 
+        Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein. 
+        \textit{Introduction to Algorithms}. 
+        The MIT Press, Second Edition, Cambridge, Massachusetts, 2003.
+%\input{contents/worked_example_two.tex}
+\end{thebibliography}
 \end{document}

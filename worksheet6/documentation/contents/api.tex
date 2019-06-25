@@ -1,0 +1,34 @@
+\subsection{Free Function}
+\subsubsection{sort\_A(\_list)}
+\paragraph*{Arguments}
+\begin{enumerate}
+    \item \texttt{\_list} (list): the list to be sorted, each element must implement the comparison operator for < (\_\_lt\_\_)
+\end{enumerate}
+\paragraph*{Returns}
+\begin{itemize}
+    \item (int, int): 2-tuple with first value the number of operations (compares + swaps) and second value the time consumed in milliseconds.
+\end{itemize}
+\paragraph*{Description}
+Performs quicksort on given parameter \_list.
+\subsubsection{sort\_B(\_list)}
+\paragraph*{Arguments}
+\begin{enumerate}
+    \item \texttt{\_list} (list): the list to be sorted, each element must implement the comparison operator for < (\_\_lt\_\_)
+\end{enumerate}
+\paragraph*{Returns}
+\begin{itemize}
+    \item (int, int): 2-tuple with first value the number of operations (compares + swaps) and second value the time consumed in milliseconds.
+\end{itemize}
+\paragraph*{Description}
+Performs heapsort on given parameter \_list.
+\subsubsection{read\_words\_from\_file(\_filename)}
+\paragraph*{Arguments}
+\begin{enumerate}
+    \item \texttt{\_filename} (str): Path to local file.
+\end{enumerate}
+\paragraph*{Returns}
+\begin{itemize}
+    \item (list): List of words (as strings).
+\end{itemize}
+\paragraph*{Description}
+Opens given filename, reads its full contens, and splits it into words, delimited by whitesapce.
