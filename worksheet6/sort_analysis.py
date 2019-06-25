@@ -685,8 +685,7 @@ def _main(argv):
                                       " (default: %(default)s)."))
         args = arg_parser.parse_args(argv)
         if (args.heapsort and args.quicksort) or (not args.heapsort and not args.quicksort):
-            print("You must specify at exactly one algorithm, --quicksort or --heapsort.")
-            sys.exit(1)
+            sys.exit("You must specify at exactly one algorithm, --quicksort or --heapsort.")
         return args
 
     args = parse_args()
@@ -699,7 +698,10 @@ def _main(argv):
 
     if args.word_file:
         print("Loading word set from file: {}".format(args.word_file))
-        words = read_words_from_file(args.word_file)
+        try:
+            words = read_words_from_file(args.word_file)
+        except FileNotFoundError:
+            sys.exit("Word file {} not found.".format(args.word_file))
         print("    words: {}".format(words))
     else:
         words = [6, 5, 3, 1, 8, 7, 2, 4]
