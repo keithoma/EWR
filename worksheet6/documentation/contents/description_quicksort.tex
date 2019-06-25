@@ -1,5 +1,5 @@
-\section{Description of the Algorithms}
-\subsection{Quicksort}
+\section{Quicksort}
+\subsection{Intuition and Description}
 Quicksort is a recursive sorting algorithm. Informally speaking, quicksort first chooses a pivot element (in our case, the last element of the list\footnote{For the purpose of this paper, we define a list to be an ordered set for which an order relation such as \(<\) is defined. In terms of computer science, this equates to an array-like data type (in Python this would be a list) with elements which can be compared. An concrete example would be \((0, 1, 2, 3)\) which is incidentally already sorted according to the smaller relation, \(<\).} is chosen as the pivot\footnote{There are more sophisticated ways to choose the pivot. See section XXX for more information.}), then compares every element of the given list to the pivot placing elements smaller than the pivot to the left and every other element to the right. This partitions the list into two. The initial pivot is placed between the two partitions. Note that the pivot is correctly placed since every element smaller than the pivot are in the left partition. Then, the quicksort algorithm is applied to both partitions. The recursion is broken if the current partition only contains zero or one elements.
 
 More formally, we present the pseudocode for the procedure.
@@ -40,3 +40,18 @@ def quicksort(_list):
     sort_range(_list, 0, list_length - 1)
 
 \end{lstlisting}
+
+\subsection{Complexity}
+%The complexity of quicksort highly depends on the choice of the pivot. We set the pivot naïvely to be the last element in the partition which is not optimal. The best selection of the pivot is the median of the list since this would leave half of the elements on the left and the other half on the right of the pivot splitting the list into two equally large partitions.
+
+%Therefore, we call a pivot \textit{good enough} if it lies in the center half of the list i.e. larger than the smallest 1/4, but smaller than the largest 3/4. In the worst case scenario for a good enough pivot, the larger partition has the 3/4 of the size of the intial list. Following the recursion, we get partitions in sizes of
+%\begin{equation*}
+%    n, \frac{3}{4} n, \left(\frac{3}{4}\right)^2 n, \dots, 1 \text{.}
+%\end{equation*}
+%Let \(h_g\) be the height of the quicksort partition tree. Then for \(\left(\frac{3}{4}\right)^{h_g} n = 1\) we have \(\)
+
+The complexity of quicksort highly depends on the choice of the pivot. We have set the pivot naïvely to be the last element in the partition which is not optimal. In general, a median pivot is the most desireble since it splits the list into two partitions with, concerning complexity, equal lengths.
+
+The worst case for quicksort is when every recursion creates a partition of maximum length. This results in the complexity of \(O(n^2)\) (same as selection sort). While a very rare case, this happens most interestingly when the list is already sorted due to the nature how we pick our pivot.
+
+By selecting a pivot in the center half of the list, that is the pivot is larger than the 1/4 smallest elements, but smaller than the 1/4 of the largest elements, one can achieve with some luck the best case complexity of \(O(n \ln(n))\).\cite[p.~137]{bib:thealgorithmdesignmanual} 
