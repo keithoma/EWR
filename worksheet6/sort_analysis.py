@@ -560,7 +560,7 @@ class _QuickSort:
         Returns:
             (_StatsBuilder): _StatsBuilder instance used to gather performance metrics.
         """
-        quicksort = QuickSort(_list)
+        quicksort = _QuickSort(_list)
         return quicksort.run()
 
     def run(self):
@@ -594,7 +594,7 @@ def sort_A(_list):
             (int, int): 2-tuple with first value the number of operations (compares + swaps) and
                         second value the time consumed in milliseconds.
     """
-    stats, _ = QuickSort.sort(_list)
+    stats, _ = _QuickSort.sort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 # as per home-assignment
@@ -709,7 +709,7 @@ def _main(argv):
         test_algo("heapsort", heapsort, words[:], args.latex_trace)
 
     if args.quicksort:
-        test_algo("quicksort", QuickSort.sort, words[:], args.latex_trace)
+        test_algo("quicksort", _QuickSort.sort, words[:], args.latex_trace)
 
 if __name__ == "__main__":
     _main(sys.argv[1:])
