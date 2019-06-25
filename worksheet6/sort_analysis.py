@@ -23,7 +23,11 @@ class _LaTeXBuilder:
         as usually done by sorting algorithms.
     """
 
-    # color coding constants (TODO: future improvements: make them configurable)
+    # Color Coding Constants:
+    # NB: They *ARE* potentially being modified at file's CLI level.
+    # While this is okay, we still consider them "runtime constants", i.e.
+    # These values MAY change at startup but will NOT change during runtime.
+    # Hence, capital letters to denote this constness.
     SWAP_FG = "red"
     CORRECT_BG = "LightGreen"
     ACTIVE_BG = "Amber"
@@ -50,14 +54,19 @@ class _LaTeXBuilder:
 
     class Context:
         """ Helper class for scoped color setting via with-statement. """
+
         def __init__(self, _builder, _index, _foreground, _background):
             """
                 Constructs color setter.
-                Parameters:
+
+                Arguments:
                     _builder (_LaTeXBuilder): LaTeX builder to operate on.
                     _index (int): list index to set color at.
                     _foreground (str): background color to set or None
                     _background (str): foreground color to set or None
+
+                Returns:
+                    (None): None
             """
             self.builder_ = _builder
             self.index_ = _index
@@ -95,9 +104,11 @@ class _LaTeXBuilder:
     def foreground(self, _index, _color):
         """
             Constructs scoped foreground color. Use with with-statement.
-            Parameters:
+
+            Arguments:
                 _index (int): list index to set color at
                 _color (str): foreground color to set
+
             Returns:
                 (Context): The context object being used internally by the with-statement.
         """
@@ -106,9 +117,11 @@ class _LaTeXBuilder:
     def background(self, _index, _color):
         """
             Constructs scoped background color. Use with with-statement.
-            Parameters:
+
+            Arguments:
                 _index (int): list index to set color at
                 _color (str): background color to set
+
             Returns:
                 (Context): The context object being used internally by the with-statement.
         """
@@ -117,9 +130,11 @@ class _LaTeXBuilder:
     def set_foreground(self, _index, _color):
         """
             Sets the foreground color of the list value at given index.
-            Parameters:
+
+            Arguments:
                 _index (int): list index to set color at
                 _color (str): foreground color to set
+
             Returns:
                 (None): None
         """
@@ -128,9 +143,11 @@ class _LaTeXBuilder:
     def set_background(self, _index, _color):
         """
             Sets the background color of the list value at the given index.
-            Parameters:
+
+            Arguments:
                 _index (int): list index to set color at
                 _color (str): background color to set
+
             Returns:
                 (None): None
         """
@@ -139,10 +156,12 @@ class _LaTeXBuilder:
     def set_background_range(self, _from_index, _to_index, _color):
         """
             Sets the background color of the list value at the given index range.
-            Parameters:
+
+            Arguments:
                 _from_index (int): first index into the list to set color at
                 _to_index (int): last index into the list to set color at
                 _color (str): background color to set
+
             Returns:
                 (None): None
         """
@@ -152,9 +171,11 @@ class _LaTeXBuilder:
     def swap_background(self, _old, _new):
         """
             Swaps the background colors of each list item to _new that matches _old.
-            Parameters:
+
+            Arguments:
                 _old (str): old color to swap from
                 _new (str): new color to swap to
+
             Returns:
                 (None): None
         """
@@ -166,8 +187,10 @@ class _LaTeXBuilder:
         """
             Logs a list action by adding a new line to the generated LaTeX table
             showing the list and the given message _msg at its right hand side.
-            Parameters:
+
+            Arguments:
                 _msg (str): the message to be printed as action along-side the list in a row
+
             Returns:
                 (None): None
         """
@@ -192,8 +215,10 @@ class _LaTeXBuilder:
         """
             Logs given message _msg to the generated LaTeX table as a new
             full row at the end.
-            Parameters:
+
+            Arguments:
                 _msg (str): the message to be printed in its dedicated single row
+
             Returns:
                 (None): None
         """
@@ -213,9 +238,13 @@ class _LaTeXBuilder:
     def save(self, _filename):
         """
             Saves the generated LaTeX output to given filename, _filename.
-            Parameters:
+
+            Arguments:
                 _filename (str): Filename to the local filesystems file to store the generated LaTeX
                                  fragment to.
+
+            Returns:
+                (None): None
         """
         with open(_filename, "wt") as f:
             f.write(self.text_)
@@ -223,8 +252,10 @@ class _LaTeXBuilder:
     def _append(self, _text):
         """
             Internal helper function for conviniently appending text to the internal buffer.
-            Parameters:
+
+            Arguments:
                 _text (str): The bare text to append to the internal LaTeX buffer.
+
             Returns:
                 (None): None
         """
@@ -296,17 +327,31 @@ class _StatsBuilder:
 def heapsort(_list):
     """
         Implements heapsort algorithm on given list.
-        Parameters:
+
+        Arguments:
             _list (list): The list to be sorted (in-place).
             _n (int): Number of elements in the list to operate on.
             _i (int): Middle element.
             _stats (_StatsBuilder): Statistics builder
             _logger (_LaTeXBuilder): LaTeX builder instance.
+
         Returns:
             (_StatsBuilder): Execution statistics.
     """
     def heapify(_list, _n, _i, _stats, _logger):
-        """ TODO: docstring """
+        """
+            Heapifies to array _list between 0 and _n at heap level _i.
+
+            Arguments:
+                _list (list): List of comparable (__le__) elements that are to be sorted
+                _n (int): number of elements to sort from offset 0 to _n including
+                _i (int): array index to be supposed-to-be largest element
+                _stats (_StatsBuilder):
+                _logger (_LaTeXBuilder):
+
+            Returns:
+                (None): None
+        """
         _stats.enter()
 
         # determine largest element index
@@ -388,13 +433,13 @@ class QuickSort:
 
     def partition(self, _partition, _low, _high):
         """
-        Arguments:
-            _partition (list):
-            _low (int): the index for the lower end
-            _high (int): the index for the upper end
+            Arguments:
+                _partition (list):
+                _low (int): the index for the lower end
+                _high (int): the index for the upper end
 
-        Returns:
-            (int): new pivot index
+            Returns:
+                (int): new pivot index
         """
 
         # nested functions
@@ -485,7 +530,7 @@ class QuickSort:
             stats (_StatsBuilder):
 
         Returns:
-            None
+            (None): None
         """
         self.stats_.enter()
 
@@ -513,13 +558,18 @@ class QuickSort:
             (__lt__)
 
         Returns:
-            (_StatsBuilder):
+            (_StatsBuilder): _StatsBuilder instance used to gather performance metrics.
         """
         quicksort = QuickSort(_list)
         return quicksort.run()
 
     def run(self):
-        """ TODO: docstring """
+        """
+            Performs quicksort algorithm on the input list.
+
+            Returns:
+                (None): None
+        """
         list_length = len(self.list_)
 
         # if the list_length is exactly 0 or 1, there is no need to sort
@@ -533,27 +583,60 @@ class QuickSort:
 
 # as per home-assignment
 def sort_A(_list):
-    """ TODO: docstring """
+    """
+        Performs quicksort on given parameter _list.
+
+        Arguments:
+            _list (list): the list to be sorted, each element must implement the comparison operator for <
+            (__lt__)
+
+        Returns:
+            (int, int): 2-tuple with first value the number of operations (compares + swaps) and
+                        second value the time consumed in milliseconds.
+    """
     stats, _ = QuickSort.sort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 # as per home-assignment
 def sort_B(_list):
-    """ TODO: docstring """
+    """
+        Performs heapsort on given parameter _list.
+
+        Arguments:
+            _list (list): the list to be sorted, each element must implement the comparison operator for <
+            (__lt__)
+
+        Returns:
+            (int, int): 2-tuple with first value the number of operations (compares + swaps) and
+                        second value the time consumed in milliseconds.
+    """
     stats, _ = heapsort(_list)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 # as per home-assignment, except that the naming wasn't mentioned, so we chose one.
 def read_words_from_file(_filename):
-    """ TODO: docstring """
+    """
+        Opens given filename, reads its full contens, and splits it into words, delimited by
+        whitesapce.
+
+        Arguments:
+            _filename (str): Path to local file.
+
+        Returns:
+            (list): List of words (as strings).
+    """
     with open(_filename, mode="r", encoding="utf-8") as f:
         return f.read().split()
 
 def _main(argv):
     """
         main function actually implementing command line interface
-        Parameters:
+
+        Arguments:
             argv (list): reflecting sys.argv, list of strings
+
+        Returns:
+            (None): None
     """
 
     def test_algo(_name, _sort, _list, _latex_tracefile):
@@ -568,8 +651,8 @@ def _main(argv):
         """
             Tiny helper function for setting up CLI parser and parsing argv.
 
-            TODO: we could add our own `--test` unit-testing option here to internally test the
-            correctness of our algorithm(s)
+            TODO: we *could* add our own `--test` unit-testing option here to internally test the
+            correctness of our algorithm(s).
         """
         arg_parser = argparse.ArgumentParser(prog="sort_analyzer.py",
                                              description="Sorting algorithm analysis.")
@@ -580,6 +663,26 @@ def _main(argv):
                                 help=("Specifies file name to write LaTeX fragment to that contains"
                                       " a log table of all instructions being done (as readable as"
                                       " possible)."))
+        arg_parser.add_argument("--tr-swap-fg",
+                                default="red", #_LaTeXBuilder.SWAP_FG.__str__(),
+                                metavar="LATEX_COLOR",
+                                help=("LaTeX transaction cell text-coloring for swap action"
+                                      " (default: %(default)s)."))
+        arg_parser.add_argument("--tr-active-bg",
+                                default=_LaTeXBuilder.ACTIVE_BG,
+                                metavar="LATEX_COLOR",
+                                help=("LaTeX transaction cell background-coloring for active element."
+                                      " (default: %(default)s)."))
+        arg_parser.add_argument("--tr-pivot-bg",
+                                default=_LaTeXBuilder.PIVOT_BG,
+                                metavar="LATEX_COLOR",
+                                help=("LaTeX transaction cell background-coloring for pivot element."
+                                      " (default: %(default)s)."))
+        arg_parser.add_argument("--tr-correct-bg",
+                                default=_LaTeXBuilder.CORRECT_BG,
+                                metavar="LATEX_COLOR",
+                                help=("LaTeX transaction cell background-coloring final position."
+                                      " (default: %(default)s)."))
         args = arg_parser.parse_args(argv)
         if (args.heapsort and args.quicksort) or (not args.heapsort and not args.quicksort):
             print("You must specify at exactly one algorithm, --quicksort or --heapsort.")
@@ -587,6 +690,12 @@ def _main(argv):
         return args
 
     args = parse_args()
+
+    # Adjust colors in case the caller customized them.
+    _LaTeXBuilder.SWAP_FG = args.tr_swap_fg
+    _LaTeXBuilder.ACTIVE_BG = args.tr_active_bg
+    _LaTeXBuilder.PIVOT_BG = args.tr_pivot_bg
+    _LaTeXBuilder.CORRECT_BG = args.tr_correct_bg
 
     if args.word_file:
         print("Loading word set from file: {}".format(args.word_file))
