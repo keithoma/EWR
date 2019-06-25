@@ -24,4 +24,8 @@ We will test quicksort and heapsort by sorting 5 lists all containing exactly 10
     \caption{The results of the python module. For the input lists of the tests, see the appendix.}\label{test}
 \end{figure}
 \end{center}
-Test 1 was a list of integers already sorted (1, 2, 3, ...) while the list used in test 2 was reversed sorted (i.e. 100, 99, 98, ...). The other three lists were a list of random integers from 1 to 100 each occuring once. See figure \ref{test} for detailed results.
+Test 1 was a list of integers already sorted (1, 2, 3, ..., 99, 100) while the list used in test 2 was reversed sorted (i.e. 100, 99, 98, ..., 2, 1). The other three lists were a list of random integers from 1 to 100 each occuring once. See figure \ref{test} for detailed results.
+
+One of our theoretical results was that the worst case scenario for quicksort is when the split is as unbalanced as possible. This is verified in our first test. Quicksort is much slower at sorting already sorted lists than random ones. However, in general, quicksort is a much more efficient algorithm than heapsort. other observation is that the heapsort's complexity stays relativly the same as stated in our theory (heapsort has complexity \(O(n \ln(n))\) for both best and worst cases).
+
+From this, we can gather that while quicksort is often faster than heapsort, heapsort has better performance if quicksort encounters its worst case.

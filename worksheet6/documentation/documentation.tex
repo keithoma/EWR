@@ -77,13 +77,17 @@
 %\input{contents/worked_example_two}
 %\input{contents/worked_example_one}
 %\input{contents/worked_example}
+\newpage
 \section{sorting\_analysis.py User Manual}
 \input{contents/user_manual.tex}
 \section{sorting\_analysis.py API}
 \input{contents/api.tex}
 \section{Experiments}\label{sec:exp}
 \input{contents/experiments.tex}
-\section{Conclusion and the Future}
+\section{Conclusion and the Future}\label{future}
+One of the immediate optimization idea for quicksort is to make the choice of the pivot more intelligently. We have seen that with the way our current set up for quicksort lists which are already sorted are one of the worst cases. In practice, having the worst case for already sorted lists is not desireble. Median of three, for example, could be a way of choosing the pivot more smartly which could be implemented in the future.
+
+As we have already mentioned before, the strenth of heapsort lies in its consistent performance while the weakness of quicksort is its worst case. Therefore, it would make sense to combine these two algorithms to cover up each of their weaknesses. Indeed, such an algorithm is called introsort which would be the next goal to achive after implementing quicksort and heapsort.
 \newpage
 \begin{thebibliography}{9}
         \bibitem{bib:introductiontoalgorithms} 
