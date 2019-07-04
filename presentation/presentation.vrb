@@ -1,0 +1,23 @@
+\frametitle{Immutability}
+    \begin{minipage}[t]{0.5\linewidth}
+        \begin{center}
+            \textbf{Python}
+        \end{center}
+        \begin{lstlisting}[language=Python,numbersep=0pt,resetmargins=true]
+a = 0
+
+i = 1
+i = i + 1
+        \end{lstlisting}
+        \end{minipage}%
+        \begin{minipage}[t]{0.5\linewidth}
+        \begin{center}
+            \textbf{F\#}
+        \end{center}
+        \begin{lstlisting}[language=FSharp]
+let a = 0
+
+let mutable i = 1
+i <- i + 1
+        \end{lstlisting}
+        \end{minipage}%
