@@ -6,7 +6,9 @@
 \usepackage[procnames]{listings}
 \usepackage{upquote}
 \usepackage{color}
+\usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{tikz}
 \definecolor{bluekeywords}{rgb}{0.13,0.13,1}
 \definecolor{greencomments}{rgb}{0,0.5,0}
 \definecolor{redstrings}{rgb}{0.9,0,0}
@@ -140,7 +142,7 @@ i <- i + 1
 
 \subsection{Notation}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{Notation}
     \begin{minipage}[t]{0.5\linewidth}
         \begin{center}
@@ -154,8 +156,105 @@ g&(f(x)) \\
 (g& \circ f) (x) \\
         \end{align*}
     \end{minipage}%
-%
+    \begin{minipage}[t]{0.5\linewidth}
+        \begin{center}
+            \textbf{F\#}
+        \end{center}
+        \begin{lstlisting}[language=FSharp]
+let a     = 1
+let f (x) = x + a
+            
+g(f(x))
+            
+(g << f)(x)            
+        \end{lstlisting}
+\end{minipage}%
+\end{frame}
 
+\begin{frame}[fragile]
+    \frametitle{Seiteneffektfreiheit}
+    \begin{minipage}[t]{0.4\linewidth}
+        \begin{center}
+            \textbf{Code}
+        \end{center}
+\begin{lstlisting}
+let f(x) =
+    let a = 2
+    let b = 3
+    a * b + x
+\end{lstlisting}
+    \end{minipage}%
+    \begin{minipage}[t]{0.6\linewidth}
+        \textbf{Eine Funktion, die nur von ihren Argumenten abhängt, ist seiteneffektfrei!} \\
+        Wir gewinnen die folgenden Garantien:
+    \begin{enumerate}
+        \item Vorherbestimmtheit (Determinismus)
+        \item Vereinfachte Code Verständlichkeit
+        \item Vereinfachte Refaktorisierung
+    \end{enumerate}
+\end{minipage}%
+\end{frame}
+
+\begin{frame}
+    \frametitle{Wiederverwendbarkeit}
+    \begin{columns}[c]
+        \begin{column}{.7\textwidth}
+            \begin{itemize}
+                \item folgt aus der Seiteneffektfreiheit
+                \item nicht aller Code ist 25 Zeilen lang
+                \begin{itemize}
+                    \item rechts im Bild: 1023 Zeilen
+                    \item links im Bild: 15894 Zeilen: Seite zu klein ;-(
+                \end{itemize}
+            \end{itemize}
+        \end{column}
+        \begin{column}{.3\textwidth}
+            \begin{center}
+                \includegraphics[scale=0.4]{long_code.png}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Verifizierbarkeit}
+    \begin{itemize}
+        \item Theorem Proving und Mutable Variablen (Z3, CVC4)
+        \item FP Programme sind leichter zu verifizieren
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Fazit}
+    \begin{itemize}
+        \item Probleme von Funktionaler Programmierung
+        \begin{itemize}
+            \item Schwierig sich rein zu denken
+            \item Langsamer als C/C++ \\
+            {\footnotesize(aber immer noch schneller als Python)}
+            \item wenn es einmal läuft, wie ein Stein
+        \end{itemize}
+        \item Fun Fact: F\# steht für \_\_\_
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Fazit}
+    \begin{itemize}
+        \item Probleme von Funktionaler Programmierung
+        \begin{itemize}
+            \item Schwierig sich rein zu denken
+            \item Langsamer als C/C++ \\
+            {\footnotesize(aber immer noch schneller als Python)}
+            \item wenn es einmal läuft, wie ein Stein
+        \end{itemize}
+        \item Fun Fact: F\# steht für FUN
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bonusmaterial}
 \end{frame}
 
 \section{Seiteneffektfreiheit}

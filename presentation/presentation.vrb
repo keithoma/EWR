@@ -1,23 +1,21 @@
-\frametitle{Immutability}
-    \begin{minipage}[t]{0.5\linewidth}
+\frametitle{Seiteneffektfreiheit}
+    \begin{minipage}[t]{0.4\linewidth}
         \begin{center}
-            \textbf{Python}
+            \textbf{Code}
         \end{center}
-        \begin{lstlisting}[language=Python,numbersep=0pt,resetmargins=true]
-a = 0
-
-i = 1
-i = i + 1
-        \end{lstlisting}
-        \end{minipage}%
-        \begin{minipage}[t]{0.5\linewidth}
-        \begin{center}
-            \textbf{F\#}
-        \end{center}
-        \begin{lstlisting}[language=FSharp]
-let a = 0
-
-let mutable i = 1
-i <- i + 1
-        \end{lstlisting}
-        \end{minipage}%
+\begin{lstlisting}
+let f(x) =
+    let a = 2
+    let b = 3
+    a * b + x
+\end{lstlisting}
+    \end{minipage}%
+    \begin{minipage}[t]{0.6\linewidth}
+        \textbf{Eine Funktion, die nur von ihren Argumenten abhängt, ist seiteneffektfrei!} \\
+        Wir gewinnen die folgenden Garantien:
+    \begin{enumerate}
+        \item Vorherbestimmtheit (Determinismus)
+        \item Vereinfachte Code Verständlichkeit
+        \item Vereinfachte Refaktorisierung
+    \end{enumerate}
+\end{minipage}%
